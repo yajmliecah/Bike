@@ -12,3 +12,6 @@ class IndexView(TemplateView):
         return context
 
 
+    
+
+
