@@ -2,8 +2,7 @@
 
 {% block content %}
 <div class="jumbotron">
-    {% if all_bikes %}
-        <table class="table table-hover">
+    <table class="table table-hover">
         <thead class="thead-inverse">
             <tr>
                 <th>Name</th>
@@ -17,10 +16,9 @@
         </thead>
 
         <tbody>
-            {% for item in all_items %}
-
+        {% for item in all_items %}
             <tr>
-                <td><a href="">{{ item.name }}</a></td>
+                <td><a href="{{ item.pk }}">{{ item.name }}</a></td>
                 <td>{{ item.brand }}</td>
                 <td>{{ item.category }}</td>
                 <td>{{ item.condition }}</td>
@@ -28,13 +26,9 @@
                 <td>{{ item.transmission }}</td>
                 <td>{{ item.seller_type }}</td>
              </tr>
-
-            {% endfor %}
+        {% endfor %}
         </tbody>
     </table>
-    {% else %}
-            <p>No cars as of now</p>
-    {% endif %}
 {% endblock %}
 
 </div>

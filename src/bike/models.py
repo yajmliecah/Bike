@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from django.db import models
 
 from django.utils.translation import ugettext_lazy as _
+from django.core.urlresolvers import reverse, reverse_lazy
 
 
 class Category(models.Model):
@@ -16,6 +17,7 @@ class Category(models.Model):
     
     class Meta:
         verbose_name = _("Category")
+        verbose_name_plural = _("Categories")
         ordering = ['-name']
     
     def __unicode__(self):
@@ -113,5 +115,8 @@ class Item(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('index', kwargs={'pk': self.pk})
      
     
