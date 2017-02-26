@@ -16,7 +16,6 @@ class Category(models.Model):
     
     class Meta:
         verbose_name = _("Category")
-        verbose_name_plural = _("Categories")
         ordering = ['-name']
     
     def __unicode__(self):
@@ -29,7 +28,6 @@ class Brand(models.Model):
     
     class Meta:
         verbose_name = _("Brand")
-        verbose_name_plural = _("Brands")
         ordering = ['-name']
     
     def __unicode__(self):
@@ -42,7 +40,6 @@ class Edition(models.Model):
     
     class Meta:
         verbose_name = _("Edition")
-        verbose_name_plural = _("Editions")
         ordering = ['-name']
     
     def __unicode__(self):
@@ -112,7 +109,6 @@ class Item(models.Model):
     
     class Meta:
         verbose_name = _("Item")
-        verbose_name_plural = _("Items")
         ordering = ['-submitted_on']
 
     def __unicode__(self):

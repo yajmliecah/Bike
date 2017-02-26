@@ -1,17 +1,20 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView, DetailView
 from .models import Category, Brand, Edition, Item
 
 
-class IndexView(TemplateView):
-    template_name = 'app/index.html'
+class IndexView(ListView):
+    template_name = 'bike/index.html'
+    context_object_name = 'all_items'
     
-    def get_context_data(self, **kwargs):
-        context = super(IndexView, self).get_context_data(**kwargs)
-        context['latest_bikes'] = Item.objects.all()[:10]
-        return context
+    def get_queryset(self):
+        return Item.objects.all()
 
 
+class DetailView(DetailView):
+    model = Item
+    template_name = 'bike/details.html'
+    
     
 
 
