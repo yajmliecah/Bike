@@ -6,9 +6,9 @@ from.forms import ItemForm
 from django.core.urlresolvers import reverse, reverse_lazy
 
 
-class IndexView(ListView):
+class ItemListView(ListView):
     template_name = 'bike/index.html'
-    context_object_name = 'all_items'
+    context_object_name = 'items'
     
     def get_queryset(self):
         return Item.objects.all()
@@ -16,7 +16,8 @@ class IndexView(ListView):
     
 class ItemDetailView(DetailView):
     model = Item
-    template_name = 'bike/itemdetails.html'
+    template_name = 'bike/item_detail.html'
+    context_object_name = 'items'
     
     def get_context_data(self, **kwargs):
         context = super(ItemDetailView, self).get_context_data(**kwargs)
