@@ -64,7 +64,7 @@ class ItemManager(models.Manager):
     
     
 class Item(models.Model):
-    CONDITION =(
+    CONDITION = (
         ('NEW', 'New'),
         ('OLD', 'Old')
     )
@@ -91,13 +91,17 @@ class Item(models.Model):
         ('WHITE', 'White'),
         ('BLACK', 'Black'),
     )
+    NEGO = (
+        ('Yes', 'Yes'),
+        ('No', 'No')
+    )
     name = models.CharField(max_length=100, primary_key=True, verbose_name=_("Name"))
     slug = models.SlugField(max_length=50, null=True, blank=True, verbose_name=_("Name"))
     category = models.ForeignKey(Category, verbose_name=_("Category"))
     brand = models.ForeignKey(Brand, verbose_name=_("Brand"))
     edition = models.ForeignKey(Edition, verbose_name=_("Edition"))
     price = models.IntegerField(default=0)
-    negotiable = models.BooleanField(default=True)
+    negotiable = models.CharField(max_length=50, choices=NEGO)
     condition = models.CharField(max_length=50, choices=CONDITION, verbose_name=_("Condition"))
     seller_type = models.CharField(max_length=50, choices=SELLER_TYPE, verbose_name=_("Seller Type"))
     fuel = models.CharField(max_length=50, choices=FUEL, verbose_name=_("Fuel"))
@@ -115,8 +119,9 @@ class Item(models.Model):
 
     def __unicode__(self):
         return self.name
-
+    
     def get_absolute_url(self):
-        return reverse('index', kwargs={'pk': self.pk})
+        return reverse('item_detail', kwargs={'pk': self.pk})
+
      
     

@@ -1,7 +1,8 @@
-{% extends 'base.html' %}
+{% extends 'bike/base.html' %}
 
 {% block content %}
     <div class="jumbotron">
         <p>{{ item.name }}</p>
+        <p><a href="/delete/{{ item.pk }}">Delete</a> </p>
     </div>
 {% endblock %}

@@ -18,7 +18,7 @@
         <tbody>
         {% for item in items %}
             <tr>
-                <td><a href="{{ item.pk }}">{{ item.name }}</a></td>
+                <td><a href="/item/{{ item.pk }}">{{ item.name }}</a></td>
                 <td>{{ item.brand }}</td>
                 <td>{{ item.category }}</td>
                 <td>{{ item.condition }}</td>
