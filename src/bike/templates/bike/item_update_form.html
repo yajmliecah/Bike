@@ -1,0 +1,10 @@
+{% extends 'bike/base.html' %}
+
+{% block content %}
+    <div class="jumbotron">
+        <form action="" method="post">{% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Update" />
+        </form>
+    </div>
+{% endblock %}

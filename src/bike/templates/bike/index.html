@@ -16,6 +16,7 @@
         </thead>
 
         <tbody>
+        {% if items %}
         {% for item in items %}
             <tr>
                 <td><a href="/item/{{ item.pk }}">{{ item.name }}</a></td>
@@ -25,8 +26,13 @@
                 <td>{{ item.price }}</td>
                 <td>{{ item.transmission }}</td>
                 <td>{{ item.seller_type }}</td>
+                <td><a href="/edit/{{ item.pk }}">[Edit]</a></td>
              </tr>
         {% endfor %}
+
+        {% else %}
+            <p>No Bike</p>
+        {% endif %}
         </tbody>
     </table>
 {% endblock %}

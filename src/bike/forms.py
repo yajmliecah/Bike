@@ -10,7 +10,6 @@ class ItemForm(forms.ModelForm):
               'condition', 'seller_type', 'fuel', 'transmission', 'lifestyle', 'color_family', 'details')
         exclude = ('slug',)
 
-       
-
+    
     def __init__(self, *args, **kwargs):
         super(ItemForm, self).__init__(*args, **kwargs)

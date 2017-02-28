@@ -117,11 +117,9 @@ class Item(models.Model):
         verbose_name = _("Item")
         ordering = ['-submitted_on']
 
+    @models.permalink
+    def get_absolute_url(self):
+        return ('item_detail', (), {'pk': self.pk})
+
     def __unicode__(self):
         return self.name
-    
-    def get_absolute_url(self):
-        return reverse('item_detail', kwargs={'pk': self.pk})
-
-     
-    
