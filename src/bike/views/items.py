@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Category, Brand, Edition, Item
-from.forms import ItemForm
+from ..models import Brand, Edition, Item
+from ..forms import ItemForm
 
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.shortcuts import render, get_object_or_404, redirect
@@ -52,4 +52,7 @@ class ItemUpdateView(UpdateView):
 class ItemDeleteView(DeleteView):
     model = Item
     success_url = reverse_lazy('items:item_list')
+    
+    
+        
 

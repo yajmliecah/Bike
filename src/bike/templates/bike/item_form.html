@@ -2,9 +2,17 @@
 
 {% block content %}
     <div class="jumbotron">
-        <form method="post">{% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value="Submit" />
-        </form>
+        <div class="row">
+            <div class="col-sm-12 col-mid-7">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <form method="post">{% csrf_token %}
+                            {{ form.as_p }}
+                            <input type="submit" value="Submit" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}

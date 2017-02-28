@@ -1,27 +1,9 @@
 from __future__ import unicode_literals
 
 from django.db import models
-
+from django.db.models import Count, permalink
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse, reverse_lazy
-
-
-class Category(models.Model):
-    CATEGORY = (
-        ('CAR', 'Car'),
-        ('MOTORCYCLE', 'MotorCycle'),
-        ('VEHICLE', 'Vehicle')
-    )
-    name = models.CharField(max_length=50, primary_key=True, choices=CATEGORY, verbose_name=_("Name"))
-    slug = models.SlugField(max_length=50, null=True, blank=True)
-    
-    class Meta:
-        verbose_name = _("Category")
-        verbose_name_plural = _("Categories")
-        ordering = ['-name']
-    
-    def __unicode__(self):
-        return self.name
 
     
 class Brand(models.Model):
@@ -62,8 +44,17 @@ class ItemManager(models.Manager):
     def negotiable(self):
         return self.get_queryset().negotiable()
     
+    def featured_items(self):
+        return self.all().order_by('-submitted_on')
+        
+    
     
 class Item(models.Model):
+    CATEGORY = (
+        ('CAR', 'Car'),
+        ('MOTORCYCLE', 'Motorcycles'),
+        ('VEHICLE', 'Vehicle')
+    )
     CONDITION = (
         ('NEW', 'New'),
         ('OLD', 'Old')
@@ -97,7 +88,7 @@ class Item(models.Model):
     )
     name = models.CharField(max_length=100, primary_key=True, verbose_name=_("Name"))
     slug = models.SlugField(max_length=50, null=True, blank=True, verbose_name=_("Name"))
-    category = models.ForeignKey(Category, verbose_name=_("Category"))
+    category = models.CharField(max_length=100, choices=CATEGORY, verbose_name=_("Category"))
     brand = models.ForeignKey(Brand, verbose_name=_("Brand"))
     edition = models.ForeignKey(Edition, verbose_name=_("Edition"))
     price = models.IntegerField(default=0)

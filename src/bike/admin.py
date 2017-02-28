@@ -1,11 +1,7 @@
 from django.contrib import admin
 
-from bike.models import Category, Brand, Edition, Item
+from .models import Brand, Edition, Item
 
-
-class CategoryAdmin(admin.ModelAdmin):
-    fields = ('name', 'slug')
-    prepopulated_fields = {'slug': ('name',)}
 
 
 class BrandAdmin(admin.ModelAdmin):
@@ -26,10 +22,8 @@ class ItemAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
     search_fields = ('name', 'category', 'brand', 'edition')
     list_display = ('name', 'category'  , 'brand', 'edition', 'submitted_on')
+        
     
-    
-    
-admin.site.register(Category, CategoryAdmin)
 admin.site.register(Brand, BrandAdmin)
 admin.site.register(Edition, EditonAdmin)
 admin.site.register(Item, ItemAdmin)
