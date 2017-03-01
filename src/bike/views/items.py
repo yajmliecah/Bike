@@ -1,5 +1,5 @@
-from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.db.models import Q
 from ..models import Brand, Edition, Item
 from ..forms import ItemForm
 
@@ -8,12 +8,27 @@ from django.shortcuts import render, get_object_or_404, redirect
 
 
 class ItemListView(ListView):
+    model = Item
     template_name = 'bike/index.html'
     context_object_name = 'items'
+    q = ""
     
     def get_queryset(self):
-        return Item.objects.all()
-
+        qs = Item.objects.all()
+        
+        return qs
+    
+    def get(self, request, *args, **kwargs):
+        qs = Item.objects.all()
+        q = request.GET.get('q')
+        if q:
+            qs = qs.filter(
+                Q(name__icontains=q) |
+                Q(category__icontains=q)
+            ).distinct()
+                
+        return super(ItemListView, self).get(request, *args, **kwargs)
+    
     
 class ItemDetailView(DetailView):
     model = Item
@@ -52,7 +67,6 @@ class ItemUpdateView(UpdateView):
 class ItemDeleteView(DeleteView):
     model = Item
     success_url = reverse_lazy('items:item_list')
-    
     
         
 
