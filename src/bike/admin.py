@@ -15,13 +15,13 @@ class EditonAdmin(admin.ModelAdmin):
 
 
 class ItemAdmin(admin.ModelAdmin):
-    fields = ('name', 'slug', 'category', 'brand', 'edition', 'price',
+    fields = ('name', 'slug', 'image', 'category', 'brand', 'edition', 'price',
               'negotiable', 'condition', 'seller_type', 'fuel', 'transmission',
               'lifestyle', 'color_family', 'details'
               )
     prepopulated_fields = {'slug': ('name',)}
     search_fields = ('name', 'category', 'brand', 'edition')
-    list_display = ('name', 'category'  , 'brand', 'edition', 'submitted_on')
+    list_display = ('name', 'price', 'category'  , 'brand', 'edition', 'submitted_on')
         
     
 admin.site.register(Brand, BrandAdmin)

@@ -37,9 +37,7 @@ class ItemQuerySet(models.query.QuerySet):
 
 class ItemManager(models.Manager):
     
-    def get_queryset(self):
-        return ItemQuerySet(self.model, using=self._db)
-    
+ 
     def negotiable(self):
         return self.get_queryset().negotiable()
     
@@ -87,6 +85,9 @@ class Item(models.Model):
     )
     name = models.CharField(max_length=100, primary_key=True, verbose_name=_("Name"))
     slug = models.SlugField(max_length=50, null=True, blank=True, verbose_name=_("Name"))
+    image = models.ImageField(upload_to="image/",
+                              default='..{}img/dashboard/default-header.jpg',
+                              verbose_name=_(u'image'))
     category = models.CharField(max_length=100, choices=CATEGORY, verbose_name=_("Category"))
     brand = models.ForeignKey(Brand, verbose_name=_("Brand"))
     edition = models.ForeignKey(Edition, verbose_name=_("Edition"))
@@ -107,9 +108,9 @@ class Item(models.Model):
         verbose_name = _("Item")
         ordering = ['-submitted_on']
 
+    def __unicode__(self):
+        return self.category + ' - ' + self.name
+    
     @models.permalink
     def get_absolute_url(self):
         return ('item_detail', (), {'pk': self.pk})
-
-    def __unicode__(self):
-        return self.name

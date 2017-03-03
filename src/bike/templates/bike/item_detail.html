@@ -2,7 +2,24 @@
 
 {% block content %}
     <div class="jumbotron">
-        <p>{{ item.name }}</p>
-        <p><a href="/delete/{{ item.pk }}">Delete</a> </p>
+        <div class="row">
+
+        <!-- Left Album Info -->
+        <div class="col-sm-4 col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <a href="">
+                            <img src="" class="img-responsive">
+
+                            <h3>No image to display</h3>
+
+                    </a>
+                    <h3>{{ item.name }}
+                        <small>{{ item.category }}</small>
+                    </h3>
+                    <h2></h2>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}

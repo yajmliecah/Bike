@@ -1,40 +1,35 @@
 {% extends 'bike/base.html' %}
 
 {% block content %}
-<div class="jumbotron">
-    <table class="table table-hover">
-        <thead class="thead-inverse">
-            <tr>
-                <th>Name</th>
-                <th>Brand</th>
-                <th>Category</th>
-                <th>Condition</th>
-                <th>Price</th>
-                <th>Transmission</th>
-                <th>Seller</th>
-            </tr>
-        </thead>
-
-        <tbody>
-        {% if items %}
+<div class="row">
+    <div class="col-sm-12">
+        <h3>Items</h3>
+    </div>
         {% for item in items %}
-            <tr>
-                <td><a href="/item/{{ item.pk }}">{{ item.name }}</a></td>
-                <td>{{ item.brand }}</td>
-                <td>{{ item.category }}</td>
-                <td>{{ item.condition }}</td>
-                <td>{{ item.price }}</td>
-                <td>{{ item.transmission }}</td>
-                <td>{{ item.seller_type }}</td>
-                <td><a href="/edit/{{ item.pk }}">[Edit]</a></td>
-             </tr>
+        <div class="col-sm-4 col-lg-4">
+           <div class="thumbnail">
+               <div class="caption">
+                   <a href="/item/{{ item.pk }}">
+                       {% if item.image %}
+                            <img src="{{ item.image }}" class="img-responsive">
+                        {% else %}
+                            <h3>No image to display</h3>
+                       {% endif %}
+                    </a>
+                   <h2>{{ item.name }}</h2>
+                   <h4>{{ item.category }}</h4>
+
+                   <a href="/item/{{ item.pk }}" class="btn btn-primary btn-sm" role="button">View Details</a>
+
+                   <a href="/delete/{{ item.pk }}">
+                    <button type="submit" class="btn btn-default btn-sm">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </button>
+                   </a>
+               </div>
+           </div>
+        </div>
         {% endfor %}
-
-        {% else %}
-            <p>No Bike</p>
-        {% endif %}
-        </tbody>
-    </table>
+  </div>
+{% cycle '' '' '' '' '' '<div class="clearfix visible-lg"></div>' %}
 {% endblock %}
-
-</div>

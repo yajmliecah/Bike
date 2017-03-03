@@ -6,7 +6,7 @@ class ItemForm(forms.ModelForm):
     
     class Meta:
         model = Item
-        fields = ('name', 'category', 'brand', 'edition', 'price', 'negotiable',
+        fields = ('name', 'image', 'category', 'brand', 'edition', 'price', 'negotiable',
               'condition', 'seller_type', 'fuel', 'transmission', 'lifestyle', 'color_family', 'details')
         exclude = ('slug',)
 
