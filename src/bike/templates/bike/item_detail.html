@@ -9,15 +9,16 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <a href="">
-                            <img src="" class="img-responsive">
-
+                        {% if item.image %}
+                            <img src="{{ item.image.url }}" class="img-responsive">
+                        {% else %}
                             <h3>No image to display</h3>
-
+                        {% endif %}
                     </a>
                     <h3>{{ item.name }}
                         <small>{{ item.category }}</small>
                     </h3>
-                    <h2></h2>
+                    <p>{{ item.price }}</p>
                 </div>
             </div>
         </div>

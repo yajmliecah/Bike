@@ -2,6 +2,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.db.models import Q
 from ..models import Brand, Edition, Item
 from ..forms import ItemForm
+from django.contrib import messages
 
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.shortcuts import render, get_object_or_404, redirect
@@ -50,7 +51,8 @@ class ItemCreateView(CreateView):
         return initial
         
     def form_valid(self, form):
-        form.instance.user = self.request.user
+        form.save(commit=True)
+        messages.success(self.request, 'File Uploaded')
         return super(ItemCreateView, self).form_valid(form)
     
     def get_success_url(self):
