@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from geo.models import Country, Region
 from django.db.models import Count, permalink
 from django.utils.translation import ugettext_lazy as _
 

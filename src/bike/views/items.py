@@ -15,10 +15,18 @@ class ItemListView(ListView):
     q = ""
     
     def get_queryset(self):
-        qs = Item.objects.all()
+        try:
+            name = self.kwargs['name']
+        except:
+            name = ''
+            
+            if (name != ''):
+                items =self.model.objects.filter(name__icontains=name)
+            else:
+                items = self.model.objects.all()
         
-        return qs
-    
+        return items
+           
     def get(self, request, *args, **kwargs):
         qs = Item.objects.all()
         q = request.GET.get('q')
@@ -27,8 +35,12 @@ class ItemListView(ListView):
                 Q(name__icontains=q) |
                 Q(category__icontains=q)
             ).distinct()
+        else:
+            q = Item.objects.all()
                 
         return super(ItemListView, self).get(request, *args, **kwargs)
+    
+    
     
     
 class ItemDetailView(DetailView):
