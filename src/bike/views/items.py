@@ -15,17 +15,8 @@ class ItemListView(ListView):
     q = ""
     
     def get_queryset(self):
-        try:
-            name = self.kwargs['name']
-        except:
-            name = ''
-            
-            if (name != ''):
-                items =self.model.objects.filter(name__icontains=name)
-            else:
-                items = self.model.objects.all()
-        
-        return items
+       
+       return Item.objects.order_by('-submitted_on')[:4]
            
     def get(self, request, *args, **kwargs):
         qs = Item.objects.all()

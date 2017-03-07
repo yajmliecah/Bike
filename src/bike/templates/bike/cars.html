@@ -1,11 +1,46 @@
 {% extends 'bike/base.html' %}
 
 {% block content %}
-    <div class="jumbotron">
-        <ul>
-            {% for cars in cars %}
-                <li>{{ cars.name }}</li>
-            {% endfor %}
-        </ul>
+    <div class="page-header">
+        <h2 align="left">Cars</h2>
     </div>
+
+    {% for cars in cars %}
+    <div class="col-sm-3">
+        <div class="col-item">
+            <div class="photo">
+                <img src="{{ item.image.url }}" class="img-responsive" alt="a" />
+            </div>
+
+            <div class="info">
+                <div class="row">
+                    <div class="price col-md-5">
+                        <h5>{{ cars.name }}</h5>
+                        <h6>{{ cars.category }}</h6>
+                        <br>
+                        <h4 class="price-text-color">${{ cars.price }}.00</h4>
+                    </div>
+
+                </div>
+
+
+                <div class="separator clear-left">
+                    <span class="glyphicon glyphicon-map-marker" aria-hidden="true">{{ cars.locations }}</span>
+                </div>
+
+                <div class="separator clear-left">
+                    <p class="btn-add">
+                        <i class="fa fa-shopping-cart"></i><a href="http://www.jquery2dotnet.com" class="hidden-sm">Add to cart</a></p>
+                    <p class="btn-details">
+                        <i class="fa fa-list"></i><a href="http://www.jquery2dotnet.com" class="hidden-sm">More details</a></p>
+                </div>
+
+                <div class="clearfix">
+
+                </div>
+            </div>
+        </div>
+        <br>
+    </div>
+    {% endfor %}
 {% endblock %}
