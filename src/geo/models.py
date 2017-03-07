@@ -24,3 +24,5 @@ class Region(models.Model):
     class Meta:
         verbose_name = _('Region')
         ordering = ['-name']
+        app_label = 'geo'
+        db_table = 'geo'

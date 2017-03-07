@@ -1,9 +1,9 @@
 from __future__ import unicode_literals
 
 from django.db import models
-from geo.models import Country, Region
 from django.db.models import Count, permalink
 from django.utils.translation import ugettext_lazy as _
+from geo.models import Region, Country
 
     
 class Brand(models.Model):
@@ -49,9 +49,9 @@ class ItemManager(models.Manager):
     
 class Item(models.Model):
     CATEGORY = (
-        ('CAR', 'Car'),
-        ('MOTORCYCLE', 'Motorcycles'),
-        ('VEHICLE', 'Vehicle')
+        ('Car', 'Car'),
+        ('Motorcycle', 'Motorcycles'),
+        ('Vehicle', 'Vehicle')
     )
     CONDITION = (
         ('NEW', 'New'),
@@ -100,13 +100,16 @@ class Item(models.Model):
     color_family = models.CharField(max_length=50, choices=COLOR_FAMILY, verbose_name=_("Color Family"))
     details = models.TextField(blank=True, null=True, verbose_name=_("Details"))
     submitted_on = models.DateField(auto_now=True, editable=False, verbose_name=_("Submitted on"))
+    locations = models.ForeignKey(Region, blank=True, null=True, verbose_name=_("Locations"))
     
     objects = ItemManager()
     
     class Meta:
         verbose_name = _("Item")
         ordering = ['-submitted_on']
-
+        app_label = 'bike'
+        db_table = 'bike'
+        
     def __unicode__(self):
         return self.category + ' - ' + self.name
     

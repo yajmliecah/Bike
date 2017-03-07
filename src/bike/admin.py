@@ -17,11 +17,11 @@ class EditonAdmin(admin.ModelAdmin):
 class ItemAdmin(admin.ModelAdmin):
     fields = ('name', 'slug', 'image', 'category', 'brand', 'edition', 'price',
               'negotiable', 'condition', 'seller_type', 'fuel', 'transmission',
-              'lifestyle', 'color_family', 'details'
+              'lifestyle', 'color_family', 'details', 'locations'
               )
     prepopulated_fields = {'slug': ('name',)}
     search_fields = ('name', 'category', 'brand', 'edition')
-    list_display = ('name', 'price', 'category'  , 'brand', 'edition', 'submitted_on')
+    list_display = ('name', 'price', 'category'  , 'brand', 'edition',  'locations', 'submitted_on')
         
     
 admin.site.register(Brand, BrandAdmin)
