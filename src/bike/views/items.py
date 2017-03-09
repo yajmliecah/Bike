@@ -1,4 +1,4 @@
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from django.db.models import Q
 from ..models import Brand, Edition, Item
 from ..forms import ItemForm
@@ -6,7 +6,7 @@ from django.contrib import messages
 
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.shortcuts import render, get_object_or_404, redirect
-
+    
 
 class ItemListView(ListView):
     model = Item
@@ -16,23 +16,8 @@ class ItemListView(ListView):
     
     def get_queryset(self):
        
-       return Item.objects.order_by('-submitted_on')[:4]
+       return Item.objects.order_by('-submitted_on')[:8]
            
-    def get(self, request, *args, **kwargs):
-        qs = Item.objects.all()
-        q = request.GET.get('q')
-        if q:
-            qs = qs.filter(
-                Q(name__icontains=q) |
-                Q(category__icontains=q)
-            ).distinct()
-        else:
-            q = Item.objects.all()
-                
-        return super(ItemListView, self).get(request, *args, **kwargs)
-    
-    
-    
     
 class ItemDetailView(DetailView):
     model = Item
