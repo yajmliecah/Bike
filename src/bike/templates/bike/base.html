@@ -11,12 +11,12 @@
 
     <title>My Car App</title>
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"><link rel="stylesheet " type="text/css" href="{% static 'thumbnails.css' %}">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
       <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-      <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
       <link rel="stylesheet" type="text/css" href="{% static 'bike/thumbnails.css' %}">
       <link rel="stylesheet" type="text/css" href="{% static 'bike/style.css' %}">
       <link rel="stylesheet" type="text/css" href="{% static 'bike/detail.css' %}">
+      <link rel="stylesheet" type="text/css" href="{% static 'bike/footer.css' %}">
 
   </head>
 
@@ -25,13 +25,15 @@
 
     <nav class="navbar navbar-default ">
         <div class="container">
-             <div class="navbar-header">
+            <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavBar">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">Home</a>
+            <a class="navbar-brand" href="/">
+                <span class="glyphicon glyphicon-home"></span>
+            </a>
             </div>
 
 
@@ -68,6 +70,51 @@
 
                 </div>
     </div>
+
+<div id='lower'>
+    <div id='lower-wrapper'>
+        <div id='lowerbar-wrapper'>
+            <b:section class='lowerbar' id='lowerbar1' preferred='yes'>
+            <p><a href="#">Top Brands</p>
+            <p><a href="#">www.nusasurfwear.com</a></p>
+
+            </b:section>
+        </div>
+
+        <div id='lowerbar-wrapper'>
+            <b:section class='lowerbar' id='lowerbar2' preferred='yes'>
+            <p><a href="#">Top Models</p>
+                <p><a href="#">www.nusasurfwear.com</a></p>
+
+            </b:section>
+        </div>
+
+        <div id='lowerbar-wrapper'>
+            <b:section class='lowerbar' id='lowerbar3' preferred='yes'>
+            <p><a href="#">Popular Models</p>
+            <p><a href="#">www.nusasurfwear.com</a></p>
+
+            </b:section>
+        </div>
+
+        <div id='lowerbar-wrapper'>
+            <b:section class='lowerbar' id='lowerbar4' preferred='yes'>
+            <p><a href="#">Top Cities</p>
+            <p><a href="#">www.nusasurfwear.com</a></p>
+            </b:section>
+        </div>
+
+        <div id='lowerbar-wrapper'>
+            <b:section class='lowerbar' id='5' preferred='yes'>
+            </b:section>
+        </div>
+
+        <div style='clear: both;'/>
+    </div>
+</div>
+
+</body>
+</html>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>

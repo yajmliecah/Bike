@@ -5,8 +5,8 @@
         <h2 align="left">Cars</h2>
     </div>
 
-    {% for cars in cars %}
     <div class="col-sm-3">
+        {% for cars in cars %}
         <div class="col-item">
             <div class="photo">
                 <img src="{{ item.image.url }}" class="img-responsive" alt="a" />
@@ -41,6 +41,6 @@
             </div>
         </div>
         <br>
+        {% endfor %}
     </div>
-    {% endfor %}
 {% endblock %}
