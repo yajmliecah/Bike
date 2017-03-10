@@ -1,4 +1,5 @@
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic.list import BaseListView
 from django.db.models import Q
 from ..models import Brand, Edition, Item
 from ..forms import ItemForm
@@ -6,13 +7,12 @@ from django.contrib import messages
 
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.shortcuts import render, get_object_or_404, redirect
-    
+        
 
 class ItemListView(ListView):
     model = Item
     template_name = 'bike/index.html'
     context_object_name = 'items'
-    q = ""
     
     def get_queryset(self):
        
