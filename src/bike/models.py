@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.conf import settings
 from django.db.models import Count, permalink
 from django.utils.translation import ugettext_lazy as _
 from geo.models import Region, Country
@@ -101,6 +102,7 @@ class Item(models.Model):
     details = models.TextField(blank=True, null=True, verbose_name=_("Details"))
     submitted_on = models.DateField(auto_now=True, editable=False, verbose_name=_("Submitted on"))
     locations = models.ForeignKey(Region, blank=True, null=True, verbose_name=_("Locations"))
+    posted_by = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True)
     
     objects = ItemManager()
     

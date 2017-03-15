@@ -36,10 +36,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+    'accounts.apps.AccountsConfig',
     'bike',
     'geo',
-    'accounts'
 ]
 
 MIDDLEWARE = [
@@ -47,12 +46,19 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.auth.middleware.RemoteUserMiddleware',
 ]
 
+##########AUTH########
+
 ROOT_URLCONF = 'src.urls'
+AUTH_USER_MODEL = 'accounts.BikeUser'
+AUTHENTICATION_BACKENDS = ('accounts.backends.BikeUserAuth',)
+
+#######################
 
 TEMPLATES = [
     {
