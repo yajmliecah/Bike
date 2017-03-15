@@ -10,27 +10,27 @@
         <h2 align="left">Featured Motorcycles</h2>
     </div>
 
-    {% for item in items %}
+    {% for featured_items in items %}
         <div class="item">
             <div class="col-sm-3">
                 <a href="/item/{{ item.pk }}">
                     <div class="col-item">
                         <div class="photo">
-                            <img src="{{ item.image.url }}" class="img-responsive" alt="a" />
+                            <img src="{{ featured_items.image.url }}" class="img-responsive" alt="a" />
                         </div>
 
                         <div class="info">
                             <div class="row">
                                 <div class="price col-md-5">
-                                    <h5>{{ item.name }}</h5>
-                                    <h6>{{ item.category }}</h6>
-                                    <h4 class="price-text-color">${{ item.price }}.00</h4>
+                                    <h5>{{ featured_items.name }}</h5>
+                                    <h6>{{ featured_items.category }}</h6>
+                                    <h4 class="price-text-color">${{ featured_items.price }}.00</h4>
                                 </div>
 
                             </div>
                                     <br>
                             <div class="separator clear-left">
-                                <span class="glyphicon glyphicon-map-marker" aria-hidden="true">{{ item.locations }}</span>
+                                <span class="glyphicon glyphicon-map-marker" aria-hidden="true">{{ featured_items.locations }}</span>
                             </div>
 
                             <div class="separator clear-left">

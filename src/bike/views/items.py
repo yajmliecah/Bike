@@ -1,4 +1,4 @@
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from django.views.generic.list import BaseListView
 from django.db.models import Q
 from ..models import Brand, Edition, Item
@@ -8,6 +8,14 @@ from django.contrib import messages
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.shortcuts import render, get_object_or_404, redirect
         
+
+class IndexView(TemplateView):
+    context_object_name = 'items'
+    template_name = 'bike/index.html'
+    
+    def featured_items(self):
+        return Item.objects.order_by('-submitted_on')[:8]
+
 
 class ItemListView(ListView):
     model = Item
