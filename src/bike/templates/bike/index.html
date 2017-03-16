@@ -9,11 +9,11 @@
     <div class="page-header">
         <h2 align="left">Featured Motorcycles</h2>
     </div>
-
+    {% if featured_items %}
     {% for featured_items in items %}
         <div class="item">
             <div class="col-sm-3">
-                <a href="/item/{{ item.pk }}">
+                <a href="/item/{{ featured_items.pk }}">
                     <div class="col-item">
                         <div class="photo">
                             <img src="{{ featured_items.image.url }}" class="img-responsive" alt="a" />
@@ -52,6 +52,10 @@
             </div>
         </div>
     {% endfor %}
+    {% else %}
+        <p>No Items yet</p>
+        <p><a href="/new/">Click Here to add item</a> </p>
+    {% endif %}
     <div class="page-header" align="right">
         <button type="button" class="btn btn-info">View All</button>
     </div>

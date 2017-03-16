@@ -6,7 +6,7 @@ class BikeUserAuth(object):
     def authenticate(self, username=None, password=None):
         try:
             user = BikeUser.objects.get(email=username)
-            if user.check_passowrd(password):
+            if user.check_password(password):
                 return user
         except BikeUser.DoesNotExist:
             return None

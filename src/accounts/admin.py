@@ -15,7 +15,7 @@ class UserCreationForm(forms.ModelForm):
 
     class Meta:
         model = BikeUser
-        fields = ('email', )
+        fields = ('email',)
 
     def clean_password2(self):
         # Check that the two password entries match
@@ -43,7 +43,7 @@ class UserChangeForm(forms.ModelForm):
 
     class Meta:
         model = BikeUser
-        fields = ('email', 'password')
+        fields = ('email', 'password', 'is_active', 'is_admin')
 
     def clean_password(self):
         # Regardless of what the user provides, return the initial value.
@@ -64,8 +64,7 @@ class BikeUserAdmin(BaseUserAdmin):
     list_filter = ('email',)
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
-        
-    )
+     )
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
     # overrides get_fieldsets to use this attribute when creating a user.
     add_fieldsets = (
@@ -78,8 +77,7 @@ class BikeUserAdmin(BaseUserAdmin):
     ordering = ('email',)
     filter_horizontal = ()
 
-# Now register the new UserAdmin...
 admin.site.register(BikeUser, BikeUserAdmin)
-# ... and, since we'e not using Django's built-in permissions,
-# unregister the Group model from admin.
+    # ... and, since we're not using Django's built-in permissions,
+    # unregister the Group model from admin.
 admin.site.unregister(Group)

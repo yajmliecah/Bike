@@ -1,13 +1,26 @@
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from models import BikeUser
+from django import forms
+from django.conf import settings
+from django.forms.widgets import *
 
 
-class BikeUserCreationForm(UserCreationForm):
-    
-    def __init__(self, *args, **kwargs):
-        super(BikeUserCreationForm, self).__init__(*args, **kwargs)
-        del self.fields['username']
-        
+class AuthenticationForm(forms.Form):
+    email = forms.CharField(
+        widget=TextInput(
+            attrs={
+                'placeholder': 'Email',
+                'required': 'True',
+            }
+        )
+    )
+    password = forms.CharField(
+        widget=PasswordInput(
+            attrs={
+                'placeholder': 'Password',
+                'required': 'True',
+            }
+        )
+    )
+
     class Meta:
-        model = BikeUser
-        fields = ('email', )
+        model = settings.AUTH_USER_MODEL
+        fields = ['email', 'password']
