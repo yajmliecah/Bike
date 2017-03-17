@@ -13,7 +13,7 @@ class IndexView(TemplateView):
     context_object_name = 'items'
     template_name = 'bike/index.html'
     
-    def featured_items(self):
+    def items(self):
         return Item.objects.order_by('-submitted_on')[:8]
 
 

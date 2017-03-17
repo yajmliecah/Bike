@@ -9,28 +9,27 @@
     <div class="page-header">
         <h2 align="left">Featured Motorcycles</h2>
     </div>
-    {% if featured_items %}
-    {% for featured_items in items %}
+    {% for item in items %}
         <div class="item">
             <div class="col-sm-3">
-                <a href="/item/{{ featured_items.pk }}">
+                <a href="/item/{{ items.pk }}">
                     <div class="col-item">
                         <div class="photo">
-                            <img src="{{ featured_items.image.url }}" class="img-responsive" alt="a" />
+                            <img src="{{ items.image.url }}" class="img-responsive" alt="a" />
                         </div>
 
                         <div class="info">
                             <div class="row">
                                 <div class="price col-md-5">
-                                    <h5>{{ featured_items.name }}</h5>
-                                    <h6>{{ featured_items.category }}</h6>
-                                    <h4 class="price-text-color">${{ featured_items.price }}.00</h4>
+                                    <h5>{{ item.name }}</h5>
+                                    <h6>{{ item.category }}</h6>
+                                    <h4 class="price-text-color">${{ item.price }}.00</h4>
                                 </div>
 
                             </div>
                                     <br>
                             <div class="separator clear-left">
-                                <span class="glyphicon glyphicon-map-marker" aria-hidden="true">{{ featured_items.locations }}</span>
+                                <span class="glyphicon glyphicon-map-marker" aria-hidden="true">{{ item.locations }}</span>
                             </div>
 
                             <div class="separator clear-left">
@@ -52,10 +51,6 @@
             </div>
         </div>
     {% endfor %}
-    {% else %}
-        <p>No Items yet</p>
-        <p><a href="/new/">Click Here to add item</a> </p>
-    {% endif %}
     <div class="page-header" align="right">
         <button type="button" class="btn btn-info">View All</button>
     </div>
