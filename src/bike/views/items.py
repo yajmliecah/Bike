@@ -9,18 +9,20 @@ from django.core.urlresolvers import reverse, reverse_lazy
 from django.shortcuts import render, get_object_or_404, redirect
         
 
-class IndexView(TemplateView):
+class IndexView(ListView):
+    model = Item
     context_object_name = 'items'
     template_name = 'bike/index.html'
     
-    def items(self):
-        return Item.objects.order_by('-submitted_on')[:8]
-
+    def get_context_data(self, **kwargs):
+        context = super(IndexView, self).get_context_data(**kwargs)
+        context['featured_items'] = Item.objects.featured_items()
+        return context
+    
 
 class ItemListView(ListView):
     model = Item
-    template_name = 'bike/index.html'
-    context_object_name = 'items'
+    context_object_name = 'item'
     
     def get_queryset(self):
        

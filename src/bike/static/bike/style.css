@@ -2,3 +2,11 @@
  background-color: lightgrey;
 
 }
+content{
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 100px;
+    margin-top: 20px;
+    overflow: auto;
+    width: 80%;
+}

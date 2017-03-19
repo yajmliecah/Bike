@@ -1,21 +1,16 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
-
-{% block breadcumb %}
-    {{ block.super }}
-{% endblock %}
-
 {% block content %}
     <div class="page-header">
         <h2 align="left">Featured Motorcycles</h2>
     </div>
-    {% for item in items %}
+        {% for item in items %}
         <div class="item">
             <div class="col-sm-3">
-                <a href="/item/{{ items.pk }}">
+                <a href="/item/{{ item.pk }}">
                     <div class="col-item">
                         <div class="photo">
-                            <img src="{{ items.image.url }}" class="img-responsive" alt="a" />
+                            <img src="{{ item.image.url }}" class="img-responsive" alt="a" />
                         </div>
 
                         <div class="info">
@@ -49,9 +44,8 @@
                 <br>
                 <br>
             </div>
+        {% endfor %}
         </div>
-    {% endfor %}
-    <div class="page-header" align="right">
-        <button type="button" class="btn btn-info">View All</button>
-    </div>
+
+
 {% endblock %}

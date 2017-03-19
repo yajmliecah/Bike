@@ -101,8 +101,8 @@ class Item(models.Model):
     color_family = models.CharField(max_length=50, choices=COLOR_FAMILY, verbose_name=_("Color Family"))
     details = models.TextField(blank=True, null=True, verbose_name=_("Details"))
     submitted_on = models.DateField(auto_now=True, editable=False, verbose_name=_("Submitted on"))
-    locations = models.ForeignKey(Region, blank=True, null=True, verbose_name=_("Locations"))
-    posted_by = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True)
+    locations = models.ForeignKey(Region, verbose_name=_("Locations"))
+    posted_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     
     objects = ItemManager()
     
@@ -118,3 +118,7 @@ class Item(models.Model):
     @models.permalink
     def get_absolute_url(self):
         return ('item_detail', (), {'pk': self.pk})
+
+    @classmethod
+    def featured_items(cls):
+        return list(cls.objects.filter(category='Motorcycles'))

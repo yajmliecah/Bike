@@ -7,13 +7,17 @@ from geo.models import Country, Region
 
 
 class BikeUserManager(BaseUserManager):
-    def create_user(self, email, username, password=None):
+    def create_user(self, username, first_name, last_name, email, location, avatar, password=None):
         
 
         if not email:
             raise ValueError('Email must be set')
         user = self.model(email=self.normalize_email(email),
                           username=username,
+                          first_name=first_name,
+                          last_name=last_name,
+                          location=location,
+                          avatar=avatar,
                           is_active=True,
                           )
         user.is_admin = True
@@ -22,8 +26,12 @@ class BikeUserManager(BaseUserManager):
         
         return user
      
-    def create_superuser(self, email, password, username):
-        user = self.create_user(email=email, password=password, username=username)
+    def create_superuser(self, username, first_name, last_name, email, location, avatar,  password):
+        user = self.create_user(email=email, password=password, username=username,
+                                first_name=first_name, last_name=last_name,
+                                location=location,
+                                avatar=avatar
+                                )
         user.is_admin = True
         user.save(using=self._db)
         
@@ -35,7 +43,7 @@ class BikeUser(AbstractBaseUser):
     first_name = models.CharField(max_length=100, blank=True)
     last_name = models.CharField(max_length=100, blank=True)
     email = models.EmailField(blank=True, unique=True)
-    location = models.ForeignKey(Region, max_length=100, blank=True, null=True)
+    location = models.ForeignKey(Region, max_length=100)
     avatar = models.ImageField(blank=True, null=True)
 
     is_active = models.BooleanField(default=True)
