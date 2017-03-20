@@ -9,7 +9,6 @@ from geo.models import Country, Region
 class BikeUserManager(BaseUserManager):
     def create_user(self, username, first_name, last_name, email, location, avatar, password=None):
         
-
         if not email:
             raise ValueError('Email must be set')
         user = self.model(email=self.normalize_email(email),
@@ -26,11 +25,14 @@ class BikeUserManager(BaseUserManager):
         
         return user
      
-    def create_superuser(self, username, first_name, last_name, email, location, avatar,  password):
-        user = self.create_user(email=email, password=password, username=username,
-                                first_name=first_name, last_name=last_name,
+    def create_superuser(self, username, first_name, last_name, email, location, avatar, password):
+        user = self.create_user(username=username,
+                                first_name=first_name,
+                                last_name=last_name,
+                                email=email,
                                 location=location,
-                                avatar=avatar
+                                avatar=avatar,
+                                password=password,
                                 )
         user.is_admin = True
         user.save(using=self._db)
@@ -39,7 +41,7 @@ class BikeUserManager(BaseUserManager):
 
 
 class BikeUser(AbstractBaseUser):
-    username = models.CharField(max_length=100)
+    username = models.CharField(max_length=100, primary_key=True, db_index=True)
     first_name = models.CharField(max_length=100, blank=True)
     last_name = models.CharField(max_length=100, blank=True)
     email = models.EmailField(blank=True, unique=True)
@@ -53,7 +55,7 @@ class BikeUser(AbstractBaseUser):
     
     
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username',]
+    REQUIRED_FIELDS = ['username']
     
     class Meta:
         verbose_name = _('user')
@@ -65,7 +67,7 @@ class BikeUser(AbstractBaseUser):
     def get_short_name(self):
         return self.email
 
-    def __str__(self):
+    def __unicode__(self):
         return self.email
 
     def has_perm(self, perm, obj=None):

@@ -2,26 +2,22 @@
 {% load staticfiles %}
 
 {% block content %}
-   <div class="col-sm-12 col-mid-7">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                            <form method="post" enctype="multipart/form-data" role="form">
-                                {% csrf_token %}
-                                <input type="hidden" name="album" value="">
+  <div class="row">
+    <div class="container">
+        <div class="col-lg-4 col-lg-offset-3">
+           <form class="form-signin" enctype="multipart/form-data" role="form" method="post">
+               {% csrf_token %}
+                <h2 class="form-signin-heading">Sign Up</h2>
+                <hr>
+                {{ form.as_p }}
+                 <br>
+               <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
+              </form>
+            <hr>
 
-                                        <div class="form-group">
-                                            <div class="col-sm-offset-2 col-sm-10">
-                                               {{ form.as_p }}
-                                            </div>
-                                        </div>
+        </div>
+    </div>
+</div>
+<br>
 
-                                <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
-                                    <button type="submit" class="btn btn-success">Submit</button>
-                                </div>
-                            </div>
-                            </form>
-                    </div>
-                </div>
-            </div>
 {% endblock %}

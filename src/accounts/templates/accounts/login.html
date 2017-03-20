@@ -10,12 +10,8 @@
                {% csrf_token %}
                 <h2 class="form-signin-heading">Login</h2>
                 <hr>
-                <label for="id_email" class="sr-only">Email address</label>
-                <input id="id_email" type="email" class="form-control" placeholder="Email address" required>
-                <br>
-                <label for="id_password" class="sr-only">Password</label>
-                <input id="id_password" type="password" class="form-control" placeholder="Password" required>
-                <br>
+                {{ form.as_p }}
+                 <br>
                <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
               </form>
             <hr>
