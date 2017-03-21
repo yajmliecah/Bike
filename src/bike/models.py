@@ -87,6 +87,7 @@ class Item(models.Model):
     )
     name = models.CharField(max_length=100, primary_key=True, verbose_name=_("Name"))
     slug = models.SlugField(max_length=50, null=True, blank=True, verbose_name=_("Name"))
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True, editable=False)
     image = models.ImageField(blank=True, null=True)
     category = models.CharField(max_length=100, choices=CATEGORY, verbose_name=_("Category"))
     brand = models.ForeignKey(Brand, verbose_name=_("Brand"))
@@ -102,7 +103,6 @@ class Item(models.Model):
     details = models.TextField(blank=True, null=True, verbose_name=_("Details"))
     submitted_on = models.DateField(auto_now=True, editable=False, verbose_name=_("Submitted on"))
     locations = models.ForeignKey(Region, verbose_name=_("Locations"))
-    posted_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     
     objects = ItemManager()
     

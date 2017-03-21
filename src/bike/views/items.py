@@ -2,9 +2,10 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.views.generic.list import BaseListView
 from django.db.models import Q
 from ..models import Brand, Edition, Item
+from accounts.models import BikeUser
 from ..forms import ItemForm
 from django.contrib import messages
-
+from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.shortcuts import render, get_object_or_404, redirect
         

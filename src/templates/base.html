@@ -51,12 +51,13 @@
             </ul>
 
                 <ul class="nav navbar-nav navbar-right">
-                    <li>
                         {% if user.is_authenticated %}
-                        Hi {{ user.username }} !
-                        <a href="/accounts/logout/">Logout</a>
+                    <li>
+                        <a href="/accounts/profile/{{ bikeusers.pk }}">Hi {{ user.username }} !</a>
+                    </li>
                         {% else %}
-                        <a href="/accounts/login/">
+                    <li>
+                     <a href="/accounts/login/">
                             <span style="font-size: 20px" class="glyphicon glyphicon-user"></span>
                         </a>
                         {% endif %}

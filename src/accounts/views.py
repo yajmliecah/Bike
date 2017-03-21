@@ -11,15 +11,15 @@ User = get_user_model()
 
 
 class BikeUserListView(ListView):
+    model = BikeUser
     template_name = 'accounts/accountslist.html'
     context_object_name = 'bikeusers'
-    queryset = BikeUser.objects.all()
     
     
 class BikeUserView(DetailView):
     model = BikeUser
     template_name = 'accounts/profile.html'
-    context_object_name = 'profile'
+    context_object_name = 'bikeuser'
     
     def get_context_data(self, **kwargs):
         context = super(BikeUserView, self).get_context_data(**kwargs)
@@ -51,6 +51,7 @@ class LogoutView(RedirectView):
 class SignUpView(FormView):
     template_name = 'accounts/signup_form.html'
     form_class = SignUpForm
+    success_url = '/accounts/bikeusers/'
     
     def get_context_data(self, **kwargs):
         context = super(SignUpView, self).get_context_data(**kwargs)
@@ -60,13 +61,3 @@ class SignUpView(FormView):
         form.save(commit=True)
         
         return super(SignUpView, self).form_valid(form)
-    
-    def get_success_url(self):
-        return reverse_lazy('profile')
-    
-    
-    
-    
-    
-
-    
