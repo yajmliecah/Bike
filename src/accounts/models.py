@@ -2,8 +2,10 @@ from django.db import models
 from time import timezone
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.utils.translation import ugettext_lazy as _
+from django.core.urlresolvers import reverse
 from django.core.mail import send_mail
-from geo.models import Country, Region
+from geo.models import Country, City
+from bike.models import *
 
 
 class BikeUserManager(BaseUserManager):
@@ -37,9 +39,8 @@ class BikeUser(AbstractBaseUser):
     first_name = models.CharField(max_length=100, blank=True)
     last_name = models.CharField(max_length=100, blank=True)
     email = models.EmailField(blank=False, unique=True)
-    location = models.ForeignKey(Region, max_length=100, null=True, blank=True)
+    location = models.ForeignKey(City, max_length=100, null=True, blank=True)
     avatar = models.ImageField(blank=True, null=True)
-
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     
@@ -60,7 +61,7 @@ class BikeUser(AbstractBaseUser):
         return self.email
 
     def __unicode__(self):
-        return self.email
+        return self.username
 
     def has_perm(self, perm, obj=None):
         "Does the user have a specific permission?"
@@ -77,3 +78,7 @@ class BikeUser(AbstractBaseUser):
         "Is the user a member of staff?"
         # Simplest possible answer: All admins are staff
         return self.is_admin
+    
+    def get_absolute_url(self):
+        
+        return reverse('profile', (), {'pk': self.pk})

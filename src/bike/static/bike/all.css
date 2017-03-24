@@ -1,0 +1,19 @@
+
+a.list-group-item{
+    height:auto;
+    min-height:250px;
+}
+a.list-group-item:hover {
+    background:#8BBDF0
+}
+
+.stars {
+    margin:20px auto 1px;
+}
+.all_img {
+     height: 230px;
+    width: 230%;
+}
+.all_price {
+    color: #E6531C
+}

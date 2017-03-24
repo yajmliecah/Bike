@@ -5,5 +5,9 @@
 {% endblock %}
 
 {% block content %}
-<p>{{ bikeuser.email }}</p>
+    {% if bikeuser.is_authenticated %}
+        <p>{{ bikeuser.email }}</p>
+    {% else %}
+    {% endif %}
+
 {% endblock %}

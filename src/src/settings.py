@@ -60,6 +60,8 @@ AUTHENTICATION_BACKENDS = ('accounts.backends.BikeUserAuth',)
 
 #######################
 
+
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

@@ -4,7 +4,10 @@ from django.db import models
 from django.conf import settings
 from django.db.models import Count, permalink
 from django.utils.translation import ugettext_lazy as _
-from geo.models import Region, Country
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+from geo.models import Country, City
 
     
 class Brand(models.Model):
@@ -87,22 +90,16 @@ class Item(models.Model):
     )
     name = models.CharField(max_length=100, primary_key=True, verbose_name=_("Name"))
     slug = models.SlugField(max_length=50, null=True, blank=True, verbose_name=_("Name"))
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True, editable=False)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True)
     image = models.ImageField(blank=True, null=True)
     category = models.CharField(max_length=100, choices=CATEGORY, verbose_name=_("Category"))
     brand = models.ForeignKey(Brand, verbose_name=_("Brand"))
     edition = models.ForeignKey(Edition, verbose_name=_("Edition"))
     price = models.IntegerField(default=0)
-    negotiable = models.CharField(max_length=50, choices=NEGO)
     condition = models.CharField(max_length=50, choices=CONDITION, verbose_name=_("Condition"))
-    seller_type = models.CharField(max_length=50, choices=SELLER_TYPE, verbose_name=_("Seller Type"))
-    fuel = models.CharField(max_length=50, choices=FUEL, verbose_name=_("Fuel"))
-    transmission = models.CharField(max_length=50, choices=TRANS, verbose_name=_("Transmission"))
-    lifestyle = models.CharField(max_length=50, choices=LIFESTYLES, verbose_name=_("Lifestyle"))
-    color_family = models.CharField(max_length=50, choices=COLOR_FAMILY, verbose_name=_("Color Family"))
     details = models.TextField(blank=True, null=True, verbose_name=_("Details"))
     submitted_on = models.DateField(auto_now=True, editable=False, verbose_name=_("Submitted on"))
-    locations = models.ForeignKey(Region, verbose_name=_("Locations"))
+    locations = models.ForeignKey(City, verbose_name=_("Locations"))
     
     objects = ItemManager()
     
@@ -119,6 +116,4 @@ class Item(models.Model):
     def get_absolute_url(self):
         return ('item_detail', (), {'pk': self.pk})
 
-    @classmethod
-    def featured_items(cls):
-        return list(cls.objects.filter(category='Motorcycles'))
+  

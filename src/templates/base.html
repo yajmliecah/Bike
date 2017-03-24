@@ -17,6 +17,7 @@
       <link rel="stylesheet" type="text/css" href="{% static 'bike/style.css' %}">
       <link rel="stylesheet" type="text/css" href="{% static 'bike/detail.css' %}">
       <link rel="stylesheet" type="text/css" href="{% static 'bike/footer.css' %}">
+      <link rel="stylesheet" type="text/css" href="{% static 'bike/all.css' %}">
 
   </head>
 
@@ -42,7 +43,7 @@
                 <li><a href="/category/cars/">Car</a></li>
                 <li><a href="/category/motors/">Motorcycle</a></li>
                 <li><a href="/category/vehicles/" >Vehicle</a></li>
-                <form class="navbar-form navbar-left">
+                <form class="navbar-form navbar-left" method="GET">
                     <div class="form-group">
                         <input formmethod="GET" name="q" type="text" class="form-control" placeholder="Search" value="{{ request.GET.q }}">
                     </div>
@@ -54,6 +55,10 @@
                         {% if user.is_authenticated %}
                     <li>
                         <a href="/accounts/profile/{{ bikeusers.pk }}">Hi {{ user.username }} !</a>
+                    </li>
+
+                    <li>
+                        <a href="/accounts/logout/">Logout</a>
                     </li>
                         {% else %}
                     <li>

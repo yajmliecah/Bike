@@ -6,10 +6,6 @@ class ItemForm(forms.ModelForm):
     
     class Meta:
         model = Item
-        fields = ('name', 'image', 'category', 'brand', 'edition', 'price', 'negotiable',
-              'condition', 'seller_type', 'fuel', 'transmission', 'lifestyle', 'color_family', 'details', 'locations')
-        exclude = ('slug',)
-
-    
-    def __init__(self, *args, **kwargs):
-        super(ItemForm, self).__init__(*args, **kwargs)
+        fields = ('name', 'image', 'category', 'brand', 'edition', 'price',
+              'condition', 'details', 'locations')
+        exclude = ('slug', 'owner')

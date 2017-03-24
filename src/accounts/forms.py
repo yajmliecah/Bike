@@ -4,7 +4,7 @@ from django.forms.widgets import *
 from django.db.models import Q
 from .models import BikeUser
 from bike.models import Item
-from geo.models import Region, Country
+from geo.models import City, Country
 
 
 class AuthenticationForm(forms.Form):
@@ -101,7 +101,7 @@ class SignUpForm(forms.ModelForm):
             }
         )
     )
-    locations = forms.ModelChoiceField(queryset=Region.objects.all(),
+    locations = forms.ModelChoiceField(queryset=City.objects.all(),
                                        widget=Select(
                                            attrs={
                                                'placeholder': 'Location',

@@ -22,14 +22,14 @@
                                 </div>
 
                             </div>
-                                    <br>
+                            <br>
                             <div class="separator clear-left">
                                 <span class="glyphicon glyphicon-map-marker" aria-hidden="true">{{ item.locations }}</span>
                             </div>
 
                             <div class="separator clear-left">
                                 <p class="btn-add">
-                                    <i class="fa fa-shopping-cart"></i>{{ item.owner }}</p>
+                                    <i class="fa fa-shopping-cart"></i></p>
                                 <p class="btn-details">
                                     <i class="fa fa-list"></i><a href="/item/{{ item.pk }}" class="hidden-sm">More details</a></p>
                             </div>
@@ -46,6 +46,10 @@
             </div>
         {% endfor %}
         </div>
-
+        <div class="page-header">
+        <h4 align="right">
+            <a href="/all/">View all >></a>
+        </h4>
+    </div>
 
 {% endblock %}

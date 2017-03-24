@@ -53,13 +53,8 @@ class UserChangeForm(forms.ModelForm):
 
 
 class BikeUserAdmin(BaseUserAdmin):
-    # The forms to add and change user instances
     form = UserChangeForm
     add_form = UserCreationForm
-
-    # The fields to be used in displaying the User model.
-    # These override the definitions on the base UserAdmin
-    # that reference specific fields on auth.User.
     list_display = ('email', 'username', 'location')
     list_filter = ('email',)
     fieldsets = (
@@ -67,8 +62,6 @@ class BikeUserAdmin(BaseUserAdmin):
         ('Personal Info', {'fields': ('username', 'first_name', 'last_name', 'location', 'avatar')}),
         ('Permissions', {'fields': ('is_admin',)}),
      )
-    # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
-    # overrides get_fieldsets to use this attribute when creating a user.
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
@@ -78,7 +71,10 @@ class BikeUserAdmin(BaseUserAdmin):
     search_fields = ('email', 'username', 'location')
     ordering = ('email',)
     filter_horizontal = ()
-
+    
+       
+        
+        
 admin.site.register(BikeUser, BikeUserAdmin)
     # ... and, since we're not using Django's built-in permissions,
     # unregister the Group model from admin.
