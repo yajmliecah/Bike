@@ -1,7 +1,13 @@
 {% extends 'base.html' %}
 
 {% block title %}All Items{% endblock %}
-{% block breadcumb %}{{ block.super }} >> All ({{ item.count }}) {% endblock %}
+{% block breadcumb %}
+ <a class="breadcrumb-item" href="/">Home</a> | >> All ({{ item.count }})
+<form class="breadcrumb-item pull-right" method="GET" action="">
+    <input type="text" name="q" placeholder="Search Items" value="{{ request.GET.q }}">
+    <input type="submit" value="search">
+</form>
+{% endblock %}
 
 {% block content %}
   <div class="container theme-showcase" role="main">

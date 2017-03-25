@@ -1,3 +1,4 @@
+import operator
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from django.views.generic.list import BaseListView
 from django.db.models import Q
@@ -6,10 +7,11 @@ from ..forms import ItemForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse, reverse_lazy
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, render_to_response, get_object_or_404, redirect
 from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
+from django.template import RequestContext
         
 
 class FeaturedView(ListView):
@@ -30,30 +32,28 @@ class ItemListView(ListView):
     
     def get_context_data(self, **kwargs):
         context = super(ItemListView, self).get_context_data(**kwargs)
-        items = Item.objects.all()
-        queryset_list = Item.objects.none()
-        paginator = Paginator(items, self.paginate_by)
-
-        query = self.request.GET.get('q', '')
-        if query:
-            queryset_list = Item.objects.filter(
-                Q(name__icontains=query) |
-                Q(category__icontains=query)
-            ).distinct()
-        
+        queryset_list = Item.objects.all()
+        paginator = Paginator(queryset_list, self.paginate_by)
         
         page = self.request.GET.get('page')
         
-        try:
-            item_list = paginator.page(page)
-        except PageNotAnInteger:
-            item_list = paginator.page(1)
-        except EmptyPage:
-            item_list = paginator.page(paginator.num_pages)
+        query = self.request.GET.get('q')
         
-        context['items'] = item_list
-        context['query'] = query
-        context['querset_list'] = queryset_list
+        if query:
+            queryset_list = queryset_list.filter(
+                Q(name__icontains=query) |
+                Q(category__icontains=query)
+            ).distinct()
+            
+        try:
+            items = paginator.page(page)
+        except PageNotAnInteger:
+            items = paginator.page(1)
+        except EmptyPage:
+            items = paginator.page(paginator.num_pages)
+        
+        context['items'] = queryset_list
+        
         return context
         
     
@@ -98,6 +98,6 @@ class ItemUpdateView(UpdateView):
 class ItemDeleteView(DeleteView):
     model = Item
     success_url = reverse_lazy('items:item_list')
-    
+
         
 
