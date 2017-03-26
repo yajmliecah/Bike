@@ -11,7 +11,7 @@ from django.shortcuts import render, render_to_response, get_object_or_404, redi
 from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
-from django.template import RequestContext
+from ..search import *
         
 
 class FeaturedView(ListView):
@@ -23,7 +23,7 @@ class FeaturedView(ListView):
         context = super(FeaturedView, self).get_context_data(**kwargs)
         context['items'] = Item.objects.all()[:8]
         return context
-    
+
 
 class ItemListView(ListView):
     model = Item
@@ -32,19 +32,18 @@ class ItemListView(ListView):
     
     def get_context_data(self, **kwargs):
         context = super(ItemListView, self).get_context_data(**kwargs)
-        queryset_list = Item.objects.all()
-        paginator = Paginator(queryset_list, self.paginate_by)
+        results = Item.objects.all()
+        paginator = Paginator(results, self.paginate_by)
         
         page = self.request.GET.get('page')
         
         query = self.request.GET.get('q')
         
-        if query:
-            queryset_list = queryset_list.filter(
+        if query is not None:
+            results = Item.objects.filter(
                 Q(name__icontains=query) |
                 Q(category__icontains=query)
             ).distinct()
-            
         try:
             items = paginator.page(page)
         except PageNotAnInteger:
@@ -52,10 +51,20 @@ class ItemListView(ListView):
         except EmptyPage:
             items = paginator.page(paginator.num_pages)
         
-        context['items'] = queryset_list
-        
+        context['items'] = items
+        context['results'] = results
         return context
-        
+
+
+class ItemDetailView(DetailView):
+    model = Item
+    template_name = 'bike/item_detail.html'
+    context_object_name = 'item'
+    
+    def get_context_data(self, **kwargs):
+        context = super(ItemDetailView, self).get_context_data(**kwargs)
+        return context
+    
     
 class ItemDetailView(DetailView):
     model = Item
