@@ -53,6 +53,7 @@ class ItemListView(ListView):
         
         context['items'] = items
         context['results'] = results
+        context['category'] = Item.objects.filter(category='Car')
         return context
 
 

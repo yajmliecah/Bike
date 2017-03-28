@@ -5,9 +5,10 @@
 {% endblock %}
 
 {% block content %}
-    {% if bikeuser.is_authenticated %}
-        <p>{{ bikeuser.email }}</p>
+    {% if bike_user.is_authenticated %}
+        <h1>Welcome <small>'{{ bike_user.username }}'</small></h1>
     {% else %}
+        <h1>Welcome Please Log In</h1>
     {% endif %}
 
 {% endblock %}

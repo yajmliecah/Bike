@@ -1,22 +1,37 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block breadcumb %}{{ block.super }} | Login {% endblock %}
+{% block breadcumb %}
+    {{ block.super }}
+    <a class="breadcumb-item">Login</a>
+{% endblock %}
 
 {% block content %}
 <div class="row">
     <div class="container">
         <div class="col-lg-4 col-lg-offset-3">
-           <form class="form-signin" enctype="multipart/form-data" role="form" method="post">
-               {% csrf_token %}
-                <h2 class="form-signin-heading">Login</h2>
-                <hr>
-                {{ form.as_p }}
-                 <br>
-               <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
-               <input type="hidden" name="next" value="{{ next }}" />
-              </form>
+
+               <fieldset>
+                   <legend>Login to your Account</legend>
+                         <form class="form-signin" enctype="multipart/form-data" role="form" method="post">
+                            {% csrf_token %}
+                            <label>Email address:</label>
+                            {{ form.email }}
+                             <br>
+                            <label>Password</label>
+                            {{ form.password }}
+                            <div class="checkbox">
+                              <label>
+                                <input type="checkbox" value="remember-me"> Remember me
+                              </label>
+                            </div>
+                            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+                            <input type="hidden" name="next" value="{{ next }}" />
+                        </form>
+
+                </fieldset>
+            <label>Create new account, <a href="/accounts/signup/">register</a> now</label>
             <hr>
-            <p>Don't have an account yet? <a href="/accounts/signup/">Sign Up</a> </p>
+
         </div>
     </div>
 </div>

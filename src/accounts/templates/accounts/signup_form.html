@@ -1,23 +1,44 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% block breadcumb %}
+{{ block.super }}
+<a class="breadcumb-item"> Register</a>
+{% endblock %}
 
 {% block content %}
   <div class="row">
     <div class="container">
         <div class="col-lg-4 col-lg-offset-3">
-           <form class="form-signin" enctype="multipart/form-data" role="form" method="post">
-               {% csrf_token %}
-                <h2 class="form-signin-heading">Sign Up</h2>
-                <hr>
-                {{ form.as_p }}
-                 <br>
-               <button class="btn btn-lg btn-primary btn-block" type="submit">Create Account</button>
-              </form>
-            <hr>
 
+               <fieldset>
+                   <legend>Register a new account</legend>
+                         <form class="form-signin" enctype="multipart/form-data" role="form" method="post">
+                            {% csrf_token %}
+                            <label>Email address:</label>
+                            {{ form.email }}
+                             <br>
+                            <label>Password</label>
+                            {{ form.password }}
+                             <label>Password</label>
+                            {{ form.password_confirm }}
+
+                            <div class="checkbox">
+                              <label>
+                                <input type="checkbox" value="remember-me">I have read and agree to the (Terms of Service)
+                              </label>
+                            </div>
+                            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+                            <input type="hidden" name="next" value="{{ next }}" />
+                        </form>
+
+                </fieldset>
+            <label>Create new account, <a href="/accounts/signup/">register</a> now</label>
+            <hr>
+            <h4>Already Signed Up?</h4>
+            <small>Click Sign In to <a href="/accounts/login/">login</a> to your account </small>
+            <hr>
         </div>
-    </div>
 </div>
 <br>
-
+  </div>
 {% endblock %}

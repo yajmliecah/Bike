@@ -13,6 +13,7 @@ class AuthenticationForm(forms.Form):
             attrs={
                 'placeholder': 'Email',
                 'required': 'True',
+                'class': 'form-control',
             }
         )
     )
@@ -21,6 +22,7 @@ class AuthenticationForm(forms.Form):
             attrs={
                 'placeholder': 'Password',
                 'required': 'True',
+                'class': 'form-control',
             }
         )
     )
@@ -49,6 +51,7 @@ class SignUpForm(forms.ModelForm):
             attrs={
                 'placeholder': 'Username',
                 'required': 'True',
+                'class': 'form-control'
             }
         )
     )
@@ -57,6 +60,7 @@ class SignUpForm(forms.ModelForm):
             attrs={
                 'placeholder': 'First Name',
                 'required': 'True',
+                'class': 'form-control'
             }
         )
     )
@@ -65,6 +69,7 @@ class SignUpForm(forms.ModelForm):
             attrs={
                 'placeholder': 'Last Name',
                 'required': 'True',
+                'class': 'form-control'
             }
         )
     )
@@ -73,6 +78,7 @@ class SignUpForm(forms.ModelForm):
             attrs={
                 'placeholder': 'Password',
                 'required': 'True',
+                'class': 'form-control'
             }
         )
         
@@ -82,6 +88,7 @@ class SignUpForm(forms.ModelForm):
             attrs={
                 'placeholder': 'Confirm Password',
                 'required': 'True',
+                'class': 'form-control'
             }
         )
     )
@@ -91,6 +98,7 @@ class SignUpForm(forms.ModelForm):
             attrs={
                 'placeholder': 'Email Address',
                 'required': 'True',
+                'class': 'form-control'
             }
         )
     )
@@ -105,6 +113,7 @@ class SignUpForm(forms.ModelForm):
                                        widget=Select(
                                            attrs={
                                                'placeholder': 'Location',
+                                               'class': 'form-control'
                                            }
                                        )
                                        )

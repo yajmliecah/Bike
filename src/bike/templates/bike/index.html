@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% block breadcumb %}
+    {{ block.super }}
+    <a class="breadcumb-item" href="/all/">View All</a>
+{% endblock %}
 {% block content %}
     <div class="page-header">
         <h2 align="left">Featured Motorcycles</h2>

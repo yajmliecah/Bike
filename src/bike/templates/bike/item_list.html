@@ -2,10 +2,10 @@
 
 {% block title %}All Items{% endblock %}
 {% block breadcumb %}
- <a class="breadcrumb-item" href="/">Home</a> | >> All ({{ item.count }})
+{{ block.super }}
+<a class="breadcumb-item">All ({{ item.count }})</a>
 <form class="breadcrumb-item pull-right" method="GET" action="">
     <input type="text" name="q" placeholder="Search Items" value="{{ query_string }}">
-    <input type="submit" value="search">
 </form>
 {% endblock %}
 
@@ -44,7 +44,7 @@
           <br>
             {% endfor %}
             {% else %}
-                <p>dsa</p>
+                <p>No Results</p>
             {% endif %}
 
         </div>
