@@ -59,8 +59,8 @@ AUTH_USER_MODEL = 'accounts.BikeUser'
 AUTHENTICATION_BACKENDS = ('accounts.backends.BikeUserAuth',)
 
 #######################
-
-
+LOGIN_REDIRECT_URL = 'user_detail'
+LOGIN_URL = '/bike_users/'
 
 TEMPLATES = [
     {

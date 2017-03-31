@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block breadcumb %}
+    {{ block.super }} My Account
+{% endblock %}
+
+{% block content %}
+    <div class="container theme-showcase">
+        <p>Welcome {{ user.username }}</p>
+        {% if items %}
+            {% for items in items %}
+                <p>{{ items.name }}</p>
+            {% endfor %}
+        {% else %}
+            <p>No Item Found</p>
+        {% endif %}
+        <p><a href="/accounts/dashboard/{{ bike_user.pk }}">View Profile</a></p>
+    </div>
+{% endblock %}

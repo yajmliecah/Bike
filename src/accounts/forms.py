@@ -7,7 +7,7 @@ from bike.models import Item
 from geo.models import City, Country
 
 
-class AuthenticationForm(forms.Form):
+class LoginForm(forms.Form):
     email = forms.CharField(
         widget=TextInput(
             attrs={
@@ -73,7 +73,8 @@ class SignUpForm(forms.ModelForm):
             }
         )
     )
-    password=forms.CharField(
+    password1=forms.CharField(
+        label="Password",
         widget=PasswordInput(
             attrs={
                 'placeholder': 'Password',
@@ -83,7 +84,8 @@ class SignUpForm(forms.ModelForm):
         )
         
     )
-    password_confirm = forms.CharField(
+    password2 = forms.CharField(
+        label="Password Confirmation",
         widget=PasswordInput(
             attrs={
                 'placeholder': 'Confirm Password',
@@ -121,5 +123,33 @@ class SignUpForm(forms.ModelForm):
     
     class Meta:
         model = BikeUser
-        fields = ['username', 'first_name', 'last_name', 'password', 'password_confirm', 'email', 'avatar']
+        fields = ['username', 'first_name', 'last_name', 'email', 'avatar']
     
+    def clean_password2(self):
+        # Check that the two password entries match
+        password1 = self.cleaned_data.get("password1")
+        password2 = self.cleaned_data.get("password2")
+        if password1 and password2 and password1 != password2:
+            raise forms.ValidationError("Passwords don't match")
+        return password2
+
+    def clean(self):
+        email = self.cleaned_data.get('email', '')
+        password = self.cleaned_data.get('password', '')
+    
+        self.user = None
+        users = BikeUser.objects.filter(Q(username=email) | Q(email=email))
+        for user in users:
+            if user.is_active and user.check_password(password):
+                self.user = user
+        if self.user is None:
+            raise forms.ValidationError('Invalid email or password')
+        return self.cleaned_data
+
+    def save(self, commit=True):
+        # Save the provided password in hashed format
+        user = super(SignUpForm, self).save(commit=False)
+        user.set_password(self.cleaned_data["password1"])
+        if commit:
+            user.save()
+        return user
