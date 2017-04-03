@@ -1,6 +1,5 @@
 import operator
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
-from django.views.generic.list import BaseListView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.db.models import Q
 from ..models import Brand, Edition, Item
 from ..forms import ItemForm
@@ -50,13 +49,39 @@ class ItemListView(ListView):
             items = paginator.page(1)
         except EmptyPage:
             items = paginator.page(paginator.num_pages)
+
+        context = {
+            'items': items,
+            'results': results
+        }
+        return context
+    
+
+class CarView(ItemListView):
+    template_name = 'bike/car_list.html'
+    context_object_name = 'cars'
+    
+    def get_context_data(self, **kwargs):
+        context = super(CarView, self).get_context_data(**kwargs)
+
+        car = Item.objects.get_car()
         
-        context['items'] = items
-        context['results'] = results
-        context['category'] = Item.objects.filter(category='Car')
+        context['car'] = car
         return context
 
 
+class MotorcycleView(ItemListView):
+    template_name = 'bike/motorcycle_list.html'
+    context_object_name = 'motorcycle'
+    
+    def get_context_data(self, **kwargs):
+        context = super(MotorcycleView, self).get_context_data(**kwargs)
+        motorcycle = Item.objects.get_motorcycle()
+        
+        context['motorcycle'] = motorcycle
+        
+        return context
+        
 class ItemDetailView(DetailView):
     model = Item
     template_name = 'bike/item_detail.html'

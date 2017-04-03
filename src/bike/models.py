@@ -21,7 +21,7 @@ class Brand(models.Model):
     def __unicode__(self):
         return self.name
 
-    
+        
 class Edition(models.Model):
     name = models.CharField(max_length=50, primary_key=True, verbose_name=_("Name"))
     slug = models.SlugField(max_length=50, null=True, blank=True)
@@ -36,25 +36,47 @@ class Edition(models.Model):
 
 class ItemQuerySet(models.query.QuerySet):
     
+    def get_motorcycle(self):
+        return self.filter(category='Motorcycle')
+    
+    def get_car(self):
+        return self.filter(category='Car')
+    
+    def get_vehicle(self):
+        return self.filter(category='Vehicle')
+    
     def negotiable(self):
         return self.filter(negotiable=True)
     
 
 class ItemManager(models.Manager):
     
- 
-    def negotiable(self):
-        return self.get_queryset().negotiable()
+    def get_queryset(self):
+        return ItemQuerySet(self.model, using=self._db)
     
     def featured_items(self):
         return self.all().order_by('-submitted_on')
         
+    def get_motorcycle(self):
+        return self.get_queryset().get_motorcycle()
+    
+    def get_car(self):
+        return self.get_queryset().get_car()
+
+    def get_vehicle(self):
+        return self.get_queryset().get_vehicle()
+    
+    def negotiable(self):
+        return self.get_queryset().negotiable()
+    
+    def by(self, owner):
+        return self.filter(owner=owner)
     
     
 class Item(models.Model):
     CATEGORY = (
         ('Car', 'Car'),
-        ('Motorcycle', 'Motorcycles'),
+        ('Motorcycle', 'Motorcycle'),
         ('Vehicle', 'Vehicle')
     )
     CONDITION = (
@@ -116,4 +138,4 @@ class Item(models.Model):
     def get_absolute_url(self):
         return ('item_detail', (), {'pk': self.pk})
 
-  
+   

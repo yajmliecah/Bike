@@ -3,7 +3,7 @@
 {% block title %}All Items{% endblock %}
 {% block breadcumb %}
 {{ block.super }}
-<a class="breadcumb-item">All ({{ item.count }})</a>
+<a class="breadcumb-item">All ({{ motorcycle.count }})</a>
 <form class="breadcrumb-item pull-right" method="GET" action="">
     <input type="text" name="q" placeholder="Search Items" value="{{ query_string }}">
 </form>
@@ -12,25 +12,24 @@
 {% block content %}
   <div class="container theme-showcase" role="main">
       <div class="well">
-      {% if results %}
-      {% for item in results %}
+      {% for motorcycle in motorcycle %}
 
         <div class="list-group">
           <a href="/item/{{ item.pk }}" class="list-group-item">
                 <div class="media col-md-3">
                     <figure class="pull-left">
-                        <img class="all_img" src="{{ item.image.url }}" >
+                        <img class="all_img" src="{{ motorcycle.image.url }}" >
                     </figure>
                 </div>
                 <div class="col-md-6">
-                    <h4 class="list-group-item-heading">{{ item.name }}</h4>
-                    <span class="glyphicon glyphicon-map-marker" aria-hidden="true">{{ item.locations }}</span>
+                    <h4 class="list-group-item-heading">{{ motorcycle.name }}</h4>
+                    <span class="glyphicon glyphicon-map-marker" aria-hidden="true">{{ motorcycle.locations }}</span>
                     <br>
                     <br>
-                    <p class="list-group-item-text">{{ item.details }}</p>
+                    <p class="list-group-item-text">{{ motorcycle.details }}</p>
                 </div>
                 <div class="col-md-3 text-center">
-                    <h2 class="all_price">$  {{ item.price }}</h2>
+                    <h2 class="all_price">$  {{ motorcycle.price }}</h2>
                     <button type="button" class="btn btn-default btn-lg btn-block"> Vote Now! </button>
                     <div class="stars">
                         <span class="glyphicon glyphicon-star"></span>
@@ -39,14 +38,11 @@
                         <span class="glyphicon glyphicon-star"></span>
                         <span class="glyphicon glyphicon-star-empty"></span>
                     </div>
-                    <p> Posted by: <small> {{ item.owner }}</small></p>
+                    <p> Posted by: <small> {{ motorcycle.owner }}</small></p>
                 </div>
           </a>
           <br>
             {% endfor %}
-            {% else %}
-                <p>No Results</p>
-            {% endif %}
 
         </div>
       </div>

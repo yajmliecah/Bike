@@ -134,18 +134,13 @@ class SignUpForm(forms.ModelForm):
         return password2
 
     def clean(self):
+        username = self.cleaned_data.get('username', '')
         email = self.cleaned_data.get('email', '')
         password = self.cleaned_data.get('password', '')
+        
     
         self.user = None
-        users = BikeUser.objects.filter(Q(username=email) | Q(email=email))
-        for user in users:
-            if user.is_active and user.check_password(password):
-                self.user = user
-        if self.user is None:
-            raise forms.ValidationError('Invalid email or password')
-        return self.cleaned_data
-
+    
     def save(self, commit=True):
         # Save the provided password in hashed format
         user = super(SignUpForm, self).save(commit=False)

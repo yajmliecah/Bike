@@ -1,17 +1,20 @@
 from ..models import Item
 from django.shortcuts import render, get_object_or_404
+from django.views.generic import ListView, DetailView
 
 
-def cars(request):
-    cars = Item.objects.filter(category='CAR')
-    return render(request, 'bike/cars.html', {'cars': cars})
-
-
-def motors(request):
-    motors = Item.objects.filter(category='MOTORCYCLE')
-    return render(request, 'bike/motors.html', {'motors': motors})
+class CategoryList(ListView):
+    model = Item
+    context_object_name = 'category'
     
 
-def vehicles(request):
-    vehicles = Item.objects.filter(category='VEHICLE')
-    return render(request, 'bike/vehicles.html', {'vehicles': vehicles})
+class MotorcycleView(CategoryList):
+    
+    def get_context_data(self, **kwargs):
+        context = super(MotorcycleView, self).get_context_data(**kwargs)
+        
+        motorcycle = Item.objects.get_motorcycles()
+        
+        context['motorcycle'] = motorcycle
+        
+        return context

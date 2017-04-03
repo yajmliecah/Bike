@@ -3,9 +3,5 @@ from ..views import category
 
 
 urlpatterns = [
-    url(r'^cars/$', category.cars, name='cars'),
-    url(r'^motors/$', category.motors, name='motors'),
-    url(r'^vehicles/$', category.vehicles, name='vehicles'),
-    
-    
+    url(r'^motorcycles/$', category.MotorcycleView.as_view(), name='motorcycle'),
 ]
