@@ -17,7 +17,7 @@ class FeaturedView(ListView):
     
     def get_context_data(self, **kwargs):
         context = super(FeaturedView, self).get_context_data(**kwargs)
-        context['items'] = Item.objects.featured_items()
+        context['items'] = Item.featured_items()
         return context
 
 
@@ -25,6 +25,10 @@ class ItemListView(ListView):
     model = Item
     template_name = 'bike/item_list.html'
     paginate_by = 10
+    
+    def __init__(self, *args, **kwargs):
+        super(ItemListView, self).__init__(*args, **kwargs)
+        
     
     def get_context_data(self, **kwargs):
         context = super(ItemListView, self).get_context_data(**kwargs)
@@ -40,7 +44,7 @@ class ItemListView(ListView):
             items = paginator.page(paginator.num_pages)
             
         context['all_item'] = items
-        context['item'] = Item.objects.all()
+        context['item'] = Item.objects.order_by('-submitted_on')
         return context
 
 
@@ -72,9 +76,6 @@ class ItemDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(ItemDetailView, self).get_context_data(**kwargs)
         
-        context['car'] = Item.objects.get_car()
-        context['motorcycle'] = Item.objects.get_motorcycle()
-        context['vehicle'] = Item.objects.get_vehicle()
         return context
 
     

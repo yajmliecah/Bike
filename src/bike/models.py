@@ -1,6 +1,8 @@
 from __future__ import unicode_literals
+
 from django.db import models
 from django.conf import settings
+from django.db.models import Count, permalink
 from django.utils.translation import ugettext_lazy as _
 from geo.models import Country, City
 
@@ -16,6 +18,17 @@ class Brand(models.Model):
     def __unicode__(self):
         return self.name
 
+    @models.permalink
+    def get_absolute_url(self):
+        return ('brand', (), {'pk': self.pk})
+    
+    def get_breadcumbs(self):
+        return ({'name': self.name, 'url': self.get_absolute_url()},)
+    
+    @classmethod
+    def get_brand(cls):
+        return list(cls.objects.all())
+    
         
 class Edition(models.Model):
     name = models.CharField(max_length=50, primary_key=True, verbose_name=_("Name"))
@@ -27,45 +40,17 @@ class Edition(models.Model):
     
     def __unicode__(self):
         return self.name
-    
 
-class ItemQuerySet(models.query.QuerySet):
+    @models.permalink
+    def get_absolute_url(self):
+        return ('edition', (), {'pk': self.pk})
     
-    def get_motorcycle(self):
-        return self.filter(category='Motorcycle')
+    def get_breadcumbs(self):
+        return ({'name': self.name, 'url': self.get_absolute_url()},)
     
-    def get_car(self):
-        return self.filter(category='Car').order_by('-submitted_on')
-    
-    def get_vehicle(self):
-        return self.filter(category='Vehicle')
-    
-    def negotiable(self):
-        return self.filter(negotiable=True)
-    
-
-class ItemManager(models.Manager):
-    
-    def get_queryset(self):
-        return ItemQuerySet(self.model, using=self._db)
-    
-    def featured_items(self):
-        return self.all().order_by('-submitted_on')[:8]
-        
-    def get_motorcycle(self):
-        return self.get_queryset().get_motorcycle()
-    
-    def get_car(self):
-        return self.get_queryset().get_car()
-
-    def get_vehicle(self):
-        return self.get_queryset().get_vehicle()
-    
-    def negotiable(self):
-        return self.get_queryset().negotiable()
-    
-    def by(self, owner):
-        return self.filter(owner=owner)
+    @classmethod
+    def get_edition(cls):
+        return list(cls.objects.all())
     
     
 class Item(models.Model):
@@ -77,33 +62,6 @@ class Item(models.Model):
     CONDITION = (
         ('NEW', 'New'),
         ('OLD', 'Old')
-    )
-    SELLER_TYPE = (
-        ('DEALER', 'Dealer'),
-        ('PRIVATE', 'Private')
-    )
-    FUEL = (
-        ('DIESEL', 'Diesel'),
-        ('ELECTRO', 'Electro'),
-        ('GASOLINE', 'Gasoline')
-    )
-    TRANS = (
-        ('AUTOMATIC', 'Automatic'),
-        ('MANUAL', 'Manual')
-    )
-    LIFESTYLES = (
-        ('FAMILY', 'Family'),
-        ('LUXURY', 'Luxury'),
-        ('OFFROAD', 'Offroad'),
-        ('CLASSIC', 'Classic')
-    )
-    COLOR_FAMILY = (
-        ('WHITE', 'White'),
-        ('BLACK', 'Black'),
-    )
-    NEGO = (
-        ('Yes', 'Yes'),
-        ('No', 'No')
     )
     name = models.CharField(max_length=100, primary_key=True, verbose_name=_("Name"))
     slug = models.SlugField(max_length=50, null=True, blank=True, verbose_name=_("Name"))
@@ -118,8 +76,6 @@ class Item(models.Model):
     submitted_on = models.DateField(auto_now=True, editable=False, verbose_name=_("Submitted on"))
     locations = models.ForeignKey(City, verbose_name=_("Locations"))
     
-    objects = ItemManager()
-    
     class Meta:
         verbose_name = _("Item")
         ordering = ['-submitted_on']
@@ -132,3 +88,40 @@ class Item(models.Model):
     @models.permalink
     def get_absolute_url(self):
         return ('item_detail', (), {'pk': self.pk})
+    
+    def get_breadcumbs(self):
+        
+        breadcumbs = ({'name': self.name, 'url': self.get_absolute_url()},)
+        
+        if self.parent:
+            return self.parent.get_breadcumb() + breadcumbs
+        
+        return breadcumbs
+
+    @classmethod
+    def featured_items(cls):
+        return cls.objects.all()[:8]
+    
+    @classmethod
+    def get_items(cls):
+        return list(cls.objects.all())
+    
+    @classmethod
+    def get_car(cls):
+        return cls.objects.get(category='Car')
+    
+    @classmethod
+    def get_motorcycle(cls):
+        return cls.objects.get(category='Motorcycle')
+    
+    @classmethod
+    def get_vehicle(cls):
+        return cls.objects.get(category='Vehicle')
+    
+    @classmethod
+    def new(cls):
+        return cls.objects.filter(condition='NEW')
+    
+    @classmethod
+    def old(cls):
+        return cls.objects.filter(condition='OLD')
