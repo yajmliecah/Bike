@@ -22,7 +22,7 @@ class Brand(models.Model):
     def get_absolute_url(self):
         return ('brand', (), {'pk': self.pk})
     
-    def get_breadcumbs(self):
+    def get_breadcrumbs(self):
         return ({'name': self.name, 'url': self.get_absolute_url()},)
     
     @classmethod
@@ -45,7 +45,7 @@ class Edition(models.Model):
     def get_absolute_url(self):
         return ('edition', (), {'pk': self.pk})
     
-    def get_breadcumbs(self):
+    def get_breadcrumbs(self):
         return ({'name': self.name, 'url': self.get_absolute_url()},)
     
     @classmethod
@@ -89,14 +89,14 @@ class Item(models.Model):
     def get_absolute_url(self):
         return ('item_detail', (), {'pk': self.pk})
     
-    def get_breadcumbs(self):
+    def get_breadcrumbs(self):
         
-        breadcumbs = ({'name': self.name, 'url': self.get_absolute_url()},)
+        breadcrumbs = ({'name': self.name, 'url': self.get_absolute_url()},)
         
         if self.parent:
-            return self.parent.get_breadcumb() + breadcumbs
+            return self.parent.get_breadcrumb() + breadcrumbs
         
-        return breadcumbs
+        return breadcrumbs
 
     @classmethod
     def featured_items(cls):
@@ -108,15 +108,15 @@ class Item(models.Model):
     
     @classmethod
     def get_car(cls):
-        return cls.objects.get(category='Car')
+        return cls.objects.filter(category='Car')
     
     @classmethod
     def get_motorcycle(cls):
-        return cls.objects.get(category='Motorcycle')
+        return cls.objects.filter(category='Motorcycle')
     
     @classmethod
     def get_vehicle(cls):
-        return cls.objects.get(category='Vehicle')
+        return cls.objects.filter(category='Vehicle')
     
     @classmethod
     def new(cls):

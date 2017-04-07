@@ -1,4 +1,4 @@
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, View
 from django.db.models import Q
 from ..models import Brand, Edition, Item
 from ..forms import ItemForm
@@ -10,7 +10,32 @@ from django.core.paginator import PageNotAnInteger
 from ..search import *
         
 
-class FeaturedView(ListView):
+class BaseView(ListView):
+    
+    def __init__(self, *args, **kwargs):
+        super(BaseView, self).__init__(*args, **kwargs)
+        
+        self.brand = Brand.get_brand()
+        self.edition = Edition.get_edition()
+        self.item = Item.get_items()
+        
+    def get_context_data(self, **kwargs):
+        context = super(BaseView, self).get_context_data(**kwargs)
+        
+        breadcrumbs = ({'name': 'Home', 'url': '/'},)
+        
+        if 'breadcrumbs' in context:
+            breadcrumbs += context['breadcrumbs']
+        
+        context['breadcrumbs'] = breadcrumbs
+        context['brand'] = self.brand
+        context['edition'] = self.edition
+        context['item'] = self.item
+        
+        return context
+
+
+class FeaturedView(BaseView):
     model = Item
     context_object_name = 'featured_items'
     template_name = 'bike/index.html'
@@ -21,7 +46,7 @@ class FeaturedView(ListView):
         return context
 
 
-class ItemListView(ListView):
+class ItemListView(BaseView):
     model = Item
     template_name = 'bike/item_list.html'
     paginate_by = 10
@@ -32,7 +57,7 @@ class ItemListView(ListView):
     
     def get_context_data(self, **kwargs):
         context = super(ItemListView, self).get_context_data(**kwargs)
-        all_item = Item.objects.all()
+        all_item = Item.get_items()
         paginator = Paginator(all_item, self.paginate_by)
         page = self.request.GET.get('page')
         
