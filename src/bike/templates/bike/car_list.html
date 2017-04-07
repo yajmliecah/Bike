@@ -3,7 +3,7 @@
 {% block title %}All Items{% endblock %}
 {% block breadcumb %}
 {{ block.super }}
-<a class="breadcumb-item">All ({{ car.count }})</a>
+<a class="breadcumb-item">Cars </a>({{ car.count }})
 <form class="breadcrumb-item pull-right" method="GET" action="">
     <input type="text" name="q" placeholder="Search Items" value="{{ query_string }}">
 </form>
@@ -15,7 +15,7 @@
       {% for car in car %}
 
         <div class="list-group">
-          <a href="/item/{{ item.pk }}" class="list-group-item">
+          <a href="/item/{{ car.pk }}" class="list-group-item">
                 <div class="media col-md-3">
                     <figure class="pull-left">
                         <img class="all_img" src="{{ car.image.url }}" >

@@ -1,7 +1,53 @@
 {% extends 'base.html' %}
 
+{% block breadcumb %}
+{{ block.super }}
+<a class="breadcumb-item">{{ all_item.name }} </a>({{ results.count }})
+<form class="breadcrumb-item pull-right" method="GET" action="/search/">
+    <input type="text" name="q" placeholder="Search Items" value="{{ query_string }}">
+</form>
+{% endblock %}
+
 {% block content %}
+ <div class="container theme-showcase" role="main">
+      <div class="well">
+      {% if results %}
+      {% for results in results %}
 
+        <div class="list-group">
+          <a href="/item/{{ results.pk }}" class="list-group-item">
+                <div class="media col-md-3">
+                    <figure class="pull-left">
+                        <img class="all_img" src="{{ results.image.url }}" >
+                    </figure>
+                </div>
+                <div class="col-md-6">
+                    <h4 class="list-group-item-heading">{{ results.name }}</h4>
+                    <span class="glyphicon glyphicon-map-marker" aria-hidden="true">{{ results.locations }}</span>
+                    <br>
+                    <br>
+                    <p class="list-group-item-text">{{ results.details }}</p>
+                </div>
+                <div class="col-md-3 text-center">
+                    <h2 class="all_price">$  {{ results.price }}</h2>
+                    <button type="button" class="btn btn-default btn-lg btn-block">Add to Cart</button>
+                    <div class="stars">
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star-empty"></span>
+                    </div>
+                    <p> Posted by: <small> {{ results.owner }}</small></p>
+                </div>
+          </a>
+          <br>
+            {% endfor %}
+            {% else %}
+                <p>No Results</p>
+            {% endif %}
 
-
-{% block content %}
+        </div>
+      </div>
+  </div>
+{% endblock %}

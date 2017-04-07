@@ -1,12 +1,9 @@
-import operator
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.db.models import Q
 from ..models import Brand, Edition, Item
 from ..forms import ItemForm
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse, reverse_lazy
-from django.shortcuts import render, render_to_response, get_object_or_404, redirect
 from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
@@ -15,26 +12,45 @@ from ..search import *
 
 class FeaturedView(ListView):
     model = Item
-    context_object_name = 'items'
+    context_object_name = 'featured_items'
     template_name = 'bike/index.html'
     
     def get_context_data(self, **kwargs):
         context = super(FeaturedView, self).get_context_data(**kwargs)
-        context['items'] = Item.objects.all()[:8]
+        context['items'] = Item.objects.featured_items()
         return context
 
 
 class ItemListView(ListView):
     model = Item
-    context_object_name = 'item'
+    template_name = 'bike/item_list.html'
     paginate_by = 10
     
     def get_context_data(self, **kwargs):
         context = super(ItemListView, self).get_context_data(**kwargs)
-        results = Item.objects.all()
-        paginator = Paginator(results, self.paginate_by)
-        
+        all_item = Item.objects.all()
+        paginator = Paginator(all_item, self.paginate_by)
         page = self.request.GET.get('page')
+        
+        try:
+            items = paginator.page(page)
+        except PageNotAnInteger:
+            items = paginator.page(1)
+        except EmptyPage:
+            items = paginator.page(paginator.num_pages)
+            
+        context['all_item'] = items
+        context['item'] = Item.objects.all()
+        return context
+
+
+class ItemSearchListView(ItemListView):
+    template_name = 'bike/search.html'
+    paginate_by = 10
+    
+    def get_context_data(self, **kwargs):
+        context = super(ItemSearchListView, self).get_context_data(**kwargs)
+        results = Item.objects.all()
         
         query = self.request.GET.get('q')
         
@@ -43,44 +59,10 @@ class ItemListView(ListView):
                 Q(name__icontains=query) |
                 Q(category__icontains=query)
             ).distinct()
-        try:
-            items = paginator.page(page)
-        except PageNotAnInteger:
-            items = paginator.page(1)
-        except EmptyPage:
-            items = paginator.page(paginator.num_pages)
-
-        context = {
-            'items': items,
-            'results': results
-        }
-        return context
-    
-
-class CarView(ItemListView):
-    template_name = 'bike/car_list.html'
-    context_object_name = 'cars'
-    
-    def get_context_data(self, **kwargs):
-        context = super(CarView, self).get_context_data(**kwargs)
-
-        car = Item.objects.get_car()
         
-        context['car'] = car
+        context['results'] = results
         return context
 
-
-class MotorcycleView(ItemListView):
-    template_name = 'bike/motorcycle_list.html'
-    context_object_name = 'motorcycle'
-    
-    def get_context_data(self, **kwargs):
-        context = super(MotorcycleView, self).get_context_data(**kwargs)
-        motorcycle = Item.objects.get_motorcycle()
-        
-        context['motorcycle'] = motorcycle
-        
-        return context
         
 class ItemDetailView(DetailView):
     model = Item
@@ -89,6 +71,10 @@ class ItemDetailView(DetailView):
     
     def get_context_data(self, **kwargs):
         context = super(ItemDetailView, self).get_context_data(**kwargs)
+        
+        context['car'] = Item.objects.get_car()
+        context['motorcycle'] = Item.objects.get_motorcycle()
+        context['vehicle'] = Item.objects.get_vehicle()
         return context
 
     
@@ -123,6 +109,3 @@ class ItemUpdateView(UpdateView):
 class ItemDeleteView(DeleteView):
     model = Item
     success_url = reverse_lazy('items:item_list')
-
-        
-

@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 
-{% block title %}All Items{% endblock %}
+{% block title %}All Items({{ item.count }}){% endblock %}
 {% block breadcumb %}
 {{ block.super }}
-<a class="breadcumb-item">All ({{ item.count }})</a>
-<form class="breadcrumb-item pull-right" method="GET" action="">
+<a class="breadcumb-item">All </a>({{ item.count }})
+<form class="breadcrumb-item pull-right" method="GET" action="/search/">
     <input type="text" name="q" placeholder="Search Items" value="{{ query_string }}">
 </form>
 {% endblock %}
@@ -12,26 +12,26 @@
 {% block content %}
   <div class="container theme-showcase" role="main">
       <div class="well">
-      {% if results %}
-      {% for item in results %}
+      {% if all_item %}
+      {% for all_item in all_item %}
 
         <div class="list-group">
-          <a href="/item/{{ item.pk }}" class="list-group-item">
+          <a href="/item/{{ all_item.pk }}" class="list-group-item">
                 <div class="media col-md-3">
                     <figure class="pull-left">
-                        <img class="all_img" src="{{ item.image.url }}" >
+                        <img class="all_img" src="{{ all_item.image.url }}" >
                     </figure>
                 </div>
                 <div class="col-md-6">
-                    <h4 class="list-group-item-heading">{{ item.name }}</h4>
-                    <span class="glyphicon glyphicon-map-marker" aria-hidden="true">{{ item.locations }}</span>
+                    <h4 class="list-group-item-heading">{{ all_item.name }}</h4>
+                    <span class="glyphicon glyphicon-map-marker" aria-hidden="true">{{ all_item.locations }}</span>
                     <br>
                     <br>
-                    <p class="list-group-item-text">{{ item.details }}</p>
+                    <p class="list-group-item-text">{{ all_item.details }}</p>
                 </div>
                 <div class="col-md-3 text-center">
-                    <h2 class="all_price">$  {{ item.price }}</h2>
-                    <button type="button" class="btn btn-default btn-lg btn-block"> Vote Now! </button>
+                    <h2 class="all_price">$  {{ all_item.price }}</h2>
+                    <button type="button" class="btn btn-defaul t btn-lg btn-block">Add to Cart</button>
                     <div class="stars">
                         <span class="glyphicon glyphicon-star"></span>
                         <span class="glyphicon glyphicon-star"></span>
@@ -39,7 +39,7 @@
                         <span class="glyphicon glyphicon-star"></span>
                         <span class="glyphicon glyphicon-star-empty"></span>
                     </div>
-                    <p> Posted by: <small> {{ item.owner }}</small></p>
+                    <p> Posted by: <small> {{ all_item.owner }}</small></p>
                 </div>
           </a>
           <br>
@@ -51,6 +51,7 @@
         </div>
       </div>
   </div>
+
 
 <div class="container" align="center">
     {% if is_paginated %}
@@ -75,7 +76,7 @@
         </li>
       {% endfor %}
 
-      {% if items.has_next %}
+      {% if page_obj.has_next %}
         <li>
           <a href="?page={{ page_obj.next_page_number }}">
             <span>Next</span>
@@ -89,6 +90,6 @@
         </li>
       {% endif %}
     </ul>
+    {% endif %}
   </div>
-{% endif %}
 {% endblock %}

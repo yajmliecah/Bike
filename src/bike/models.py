@@ -1,12 +1,7 @@
 from __future__ import unicode_literals
-
 from django.db import models
 from django.conf import settings
-from django.db.models import Count, permalink
 from django.utils.translation import ugettext_lazy as _
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-
 from geo.models import Country, City
 
     
@@ -40,7 +35,7 @@ class ItemQuerySet(models.query.QuerySet):
         return self.filter(category='Motorcycle')
     
     def get_car(self):
-        return self.filter(category='Car')
+        return self.filter(category='Car').order_by('-submitted_on')
     
     def get_vehicle(self):
         return self.filter(category='Vehicle')
@@ -55,7 +50,7 @@ class ItemManager(models.Manager):
         return ItemQuerySet(self.model, using=self._db)
     
     def featured_items(self):
-        return self.all().order_by('-submitted_on')
+        return self.all().order_by('-submitted_on')[:8]
         
     def get_motorcycle(self):
         return self.get_queryset().get_motorcycle()
@@ -137,5 +132,3 @@ class Item(models.Model):
     @models.permalink
     def get_absolute_url(self):
         return ('item_detail', (), {'pk': self.pk})
-
-   
