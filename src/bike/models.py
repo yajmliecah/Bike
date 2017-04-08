@@ -17,7 +17,8 @@ class Brand(models.Model):
     
     def __unicode__(self):
         return self.name
-
+    
+    
     @models.permalink
     def get_absolute_url(self):
         return ('brand', (), {'pk': self.pk})
@@ -28,7 +29,7 @@ class Brand(models.Model):
     @classmethod
     def get_brand(cls):
         return list(cls.objects.all())
-    
+        
         
 class Edition(models.Model):
     name = models.CharField(max_length=50, primary_key=True, verbose_name=_("Name"))

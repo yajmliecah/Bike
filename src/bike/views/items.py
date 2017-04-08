@@ -7,6 +7,8 @@ from django.core.urlresolvers import reverse, reverse_lazy
 from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from ..search import *
         
 
@@ -92,7 +94,7 @@ class ItemSearchListView(ItemListView):
         context['results'] = results
         return context
 
-        
+
 class ItemDetailView(DetailView):
     model = Item
     template_name = 'bike/item_detail.html'
@@ -103,10 +105,14 @@ class ItemDetailView(DetailView):
         
         return context
 
-    
+
 class ItemCreateView(CreateView):
     model = Item
     form_class = ItemForm
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(ItemCreateView, self).dispatch(*args, **kwargs)
     
     def get_initial(self):
         initial = super(ItemCreateView, self).get_initial()

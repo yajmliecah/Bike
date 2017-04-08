@@ -2,7 +2,7 @@
 
 {% block title %}{{ item.name }}{% endblock %}
 {% block breadcumb %}
-{{ block.super }}<a href="/category/"> {{ item.category }}</a> > <a href="">{{ item.edition }}</a> > <a href="">{{ item.name }}</a>
+{{ block.super }}<a href="/category/"> {{ item.category }}</a> > <a href="">{{ item.edition }}</a> > {{ item.name }}
 {% endblock %}
 
 

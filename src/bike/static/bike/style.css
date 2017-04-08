@@ -10,3 +10,6 @@ content{
     overflow: auto;
     width: 80%;
 }
+.navbar {
+  margin-bottom: 20px;
+}

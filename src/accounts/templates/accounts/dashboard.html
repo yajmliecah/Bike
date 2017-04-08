@@ -4,16 +4,44 @@
     {{ block.super }} My Account
 {% endblock %}
 
+{% include 'includes/dashboard_nav.html' %}
+
 {% block content %}
     <div class="container theme-showcase">
-        <p>Welcome {{ user.username }}</p>
+        {% include 'accounts/includes/dashboard_nav.html' %}
         {% if items %}
-            {% for items in items %}
-                <p>{{ items.name }}</p>
-            {% endfor %}
+        <div class="container-fluid">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Category</th>
+                        <th>Brand</th>
+                        <th>Edition</th>
+                        <th>Location</th>
+                        <th>Submitted on</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for item in items %}
+                    <tr>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.price }}</td>
+                        <td>{{ item.category}}</td>
+                        <td>{{ item.brand }}</td>
+                        <td>{{ item.edition }}</td>
+                        <td>{{ item.locations }}</td>
+                        <td>{{ item.submitted_on }}</td>
+                        <td><a href="/edit/{{ item.pk }}">Edit</a> </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+        </div>
         {% else %}
             <p>No Item Found</p>
         {% endif %}
-        <p><a href="/accounts/dashboard/{{ bike_user.pk }}">View Profile</a></p>
     </div>
 {% endblock %}
