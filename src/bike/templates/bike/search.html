@@ -9,8 +9,15 @@
 {% endblock %}
 
 {% block content %}
+
  <div class="container theme-showcase" role="main">
-      <div class="well">
+     <div class="col-xs-7 col-sm-3 col-md-2">
+     {% block sidebar %}
+        {% include "bike/include/sidebar.html" %}
+     {% endblock %}
+     </div>
+    <div class="col-xs-7 col-sm-3 col-md-10">
+      {% block content_list %}
       {% if results %}
       {% for results in results %}
 
@@ -48,6 +55,12 @@
             {% endif %}
 
         </div>
-      </div>
-  </div>
+        {% endblock %}
+ </div>
+ </div>
 {% endblock %}
+<div class="container" align="center">
+    {% block pagination %}
+        {% include "bike/include/pagination.html" %}
+    {% endblock %}
+</div>

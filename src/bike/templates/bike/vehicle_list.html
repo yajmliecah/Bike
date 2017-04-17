@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 
-{% block title %}Car{% endblock %}
+{% block title %}Vehicle{% endblock %}
 
-{% block breadcumb %}{{ block.super }}Car ({{ car.count }})
+{% block breadcumb %}{{ block.super }}vehicle ({{ vehicle.count }})
 {% include "bike/include/searchbar.html" %}
 {% endblock %}
 
@@ -14,25 +14,26 @@
             {% include "bike/include/sidebar.html" %}
 {% endblock %}
         </div>
-        {% block content_list  %}
     <div class="col-xs-7 col-sm-3 col-md-10">
-        {% for car in car %}
+        {% block content_list  %}
+            {% for vehicle in vehicle %}
+
         <div class="list-group">
-          <a href="/item/{{ car.pk }}" class="list-group-item">
+          <a href="/item/{{ vehicle.pk }}" class="list-group-item">
                 <div class="media col-md-3">
                     <figure class="pull-left">
-                        <img class="all_img" src="{{ car.image.url }}" >
+                        <img class="all_img" src="{{ vehicle.image.url }}" >
                     </figure>
                 </div>
                 <div class="col-md-6">
-                    <h4 class="list-group-item-heading">{{ car.name }}</h4>
-                    <span class="glyphicon glyphicon-map-marker" aria-hidden="true">{{ car.locations }}</span>
+                    <h4 class="list-group-item-heading">{{ vehicle.name }}</h4>
+                    <span class="glyphicon glyphicon-map-marker" aria-hidden="true">{{ vehicle.locations }}</span>
                     <br>
                     <br>
-                    <p class="list-group-item-text">{{ car.details }}</p>
+                    <p class="list-group-item-text">{{ vehicle.details }}</p>
                 </div>
                 <div class="col-md-3 text-center">
-                    <h2 class="all_price">$  {{ car.price }}</h2>
+                    <h2 class="all_price">$  {{ vehicle.price }}</h2>
                     <button type="button" class="btn btn-defaul t btn-lg btn-block">Add to Cart</button>
                     <div class="stars">
                         <span class="glyphicon glyphicon-star"></span>
@@ -41,18 +42,16 @@
                         <span class="glyphicon glyphicon-star"></span>
                         <span class="glyphicon glyphicon-star-empty"></span>
                     </div>
-                    <p> Posted by: <small> {{ car.owner }}</small></p>
+                    <p> Posted by: <small> {{ vehicle.owner }}</small></p>
                 </div>
           </a>
-        </div>
           <br>
             {% endfor %}
         {% endblock %}
-        </div>
+    </div>
+</div>
     </div>
 {% endblock %}
-
-
 <div class="container" align="center">
     {% block pagination %}
         {% include "bike/include/pagination.html" %}

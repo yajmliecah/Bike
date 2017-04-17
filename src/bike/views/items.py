@@ -37,17 +37,6 @@ class BaseView(ListView):
         return context
 
 
-class FeaturedView(BaseView):
-    model = Item
-    context_object_name = 'featured_items'
-    template_name = 'bike/index.html'
-    
-    def get_context_data(self, **kwargs):
-        context = super(FeaturedView, self).get_context_data(**kwargs)
-        context['items'] = Item.featured_items()
-        return context
-
-
 class ItemListView(BaseView):
     model = Item
     template_name = 'bike/item_list.html'
@@ -102,7 +91,6 @@ class ItemDetailView(DetailView):
     
     def get_context_data(self, **kwargs):
         context = super(ItemDetailView, self).get_context_data(**kwargs)
-        
         return context
 
 

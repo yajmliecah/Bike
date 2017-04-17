@@ -1,21 +1,24 @@
 {% extends 'base.html' %}
-
-{% block title %}All Items{% endblock %}
+{% block title %}Motorcycle({{ motorcycle.count }}){% endblock %}
 {% block breadcumb %}
 {{ block.super }}
-<a class="breadcumb-item">All ({{ motorcycle.count }})</a>
-<form class="breadcrumb-item pull-right" method="GET" action="">
-    <input type="text" name="q" placeholder="Search Items" value="{{ query_string }}">
-</form>
+<a class="breadcumb-item">Motorcycle</a>({{ motorcycle.count }})
+{% include "bike/include/searchbar.html" %}
 {% endblock %}
 
 {% block content %}
-  <div class="container theme-showcase" role="main">
-      <div class="well">
+          <div class="col-xs-7 col-sm-3 col-md-2">
+              {% block sidebar %}
+                {% include "bike/include/sidebar.html" %}
+              {% endblock %}
+          </div>
+
+   <div class="col-xs-7 col-sm-3 col-md-10">
+   {% block content_list %}
       {% for motorcycle in motorcycle %}
 
         <div class="list-group">
-          <a href="/item/{{ item.pk }}" class="list-group-item">
+          <a href="/item/{{ motorcycle.pk }}" class="list-group-item">
                 <div class="media col-md-3">
                     <figure class="pull-left">
                         <img class="all_img" src="{{ motorcycle.image.url }}" >
@@ -30,7 +33,7 @@
                 </div>
                 <div class="col-md-3 text-center">
                     <h2 class="all_price">$  {{ motorcycle.price }}</h2>
-                    <button type="button" class="btn btn-default btn-lg btn-block"> Vote Now! </button>
+                    <button type="button" class="btn btn-defaul t btn-lg btn-block">Add to Cart</button>
                     <div class="stars">
                         <span class="glyphicon glyphicon-star"></span>
                         <span class="glyphicon glyphicon-star"></span>
@@ -43,48 +46,12 @@
           </a>
           <br>
             {% endfor %}
-
         </div>
+      {% endblock %}
       </div>
-  </div>
-
-<div class="container" align="center">
-    {% if is_paginated %}
-    <ul class="pagination">
-      {% if page_obj.has_previous %}
-        <li>
-          <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
-            <span>Previous</span>
-          </a>
-        </li>
-      {% else %}
-        <li class="disabled">
-          <a href="#">
-            <span>Previous</span>
-          </a>
-        </li>
-      {% endif %}
-
-      {% for page in paginator.page_range %}
-        <li {% if page == page_obj.number %}class="active"{% endif %}>
-          <a href="?page={{ page }}">{{ page }}</a>
-        </li>
-      {% endfor %}
-
-      {% if items.has_next %}
-        <li>
-          <a href="?page={{ page_obj.next_page_number }}">
-            <span>Next</span>
-          </a>
-        </li>
-      {% else %}
-        <li {% if not page_obj.has_next %}class="disabled"{% endif %}>
-          <a href="#">
-            <span>Next</span>
-          </a>
-        </li>
-      {% endif %}
-    </ul>
-  </div>
-{% endif %}
 {% endblock %}
+<div class="container" align="center">
+    {% block pagination %}
+        {% include "bike/include/pagination.html" %}
+    {% endblock %}
+</div>

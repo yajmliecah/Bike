@@ -1,17 +1,20 @@
 {% extends 'base.html' %}
-
 {% block title %}All Items({{ item.count }}){% endblock %}
 {% block breadcumb %}
 {{ block.super }}
 <a class="breadcumb-item">All </a>({{ item.count }})
-<form class="breadcrumb-item pull-right" method="GET" action="/search/">
-    <input type="text" name="q" placeholder="Search Items" value="{{ query_string }}">
-</form>
+{% include "bike/include/searchbar.html" %}
 {% endblock %}
 
 {% block content %}
-  <div class="container theme-showcase" role="main">
-      <div class="well">
+          <div class="col-xs-7 col-sm-3 col-md-2">
+              {% block sidebar %}
+                {% include "bike/include/sidebar.html" %}
+              {% endblock %}
+          </div>
+
+   <div class="col-xs-7 col-sm-3 col-md-10">
+   {% block content_list %}
       {% if all_item %}
       {% for all_item in all_item %}
 
@@ -49,47 +52,11 @@
             {% endif %}
 
         </div>
-      </div>
-  </div>
-
-
-<div class="container" align="center">
-    {% if is_paginated %}
-    <ul class="pagination">
-      {% if page_obj.has_previous %}
-        <li>
-          <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
-            <span>Previous</span>
-          </a>
-        </li>
-      {% else %}
-        <li class="disabled">
-          <a href="#">
-            <span>Previous</span>
-          </a>
-        </li>
-      {% endif %}
-
-      {% for page in paginator.page_range %}
-        <li {% if page == page_obj.number %}class="active"{% endif %}>
-          <a href="?page={{ page }}">{{ page }}</a>
-        </li>
-      {% endfor %}
-
-      {% if page_obj.has_next %}
-        <li>
-          <a href="?page={{ page_obj.next_page_number }}">
-            <span>Next</span>
-          </a>
-        </li>
-      {% else %}
-        <li {% if not page_obj.has_next %}class="disabled"{% endif %}>
-          <a href="#">
-            <span>Next</span>
-          </a>
-        </li>
-      {% endif %}
-    </ul>
-    {% endif %}
-  </div>
+      {% endblock %}
 {% endblock %}
+   </div>
+<div class="container" align="center">
+    {% block pagination %}
+        {% include "bike/include/pagination.html" %}
+    {% endblock %}
+</div>
