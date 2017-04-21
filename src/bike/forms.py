@@ -7,5 +7,5 @@ class ItemForm(forms.ModelForm):
     class Meta:
         model = Item
         fields = ('name', 'image', 'category', 'brand', 'edition', 'price',
-              'condition', 'details', 'locations')
+              'condition', 'details', 'locations', 'active')
         exclude = ('slug', 'owner')

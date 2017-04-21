@@ -1,10 +1,8 @@
 {% extends 'base.html' %}
 
-{% block title %}{{ items.name }}{% endblock %}
-{% block breadcrumb %}
-{{ block.super }}<a href="/category/{{ category.pk }}"> {{ items.category }}</a> >
-<a href="/brand/">{{ items.brand }}</a> >
-<a href="">{{ items.edition }}</a> > {{ items.name }}
+{% block title %}{{ vehicle.category }}{{ vehicle.name }}{% endblock %}
+{% block breadcumb %}
+{{ block.super }}<a href=""> {{ vehicle.category }}</a> > <a href="">{{ vehicle.edition }}</a> > {{ vehicle.name }}
 {% endblock %}
 
 
@@ -16,22 +14,22 @@
 					<div class="preview col-md-6">
 
 						<div class="preview-pic tab-content">
-						  <div class="tab-pane active" id="pic-1"><img src="{{ items.image.url }}"></div>
+						  <div class="tab-pane active" id="pic-1"><img src="{{ vehicle.image.url }}"></div>
 						  <div class="tab-pane" id="pic-2"><img src="http://placekitten.com/400/252" /></div>
 						  <div class="tab-pane" id="pic-3"><img src="http://placekitten.com/400/252" /></div>
 						  <div class="tab-pane" id="pic-4"><img src="http://placekitten.com/400/252" /></div>
 						  <div class="tab-pane" id="pic-5"><img src="http://placekitten.com/400/252" /></div>
 						</div>
 						<ul class="preview-thumbnail nav nav-tabs">
-						  <li class="active"><a data-target="#pic-1" data-toggle="tab"><img src="{{ items.image.url }}"></a></li>
+						  <li class="active"><a data-target="#pic-1" data-toggle="tab"><img src="{{ car.image.url }}"></a></li>
 
 						</ul>
 
 					</div>
 					<div class="details col-md-6">
-						<h3 class="product-title">{{ items.name }}</h3>
-						<p class="product-description">{{ items.details }}</p>
-						<h4 class="price">$   <span>{{ items.price }}</span></h4>
+						<h3 class="product-title">{{ vehicle.name }}</h3>
+						<p class="product-description">{{ vehicle.details }}</p>
+						<h4 class="price">$   <span>{{ vehicle.price }}</span></h4>
 						<p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>
 
 						<h5 class="sizes">sizes:

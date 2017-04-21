@@ -1,6 +1,6 @@
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, View
 from django.db.models import Q
-from ..models import Brand, Edition, Item
+from ..models import Category, Brand, Edition, Item
 from ..forms import ItemForm
 from django.contrib import messages
 from django.core.urlresolvers import reverse, reverse_lazy
@@ -9,14 +9,14 @@ from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from ..search import *
-        
+
 
 class BaseView(ListView):
     
     def __init__(self, *args, **kwargs):
         super(BaseView, self).__init__(*args, **kwargs)
         
+        self.category = Category.get_category()
         self.brand = Brand.get_brand()
         self.edition = Edition.get_edition()
         self.item = Item.get_items()
@@ -30,26 +30,23 @@ class BaseView(ListView):
             breadcrumbs += context['breadcrumbs']
         
         context['breadcrumbs'] = breadcrumbs
+        context['category'] = self.category
         context['brand'] = self.brand
         context['edition'] = self.edition
         context['item'] = self.item
         
         return context
-
-
+    
+        
 class ItemListView(BaseView):
     model = Item
     template_name = 'bike/item_list.html'
     paginate_by = 10
     
-    def __init__(self, *args, **kwargs):
-        super(ItemListView, self).__init__(*args, **kwargs)
-        
-    
     def get_context_data(self, **kwargs):
         context = super(ItemListView, self).get_context_data(**kwargs)
-        all_item = Item.get_items()
-        paginator = Paginator(all_item, self.paginate_by)
+        items = Item.get_items()
+        paginator = Paginator(items, self.paginate_by)
         page = self.request.GET.get('page')
         
         try:
@@ -58,12 +55,13 @@ class ItemListView(BaseView):
             items = paginator.page(1)
         except EmptyPage:
             items = paginator.page(paginator.num_pages)
-            
-        context['all_item'] = items
+        
+        context['items'] = items
         context['item'] = Item.objects.order_by('-submitted_on')
+        
         return context
 
-
+   
 class ItemSearchListView(ItemListView):
     template_name = 'bike/search.html'
     paginate_by = 10
@@ -77,23 +75,27 @@ class ItemSearchListView(ItemListView):
         if query is not None:
             results = Item.objects.filter(
                 Q(name__icontains=query) |
-                Q(category__icontains=query)
+                Q(category__name__icontains=query) |
+                Q(brand__name__icontains=query) |
+                Q(edition__name__icontains=query) |
+                Q(locations__name__icontains=query)
             ).distinct()
         
         context['results'] = results
+        context['query'] = query
         return context
 
 
 class ItemDetailView(DetailView):
     model = Item
     template_name = 'bike/item_detail.html'
-    context_object_name = 'item'
+    context_object_name = 'items'
     
     def get_context_data(self, **kwargs):
         context = super(ItemDetailView, self).get_context_data(**kwargs)
         return context
-
-
+    
+    
 class ItemCreateView(CreateView):
     model = Item
     form_class = ItemForm

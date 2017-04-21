@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}{{ Brand }}{% endblock %}
+{% block breadcrumb %}
+{{ block.super }}
+<a class="breadcumb-item">{{ brand.name }}</a>({{ brand.count }})
+{% endblock %}
+
+{% block content %}
+        <div class="col-xs-7 col-sm-3 col-md-2">
+              {% block sidebar %}
+                {% include 'bike/include/sidebar.html' %}
+              {% endblock %}
+        </div>
+
+        <div class="col-xs-7 col-sm-3 col-md-10">
+       {% block content_list %}
+            {% if items %}
+               {% include 'bike/include/all_items.html' %}
+            {% else %}
+
+            {% endif %}
+
+       {% endblock %}
+        </div>
+{% endblock %}

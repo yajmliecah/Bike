@@ -68,8 +68,9 @@
     <div class="container">
 
         <nav class="breadcrumb">
-            {% block breadcumb %}
+            {% block breadcrumb %}
             <a class="breadcrumb-item" href="/">Home</a> >
+            {% include "bike/include/searchbar.html" %}
             {% endblock %}
         </nav>
 
@@ -81,6 +82,7 @@
                 <div class="row">
                      <div class="col-xs-7 col-sm-3 col-md-2">
                          {% block sidebar %}
+                            {% include 'bike/include/sidebar.html' %}
                          {% endblock %}
                      </div>
 
@@ -94,7 +96,7 @@
 
             <div class="container" align="center">
                 {% block pagination %}
-
+                    {% include 'bike/include/pagination.html' %}
                 {% endblock %}
             </div>
 

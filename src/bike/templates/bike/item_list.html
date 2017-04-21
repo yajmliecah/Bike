@@ -1,9 +1,8 @@
 {% extends 'base.html' %}
-{% block title %}All Items({{ item.count }}){% endblock %}
-{% block breadcumb %}
+{% block title %}All Items({{ items.count }}){% endblock %}
+{% block breadcrumb %}
 {{ block.super }}
 <a class="breadcumb-item">All </a>({{ item.count }})
-{% include "bike/include/searchbar.html" %}
 {% endblock %}
 
 {% block content %}
@@ -14,49 +13,12 @@
           </div>
 
    <div class="col-xs-7 col-sm-3 col-md-10">
-   {% block content_list %}
-      {% if all_item %}
-      {% for all_item in all_item %}
-
-        <div class="list-group">
-          <a href="/item/{{ all_item.pk }}" class="list-group-item">
-                <div class="media col-md-3">
-                    <figure class="pull-left">
-                        <img class="all_img" src="{{ all_item.image.url }}" >
-                    </figure>
-                </div>
-                <div class="col-md-6">
-                    <h4 class="list-group-item-heading">{{ all_item.name }}</h4>
-                    <span class="glyphicon glyphicon-map-marker" aria-hidden="true">{{ all_item.locations }}</span>
-                    <br>
-                    <br>
-                    <p class="list-group-item-text">{{ all_item.details }}</p>
-                </div>
-                <div class="col-md-3 text-center">
-                    <h2 class="all_price">$  {{ all_item.price }}</h2>
-                    <button type="button" class="btn btn-defaul t btn-lg btn-block">Add to Cart</button>
-                    <div class="stars">
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star-empty"></span>
-                    </div>
-                    <p> Posted by: <small> {{ all_item.owner }}</small></p>
-                </div>
-          </a>
-          <br>
-            {% endfor %}
-            {% else %}
-                <p>No Results</p>
-            {% endif %}
-
-        </div>
-      {% endblock %}
-{% endblock %}
+       {% block content_list %}
+            {% include 'bike/include/all_items.html' %}
+       {% endblock %}
    </div>
-<div class="container" align="center">
-    {% block pagination %}
-        {% include "bike/include/pagination.html" %}
-    {% endblock %}
-</div>
+{% endblock %}
+
+{% block pagination %}
+    {% include 'bike/include/pagination.html' %}
+{% endblock %}

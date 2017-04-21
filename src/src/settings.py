@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'bike',
     'geo',
-]
+    #third party apps
+ ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

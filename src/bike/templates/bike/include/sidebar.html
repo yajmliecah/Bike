@@ -5,15 +5,18 @@
       <li>
       <a href="#demo1" data-toggle="collapse">Category</a>
           <ul class="collapse" id="demo1">
-              <li><a href="/category/car/">Car</a></li>
-              <li><a href="/category/motorcycle/">Motorcycle</a></li>
-              <li><a href="/category/vehicle/">Vehicle</a></li>
+              {% for category in category %}
+              <li><a href="/category/{{ category.slug }}">{{ category.name }}</a></li>
+              {% endfor %}
           </ul>
       </li>
 
       <li>
           <a href="#demo2" data-toggle="collapse">Brand </a>
           <ul class="collapse" id="demo2">
+              {% for brand in brand %}
+              <li><a href="/brand/{{ brand.slug }}">{{ brand.name }}</a></li>
+              {% endfor %}
 
           </ul>
       </li>
