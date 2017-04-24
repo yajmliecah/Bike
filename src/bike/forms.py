@@ -60,4 +60,3 @@ class ItemForm(forms.ModelForm):
         model = Item
         fields = ('name', 'image', 'category', 'brand', 'edition', 'price',
               'condition', 'details', 'locations', 'active')
-        exclude = ('slug', 'owner')

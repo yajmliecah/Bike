@@ -5,6 +5,7 @@ from django.db.models import Q
 from .models import BikeUser
 from bike.models import Item
 from geo.models import City, Country
+from django.contrib.auth.forms import UserCreationForm
 
 
 class LoginForm(forms.Form):
@@ -45,7 +46,7 @@ class LoginForm(forms.Form):
         return self.cleaned_data
         
             
-class SignUpForm(forms.ModelForm):
+class SignUpForm(UserCreationForm):
     username = forms.CharField(
         widget=TextInput(
             attrs={

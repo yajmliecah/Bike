@@ -35,6 +35,7 @@
                         <td>{{ item.locations }}</td>
                         <td>{{ item.submitted_on }}</td>
                         <td><a href="/edit/{{ item.pk }}">Edit</a> </td>
+                        <td><a href="/delete/{{ item.pk }}">Delete</a> </td>
                     </tr>
                     {% endfor %}
                     </tbody>

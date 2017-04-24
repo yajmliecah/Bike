@@ -5,6 +5,7 @@ from django.conf import settings
 from django.db.models import Count, permalink
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
+from django.utils.text import slugify
 from geo.models import Country, City
 
 
@@ -106,6 +107,15 @@ class Item(models.Model):
     def __unicode__(self):
         return self.name
 
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+        from unidecode import unidecode
+        from django.template import defaultfilters
+        if not self.name == "":
+            self.slug = defaultfilters.slugify(unidecode(self.name))
+        super(Item, self).save()
+        
+    
     @models.permalink
     def get_absolute_url(self):
         return reverse("item_detail", kwargs={"slug": self.slug})

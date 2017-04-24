@@ -9,6 +9,7 @@ from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.shortcuts import get_object_or_404
 
 
 class BaseView(ListView):
@@ -101,35 +102,34 @@ class ItemDetailView(DetailView):
 class ItemCreateView(CreateView):
     model = Item
     form_class = ItemForm
-
+    success_url = reverse_lazy('dashboard')
+    
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         return super(ItemCreateView, self).dispatch(request, *args, **kwargs)
     
     def get_initial(self):
         initial = super(ItemCreateView, self).get_initial()
+        items = get_object_or_404(Item, slug=self.kwargs.get('slug'))
+        initial['items'] = items
         initial['request'] =  self.request
         return initial
         
     def form_valid(self, form):
-        bike = form.save(commit=False)
+        self.object = form.save(commit=False)
         messages.success(self.request, 'File Uploaded')
-        bike.owner = self.request.user
-        bike.save()
-        
+        self.object.owner = self.request.user
+        self.object.save()
         return super(ItemCreateView, self).form_valid(form)
-    
-    def get_success_url(self):
-        return reverse_lazy('items:index')
     
 
 class ItemUpdateView(UpdateView):
     model = Item
-    success_url = reverse_lazy('items:item_list')
+    success_url = reverse_lazy('dashboard')
     form_class = ItemForm
     template_name_suffix = '_update_form'
     
     
 class ItemDeleteView(DeleteView):
     model = Item
-    success_url = reverse_lazy('items:item_list')
+    success_url = reverse_lazy('dashboard')

@@ -3,6 +3,7 @@
 {% block breadcrumb %}
 {{ block.super }}
 <a class="breadcumb-item">{{ items.name }}</a>({{ category.count }})
+{% include 'bike/include/searchbar.html' %}
 {% endblock %}
 
 {% block content %}

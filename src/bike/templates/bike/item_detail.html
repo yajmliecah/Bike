@@ -5,6 +5,7 @@
 {{ block.super }}<a href="/category/{{ category.slug }}"> {{ items.category }}</a> >
 <a href="/brand/">{{ items.brand }}</a> >
 <a href="">{{ items.edition }}</a> > {{ items.name }}
+{% include 'bike/include/searchbar.html' %}
 {% endblock %}
 
 
@@ -34,17 +35,7 @@
 						<h4 class="price">$   <span>{{ items.price }}</span></h4>
 						<p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>
 
-						<h5 class="sizes">sizes:
-							<span class="size" data-toggle="tooltip" title="small">s</span>
-							<span class="size" data-toggle="tooltip" title="medium">m</span>
-							<span class="size" data-toggle="tooltip" title="large">l</span>
-							<span class="size" data-toggle="tooltip" title="xtra large">xl</span>
-						</h5>
-						<h5 class="colors">colors:
-							<span class="color orange not-available" data-toggle="tooltip" title="Not In store"></span>
-							<span class="color green"></span>
-							<span class="color blue"></span>
-						</h5>
+						<p>Posted by: {{ items.owner }}</p>
 						<div class="action">
 							<button class="add-to-cart btn btn-default" type="button">add to cart</button>
 							<button class="like btn btn-default" type="button"><span class="fa fa-heart"></span></button>

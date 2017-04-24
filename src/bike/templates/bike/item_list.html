@@ -3,6 +3,7 @@
 {% block breadcrumb %}
 {{ block.super }}
 <a class="breadcumb-item">All </a>({{ item.count }})
+{% include 'bike/include/searchbar.html' %}
 {% endblock %}
 
 {% block content %}
