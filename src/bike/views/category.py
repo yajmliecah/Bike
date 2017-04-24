@@ -35,8 +35,6 @@ class CategoryDetailView(DetailView):
         item_set = obj.item_set.all()
         items = (item_set).distinct()
         category = Category.get_category()
-        brand = Brand.get_brand()
-        context['brand'] = brand
         context['category'] = category
         context['items'] = items
         

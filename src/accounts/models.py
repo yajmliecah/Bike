@@ -38,7 +38,7 @@ class BikeUser(AbstractBaseUser):
     username = models.CharField(max_length=100, unique=True)
     first_name = models.CharField(max_length=100, blank=True)
     last_name = models.CharField(max_length=100, blank=True)
-    email = models.EmailField(blank=False, unique=True)
+    email = models.EmailField(blank=False)
     location = models.ForeignKey(City, max_length=100, null=True, blank=True)
     avatar = models.ImageField(blank=True, null=True)
     is_active = models.BooleanField(default=True)

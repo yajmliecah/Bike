@@ -1,7 +1,7 @@
 {% if items %}
 {% for items in items %}
 <div class="list-group">
-     <a href="/item/{{ items.pk }}" class="list-group-item">
+     <a href="/item/{{ items.slug }}" class="list-group-item">
          <div class="media col-md-3">
              <figure class="pull-left">
                  <img class="all_img" src="{{ items.image.url }}" >

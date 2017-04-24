@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
-
+{% load i18n %}
 {% block title %}{{ items.name }}{% endblock %}
 {% block breadcrumb %}
-{{ block.super }}<a href="/category/{{ category.pk }}"> {{ items.category }}</a> >
+{{ block.super }}<a href="/category/{{ category.slug }}"> {{ items.category }}</a> >
 <a href="/brand/">{{ items.brand }}</a> >
 <a href="">{{ items.edition }}</a> > {{ items.name }}
 {% endblock %}

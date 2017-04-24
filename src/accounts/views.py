@@ -92,12 +92,12 @@ class SignUpView(FormView):
         return context
     
     def form_valid(self, form):
-        form.save()
+        form.save(commit=False)
         messages.info(self.request, "Thanks for registering. You are now logged in.")
         username = self.request.POST['username']
         password = self.request.POST['password1']
         user = authenticate(username=username, password=password)
-        login(self.request, form.user)
+        login(self.request, form.bike_user)
         
         return super(SignUpView, self).form_valid(form)
    

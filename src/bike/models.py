@@ -105,10 +105,10 @@ class Item(models.Model):
         
     def __unicode__(self):
         return self.name
-    
+
     @models.permalink
     def get_absolute_url(self):
-        return ('item_detail', (), {'pk': self.pk})
+        return reverse("item_detail", kwargs={"slug": self.slug})
     
     def get_breadcrumbs(self):
         

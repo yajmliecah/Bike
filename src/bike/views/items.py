@@ -93,6 +93,8 @@ class ItemDetailView(DetailView):
     
     def get_context_data(self, **kwargs):
         context = super(ItemDetailView, self).get_context_data(**kwargs)
+        category = Category.get_category()
+        context['category'] = category
         return context
     
     
@@ -102,7 +104,7 @@ class ItemCreateView(CreateView):
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
-        return super(ItemCreateView, self).dispatch(*args, **kwargs)
+        return super(ItemCreateView, self).dispatch(request, *args, **kwargs)
     
     def get_initial(self):
         initial = super(ItemCreateView, self).get_initial()
