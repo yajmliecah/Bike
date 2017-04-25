@@ -34,6 +34,7 @@ class Category(models.Model):
 class Brand(models.Model):
     name = models.CharField(max_length=50, primary_key=True, verbose_name=_("Name"))
     slug = models.SlugField(max_length=50, null=True, blank=True)
+    logo = models.ImageField(blank=True, null=True)
     active = models.BooleanField(default=True)
     
     class Meta:

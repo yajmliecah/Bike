@@ -9,7 +9,7 @@ class CategoryAdmin(admin.ModelAdmin):
     
     
 class BrandAdmin(admin.ModelAdmin):
-    fields = ('name', 'slug', 'active')
+    fields = ('name', 'slug', 'logo', 'active')
     prepopulated_fields = {'slug': ('name',)}
 
 

@@ -9,7 +9,6 @@ from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.shortcuts import get_object_or_404
 
 
 class BaseView(ListView):
@@ -110,8 +109,6 @@ class ItemCreateView(CreateView):
     
     def get_initial(self):
         initial = super(ItemCreateView, self).get_initial()
-        items = get_object_or_404(Item, slug=self.kwargs.get('slug'))
-        initial['items'] = items
         initial['request'] =  self.request
         return initial
         
