@@ -19,7 +19,7 @@ class EditionAdmin(admin.ModelAdmin):
 
 
 class ItemAdmin(admin.ModelAdmin):
-    fields = ('name', 'slug', 'image', 'category', 'brand', 'edition', 'price',
+    fields = ('name', 'slug', 'image', 'category', 'brand', 'edition', 'price', 'company',
                 'condition', 'details', 'locations', 'active'
               )
     prepopulated_fields = {'slug': ('name',)}

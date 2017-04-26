@@ -3,9 +3,7 @@
 {% block breadcumb %}
 {{ block.super }}
 <a class="breadcumb-item">{{ query }} </a>({{ results.count }})
-<form class="breadcrumb-item pull-right" method="GET" action="/search/">
-    <input type="text" name="q" placeholder="Search Items" value="{{ query_string }}">
-</form>
+{% include 'bike/include/searchbar.html' %}
 {% endblock %}
 
 {% block content %}

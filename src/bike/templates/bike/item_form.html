@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
-
+{% block breadcrumb %}
+{{ block.super }}
+<a class="breadcumb-item">Add Item</a>
+{% endblock %}
 {% block content %}
             <div class="col-sm-12 col-mid-7">
-                <div class="panel panel-default">
                     <div class="panel-body">
                             <form method="post" enctype="multipart/form-data" role="form">
                                 {% csrf_token %}
@@ -10,12 +12,10 @@
                                 {% include 'bike/form_template.html' %}
                                 <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-10">
-                                    <button type="submit" class="btn btn-success">Submit</button>
                                 </div>
                             </div>
                             </form>
                     </div>
-                </div>
             </div>
 
 {% endblock %}

@@ -19,13 +19,9 @@
          <div class="col-md-3 text-center">
              <h2 class="all_price">$  {{ items.price }}</h2>
              <button type="button" class="btn btn-defaul t btn-lg btn-block">Add to Cart</button>
-             <div class="stars">
-
-             </div>
-
-             <span class="glyphicon glyphicon-map-marker" aria-hidden="true">{{ items.locations }}</span>
+             <span class="glyphicon glyphicon-map-marker" aria-hidden="true">{{ items.locations | linebreaks }}</span>
+             <p>{{ items.company | linebreaks }}</p>
          </div>
-
           </a>
           <br>
     {% endfor %}

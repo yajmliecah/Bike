@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'bike',
     'geo',
     #third party apps
+    'djmoney',
  ]
 
 MIDDLEWARE = [

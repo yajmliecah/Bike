@@ -56,7 +56,16 @@ class ItemForm(forms.ModelForm):
             }
         )
     )
+    company = forms.CharField(
+        widget=TextInput(
+            attrs={
+                'placeholder': 'Company',
+                'required': 'True',
+                'class': 'form-control'
+            }
+        )
+    )
     class Meta:
         model = Item
-        fields = ('name', 'image', 'category', 'brand', 'edition', 'price',
-              'condition', 'details', 'locations', 'active')
+        fields = ['name', 'image', 'category', 'brand', 'edition', 'price',
+              'condition', 'details', 'locations']

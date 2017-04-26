@@ -6,6 +6,7 @@ from django.db.models import Count, permalink
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.utils.text import slugify
+from moneyed import Money, USD, CHF
 from geo.models import Country, City
 
 
@@ -93,6 +94,7 @@ class Item(models.Model):
     brand = models.ForeignKey(Brand, verbose_name=_("Brand"))
     edition = models.ForeignKey(Edition, verbose_name=_("Edition"))
     price = models.IntegerField(default=0)
+    company = models.CharField(max_length=50, default='', verbose_name=_("Company"))
     condition = models.CharField(max_length=50, choices=CONDITION, verbose_name=_("Condition"))
     details = models.TextField(blank=True, null=True, verbose_name=_("Details"))
     submitted_on = models.DateField(auto_now=True, editable=False, verbose_name=_("Submitted on"))

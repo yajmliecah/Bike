@@ -42,10 +42,11 @@ class ItemListView(BaseView):
     model = Item
     template_name = 'bike/item_list.html'
     paginate_by = 10
+    context_object_name = 'items'
     
     def get_context_data(self, **kwargs):
         context = super(ItemListView, self).get_context_data(**kwargs)
-        items = Item.get_items()
+        items = Item.objects.all()
         paginator = Paginator(items, self.paginate_by)
         page = self.request.GET.get('page')
         
@@ -57,7 +58,6 @@ class ItemListView(BaseView):
             items = paginator.page(paginator.num_pages)
         
         context['items'] = items
-        context['item'] = Item.objects.order_by('-submitted_on')
         
         return context
 
@@ -68,7 +68,7 @@ class ItemSearchListView(ItemListView):
     
     def get_context_data(self, **kwargs):
         context = super(ItemSearchListView, self).get_context_data(**kwargs)
-        results = Item.objects.all()
+        results = Item.get_items()
         
         query = self.request.GET.get('q')
         
