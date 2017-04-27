@@ -1,3 +1,5 @@
+{% load humanize %}
+
 {% if items %}
 {% for items in items %}
 <div class="list-group">
@@ -17,7 +19,7 @@
          </div>
 
          <div class="col-md-3 text-center">
-             <h2 class="all_price">$  {{ items.price }}</h2>
+             <h2 class="all_price">₱ {{ items.price|intcomma }}</h2>
              <button type="button" class="btn btn-defaul t btn-lg btn-block">Add to Cart</button>
              <span class="glyphicon glyphicon-map-marker" aria-hidden="true">{{ items.locations | linebreaks }}</span>
              <p>{{ items.company | linebreaks }}</p>

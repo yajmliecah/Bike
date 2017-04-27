@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'geo',
     #third party apps
     'djmoney',
+    'django.contrib.humanize',
  ]
 
 MIDDLEWARE = [

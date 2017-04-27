@@ -93,7 +93,7 @@ class Item(models.Model):
     category = models.ForeignKey(Category, verbose_name=_("Category"))
     brand = models.ForeignKey(Brand, verbose_name=_("Brand"))
     edition = models.ForeignKey(Edition, verbose_name=_("Edition"))
-    price = models.IntegerField(default=0)
+    price = models.DecimalField(max_digits=10, decimal_places=2, default='0.0')
     company = models.CharField(max_length=50, default='', verbose_name=_("Company"))
     condition = models.CharField(max_length=50, choices=CONDITION, verbose_name=_("Condition"))
     details = models.TextField(blank=True, null=True, verbose_name=_("Details"))

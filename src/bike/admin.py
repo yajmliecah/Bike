@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 from .models import Category, Brand, Edition, Item
+from django.contrib.humanize.templatetags.humanize import intcomma
 
 
 class CategoryAdmin(admin.ModelAdmin):

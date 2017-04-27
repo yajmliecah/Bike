@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
+
+{% load l10n %}
+
 {% block title %}All Items({{ items.count }}){% endblock %}
 {% block breadcrumb %}
 {{ block.super }}
-<a class="breadcumb-item">All </a>({{ item.count }})
+<a class="breadcumb-item">All </a>({{ items.count }})
 {% include 'bike/include/searchbar.html' %}
 {% endblock %}
 

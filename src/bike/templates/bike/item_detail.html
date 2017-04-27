@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load i18n %}
+{% load humanize %}
 {% block title %}{{ items.name }}{% endblock %}
 {% block breadcrumb %}
 {{ block.super }}<a href="/category/{{ category.slug }}"> {{ items.category }}</a> >
@@ -32,7 +33,7 @@
 					<div class="details col-md-6">
 						<h3 class="product-title">{{ items.name }}</h3>
 						<p class="product-description">{{ items.details }}</p>
-						<h4 class="price">$   <span>{{ items.price }}</span></h4>
+						<h4 class="price">₱ <span>{{ items.price|intcomma }}</span></h4>
 						<p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>
 
 						<p>Posted by: {{ items.owner }}</p>

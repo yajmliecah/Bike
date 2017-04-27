@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 
+{% load humanize %}
 {% block breadcrumb %}
     {{ block.super }} My Account
 {% endblock %}
@@ -28,7 +29,7 @@
                     {% for item in items %}
                     <tr>
                         <td>{{ item.name }}</td>
-                        <td>{{ item.price }}</td>
+                        <td>₱ {{ item.price|intcomma }}</td>
                         <td>{{ item.category}}</td>
                         <td>{{ item.brand }}</td>
                         <td>{{ item.edition }}</td>
