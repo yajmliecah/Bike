@@ -25,7 +25,7 @@ class ItemAdmin(admin.ModelAdmin):
               )
     prepopulated_fields = {'slug': ('name',)}
     search_fields = ('name', 'category', 'brand', 'edition')
-    list_display = ('name', 'price', 'category', 'brand', 'edition',  'locations', 'submitted_on', 'owner')
+    list_display = ('name', 'price',  'locations', 'submitted_on', 'owner')
 
     def save_model(self, request, obj, form, change):
         obj.owner = request.user

@@ -15,7 +15,6 @@ class BaseView(ListView):
     
     def __init__(self, *args, **kwargs):
         super(BaseView, self).__init__(*args, **kwargs)
-        
         self.category = Category.get_category()
         self.brand = Brand.get_brand()
         self.edition = Edition.get_edition()
@@ -130,3 +129,58 @@ class ItemUpdateView(UpdateView):
 class ItemDeleteView(DeleteView):
     model = Item
     success_url = reverse_lazy('dashboard')
+    
+ 
+class CategoryDetailVew(DetailView):
+    model = Category
+    template_name = 'bike/category_detail.html'
+    context_object_name = 'category'
+    
+    def get_context_data(self, **kwargs):
+        context = super(CategoryDetailVew, self).get_context_data(**kwargs)
+        obj = self.get_object()
+        item_set = obj.item_set.all()
+        items = (item_set).distinct()
+        category = Category.get_category()
+        context['category'] = category
+        context['items'] = items
+    
+        return context
+ 
+ 
+class BrandDetailView(DetailView):
+    model = Brand
+    template_name = 'bike/brand_detail.html'
+    context_object_name = 'brand'
+    
+    def get_context_data(self, **kwargs):
+        context = super(BrandDetailView, self).get_context_data(**kwargs)
+        obj = self.object()
+        
+        item_set = obj.item_set.all()
+        items = ( item_set ).distinct()
+        category = Category.get_category()
+        
+        context['category'] = category
+        context['items'] = items
+        
+        return context
+
+
+class EditionDetailVew(DetailView):
+    model = Edition
+    template_name = 'bike/edition_detail.html'
+    context_object_name = 'edition'
+    
+    def get_context_data(self, **kwargs):
+        context = super(EditionDetailVew, self).get_context_data(**kwargs)
+        obj = self.object()
+        item_set = obj.item_set.all()
+        items = ( item_set ).distinct()
+        
+        context['items'] = items
+        
+        return context
+        
+        
+        

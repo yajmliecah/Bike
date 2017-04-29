@@ -24,7 +24,9 @@
        <li>
           <a href="#demo3" data-toggle="collapse">Edition </a>
           <ul class="collapse" id="demo3">
-
+            {% for edition in edition %}
+              <li><a href="/edition/{{ edition.slug }}">{{ edition.name }}</a></li>
+              {% endfor %}
           </ul>
       </li>
 

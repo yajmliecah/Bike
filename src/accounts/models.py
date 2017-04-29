@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.core.mail import send_mail
-from geo.models import Country, City
+from geo.models import *
 from bike.models import *
 
 

@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
-{% block title %}{{ category.name }}{% endblock %}
+{% block title %}{{ items.name }}{% endblock %}
 {% block breadcrumb %}
 {{ block.super }}
-<a class="breadcumb-item">{{ items.name }}</a>({{ category.count }})
+<a class="breadcumb-item">{{ category.name }}</a>({{ category.count }})
 {% include 'bike/include/searchbar.html' %}
 {% endblock %}
 
@@ -15,12 +15,7 @@
 
         <div class="col-xs-7 col-sm-3 col-md-10">
        {% block content_list %}
-            {% if items %}
-               {% include 'bike/include/all_items.html' %}
-            {% else %}
-
-            {% endif %}
-
+            {% include 'bike/include/all_items.html' %}
        {% endblock %}
         </div>
 {% endblock %}

@@ -3,8 +3,8 @@
 {% load humanize %}
 {% block title %}{{ items.name }}{% endblock %}
 {% block breadcrumb %}
-{{ block.super }}<a href="/category/{{ category.slug }}"> {{ items.category }}</a> >
-<a href="/brand/">{{ items.brand }}</a> >
+{{ block.super }}<a href="{{ category.slug }}"> {{ items.category }}</a> >
+<a href="{{ brand.slug }}">{{ items.brand }}</a> >
 <a href="">{{ items.edition }}</a> > {{ items.name }}
 {% include 'bike/include/searchbar.html' %}
 {% endblock %}
