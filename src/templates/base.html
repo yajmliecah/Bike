@@ -1,109 +1,89 @@
 {% load staticfiles %}
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta http-equiv="X-UA-Compatible" content="width=device-width">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
 
     <title>{% block title %}My Car App{% endblock %}</title>
       <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
       <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-      <link rel="stylesheet" t`ref="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-      <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-      <link rel="stylesheet" type="text/css" href="{% static 'bike/css/thumbnails.css' %}">
-      <link rel="stylesheet" type="text/css" href="{% static 'bike/css/style.css' %}">
-      <link rel="stylesheet" type="text/css" href="{% static 'bike/css/detail.css' %}">
-      <link rel="stylesheet" type="text/css" href="{% static 'bike/css/footer.css' %}">
-      <link rel="stylesheet" type="text/css" href="{% static 'bike/css/all.css' %}">
+      <link rel="stylesheet" type="text/css" href="{% static 'bike/css/bike.css' %}">
 
   </head>
 
-
-  <body class="body">
-
-    <nav class="navbar navbar-light" style="background-color: #E7ECF0">
+  <body>
+     <header>
         <div class="container">
-            <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavBar">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">
-                <span class="glyphicon glyphicon-home"></span>
-            </a>
+            <div id="branding">
+                <h1>CarLinks</h1>
             </div>
 
-
-            <div class="navbar-collapse" id="bs-example-navbar-collapse-1">
-
-                <ul class="nav navbar-nav navbar-right">
-                        {% if user.is_authenticated %}
-                    <li>
-                        <a href="/accounts/dashboard/">Hi {{ user.username }} !</a>
-                    </li>
-
-                    <li>
-                        <a href="/accounts/logout/">Logout</a>
-                    </li>
-                        {% else %}
-                    <li>
-                     <a href="/accounts/login/">
-                            <span style="font-size: 20px" class="glyphicon glyphicon-user"></span>
-                        </a>
-                        {% endif %}
-                    </li>
+            <nav>
+                <ul>
+                    <li><a href="">Log In</a></li>
                 </ul>
-                </div>
-            </div>
-    </nav>
 
-    <div class="container">
-
-        <nav class="breadcrumb">
-            {% block breadcrumb %}
-            <a class="breadcrumb-item" href="/">Home</a> >
-            {% endblock %}
-        </nav>
-
-    </div>
-
-    <div class="container">
-        <div class="container theme-showcase" role="main">
-            {% block content %}
-                <div class="row">
-                     <div class="col-xs-7 col-sm-3 col-md-2">
-                         {% block sidebar %}
-                            {% include 'bike/include/sidebar.html' %}
-                         {% endblock %}
-                     </div>
-
-                      <div class="col-xs-7 col-sm-3 col-md-10">
-                        {% block content_list %}
-                            {% include 'bike/include/pagination.html' %}
-                        {% endblock %}
-                      </div>
-                </div>
-                {% endblock %}
-
-            <div class="container" align="center">
-                {% block pagination %}
-                    {% include 'bike/include/pagination.html' %}
-                {% endblock %}
-            </div>
-
+            </nav>
+            <li class="navbar-right"></li>
         </div>
-    </div>
+    </header>
 
-</div>
+    <section id="showcase">
+        <div class="container">
+           <h1>Skip the forecourt - great deals from the comfort of your home</h1>
+        </div>
+    </section>
 
-</body>
+    <section id="newsletter">
+        <div class="container">
+            <h3>Search a Car</h3>
+            <form>
+                <input type="text" placeholder="Search a Car...">
+                <button>Search</button>
+            </form>
+        </div>
+    </section>
+
+    <section id="feature-header">
+        <div class="container">
+            <div class=".col-xs-6 .col-md-4">
+                <h3>Here is our small selection of cars</h3>
+            </div>
+        </div>
+
+    </section>
+
+     <section id="feature-content">
+         <div class="container">
+             <div class="row">
+                <div class="col-xs-6 col-md-4">
+
+                    <div class="box">.col-xs-6 .col-md-4</div>
+                </div>
+
+                <div class="col-xs-6 col-md-4">
+                    <div class="box">.col-xs-6 .col-md-4</div>
+                </div>
+
+                <div class="col-xs-6 col-md-4">.col-xs-6 .col-md-4
+                </div>
+
+             </div>
+         </div>
+     </section>
+
+     <footer>
+        <div class="container">
+            <p>CarLinks, Copyright &copy; 2017</p>
+        </div>
+     </footer>
+
+  </body>
 </html>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

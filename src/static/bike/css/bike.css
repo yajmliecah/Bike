@@ -1,0 +1,71 @@
+body{
+    font: 15px/1.5, Arial, Heveltica, sans-serif;
+    padding: 0;
+    margin: 0;
+    background-color: #EFF2F3;
+}
+
+.container{
+    width: 80%;
+    margin: auto;
+    overflow: hidde;
+}
+
+header{
+    background:#5A6D7C;
+    color: #E2F3EF;
+    padding-top: 15px;
+    padding-bottom: 7px;
+    min-height: 70px;
+}
+
+header a{
+    color: #FEFEFE;
+    text-decoration: none;
+    font-size: 20px;
+    float: left;
+}
+
+header ul{
+    margin: 0;
+    padding: 0;
+}
+
+header li{
+    float: right;
+    display: inline;
+    padding: 0 10px 0 10px;
+    font-size: 20px;
+}
+
+
+header #branding{
+    float: left;
+}
+
+
+header #branding h1{
+    margin: 0;
+    color: #92C2F1;
+}
+
+
+header nav{
+    float: right;
+    margin-top: 10px;
+}
+
+
+#showcase{
+    min-height: 400px;
+    background-image: url("/bike/img/showcase.jpeg");
+    text-align: center;
+    color: #ffffff;
+}
+
+
+#showcase h1{
+    margin-top: 100px;
+    font-size: 55px;
+    margin-bottom: 10px;
+}
