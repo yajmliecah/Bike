@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load item_filters %}
 <html>
   <head>
     <meta charset="utf-8">
@@ -11,8 +12,11 @@
       <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/6.0.0/normalize.css">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
       <link rel="stylesheet" type="text/css" href="{% static 'bike/css/bike.css' %}">
+      <link rel="stylesheet" type="text/css" href="{% static 'bike/css/all.css' %}">
+      <link rel="stylesheet" type="text/css" href=" {% static 'bike/css/detail.css' %}">
 
   </head>
 
@@ -20,62 +24,31 @@
      <header>
         <div class="container">
             <div id="branding">
-                <h1>CarLinks</h1>
+                <h1><a href="/">CarLinks</a></h1>
             </div>
-
-            <nav>
                 <ul>
                     <li><a href="">Log In</a></li>
+                    <li><a href="">Sign Up</a></li>
+                    <li><a href="">Sell your Car</a></li>
                 </ul>
-
-            </nav>
-            <li class="navbar-right"></li>
         </div>
     </header>
 
-    <section id="showcase">
-        <div class="container">
-           <h1>Skip the forecourt - great deals from the comfort of your home</h1>
-        </div>
-    </section>
-
-    <section id="newsletter">
-        <div class="container">
-            <h3>Search a Car</h3>
-            <form>
-                <input type="text" placeholder="Search a Car...">
-                <button>Search</button>
-            </form>
-        </div>
-    </section>
-
-    <section id="feature-header">
-        <div class="container">
-            <div class=".col-xs-6 .col-md-4">
-                <h3>Here is our small selection of cars</h3>
-            </div>
-        </div>
-
-    </section>
-
-     <section id="feature-content">
+     <nav>
          <div class="container">
-             <div class="row">
-                <div class="col-xs-6 col-md-4">
-
-                    <div class="box">.col-xs-6 .col-md-4</div>
-                </div>
-
-                <div class="col-xs-6 col-md-4">
-                    <div class="box">.col-xs-6 .col-md-4</div>
-                </div>
-
-                <div class="col-xs-6 col-md-4">.col-xs-6 .col-md-4
-                </div>
-
-             </div>
+             {% get_categories as categories %}
+            <ul>
+                {% for categories in categories %}
+                <li><a href="/{{ categories.slug }}">{{ categories.name }}</a></li>
+                {% endfor %}
+            </ul>
          </div>
-     </section>
+     </nav>
+
+     <div class="row">
+         {% block content %}
+         {% endblock %}
+     </div>
 
      <footer>
         <div class="container">

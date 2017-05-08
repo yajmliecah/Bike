@@ -1,40 +1,35 @@
-  <ul class="nav nav-pills nav-stacked" style="list-style: none;">
-      <h5>
-          <small><b>PRODUCTS</b></small>
-      </h5>
-      <li>
-      <a href="#demo1" data-toggle="collapse">Category</a>
-          <ul class="collapse" id="demo1">
-              {% for category in category %}
-              <li><a href="/category/{{ category.slug }}">{{ category.name }}</a></li>
-              {% endfor %}
-          </ul>
-      </li>
+{% load item_filters %}
 
-      <li>
-          <a href="#demo2" data-toggle="collapse">Brand </a>
-          <ul class="collapse" id="demo2">
-              {% for brand in brand %}
-              <li><a href="/brand/{{ brand.slug }}">{{ brand.name }}</a></li>
-              {% endfor %}
+<div class="container">
+    <ul class="nav nav-bar">
+        <li>
+            {% get_categories as categories %}
+                <a data-toggle="collapse" href="">Category</a>
+                <ul>
+                    {% for categories in categories %}
+                    <li><a href="">{{ categories.name }}</a></li>
+                    {% endfor %}
+                </ul>
+        </li>
 
-          </ul>
-      </li>
+        <li>
+            {% get_brands as brands %}
+            <a href="">Brands</a>
+            <ul>
+                {% for brands in brands %}
+                    <li><a href="">{{ brands.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </li>
 
-       <li>
-          <a href="#demo3" data-toggle="collapse">Edition </a>
-          <ul class="collapse" id="demo3">
-            {% for edition in edition %}
-              <li><a href="/edition/{{ edition.slug }}">{{ edition.name }}</a></li>
-              {% endfor %}
-          </ul>
-      </li>
-
-      <li>
-          <a href="#demo4" data-toggle="collapse">Condition</a>
-          <ul class="collapse" id="demo4">
-                <li><a href="">New</a> </li>
-                <li><a href="">Old</a> </li>
-          </ul>
-      </li>
-  </ul>
+        <li>
+            {% get_editions as editions %}
+            <a href="">Editions</a>
+            <ul>
+                {% for editions in editions %}
+                <li><a href="">{{ editions.name }}</a></li></li>
+                {% endfor %}
+            </ul>
+        </li>
+    </ul>
+</div>

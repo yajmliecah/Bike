@@ -1,21 +1,21 @@
 body{
-    font: 15px/1.5, Arial, Heveltica, sans-serif;
+    font: 15px/1.5, Arial;
     padding: 0;
     margin: 0;
-    background-color: #EFF2F3;
+    background-color: FFFFFF;
 }
 
 .container{
     width: 80%;
     margin: auto;
-    overflow: hidde;
+    overflow: hidden;
 }
 
 header{
-    background:#5A6D7C;
+    background: #5A6D7C;
     color: #E2F3EF;
-    padding-top: 15px;
-    padding-bottom: 7px;
+    padding-top: 30px;
+    padding-bottom: 5px;
     min-height: 70px;
 }
 
@@ -38,21 +38,56 @@ header li{
     font-size: 20px;
 }
 
+header li a:hover{
+    text-decoration: none;
+}
+
 
 header #branding{
     float: left;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 
-header #branding h1{
+header #branding h1 a{
     margin: 0;
     color: #92C2F1;
 }
+
+header #branding h1 a:hover{
+    text-decoration: none;
+    text-color: #8B008B;
+}
+
 
 
 header nav{
     float: right;
     margin-top: 10px;
+}
+
+nav{
+    background-color: #F8F8FF;
+    padding: 15px;
+}
+
+nav ul{
+    margin: 0;
+    padding: 0;
+}
+
+nav li{
+    float: left;
+    display: inline;
+    padding: 0 10px 0 10px;
+    font-size: 20px;
+}
+
+
+nav h3{
+    text-color: #F0E68C
+    text-align: left;
 }
 
 
@@ -67,6 +102,9 @@ header nav{
     color:#E2F3EF;
 }
 
+#showcase form{
+    float: left
+}
 
 #showcase h1{
     margin-top: 100px;
@@ -79,61 +117,160 @@ header nav{
     font-size: 20px;
 }
 
-#newsletter{
-    padding: 10px;
-    color: #FFFFFF;
-    background-color: #C6D0EB;
-}
-
-#newsletter h3{
-    float: left;
-    color: #0F46D6;
-}
-
-
-#newsletter form{
-    float: right;
-    margin-top: 15px;
-}
-
-#newsletter input[type="text"]{
-    padding: 5px;
-    height: 25px;
-    width: 250px;
-}
-
-#newsletter button{
-    color: #0F46D6;
+#feature{
+    background-color: #F0FFFF;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 #feature-header{
-    padding: 50px;
+    padding: 10px;
 }
 
 #feature-header h3{
     text-align: center;
+    padding: 10px;
+    margin-bottom: 2px;
 }
 
 
 #feature-content{
-    margin-top:20px;
-}
-
-#feature-content .box{
-    float: left;
-    text-align: center;
-    width: 30%;
+    margin-top: 2px;
     padding: 10px;
 }
 
-#feature-content .box img{
-    width: 90px;
+#feature-content h4{
+   text-align: center;
+}
+
+#feature img{
+    height: 200px;
+    width: 200%;
+}
+
+#feature ul{
+    list-style: none;
+}
+
+#brand{
+    background-color: #FFFFFF;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#brand-header{
+    padding: 10px;
+}
+
+#brand ul{
+    list-style: none;
+}
+
+#brand-content{
+    margin-top: 2px;
+}
+
+#brand-content h4{
+    text-align: center;
+}
+
+#brand img{
+    height: 200px;
+    width: 200%;
+}
+
+#brand-header h3{
+    text-align: center;
+    padding: 10px;
+    margin-bottom: 2px;
 }
 
 footer{
     padding: 20px;
-    margin-top: 20px;
     color: #FEFEFE;
     background-color: #9DA8BE;
     text-align: center;
 }
+
+.row-fluid ul.thumbnails li.span12 + li { margin-left : 0px;clear:left }
+.row-fluid ul.thumbnails li.span6:nth-child(1n + 1) { margin-left : 0px;clear:left }
+.row-fluid ul.thumbnails li.span4:nth-child(1n + 1) { margin-left : 0px;clear:left }
+.row-fluid ul.thumbnails li.span3:nth-child(1n + 1) { margin-left : 0px; clear:left}
+.row-fluid ul.thumbnails li.span2:nth-child(1n + 1) { margin-left : 0px;clear:left }
+.row-fluid ul.thumbnails li.span1:nth-child(1n + 1) { margin-left : 0px;clear:left }
+
+//sidebar
+
+.sidebar{
+    float: left;
+    padding-top: 50px;
+    padding-left: 0;
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    transition: all .5s ease;
+}
+
+.sidebar-wrapper {
+    border-right: 1px solid #e7e7e7;
+}
+
+
+.sidebar ul{
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar li{
+    float: left;
+    list-style: none;
+    display: inline;
+    overflow: hidden;
+    width: 100%
+}
+
+aside{
+    float: left;
+    padding: 3%;
+    width: 180%;
+    margin-top: 10px;
+}
+
+aside li{
+    display: block;
+    width: 100%;
+    border-bottom: 2px solid #e7e7e7;
+}
+
+aside .nav-nav-bar{
+     border: none;
+}
+
+#content{
+    float: right;
+    padding: 0;
+    width: 90%;
+    margin-top: 10px;
+}
+
+#content a.list-group-item{
+    height:auto;
+    min-height:250px;
+}
+
+#content a.list-group-item:hover {
+    background:#8BBDF0
+}
+
+#content .item_img {
+     height: 230px;
+    width: 230%;
+}
+#content .item_price {
+    color: #E6531C
+}
+
+
+
+
+

@@ -3,28 +3,29 @@
 {% load l10n %}
 
 {% block title %}All Items({{ items.count }}){% endblock %}
-{% block breadcrumb %}
-{{ block.super }}
-<a class="breadcumb-item">All </a>({{ items.count }})
-{% include 'bike/include/searchbar.html' %}
-{% endblock %}
-
+<div class="container">
 {% block content %}
+
+        <div class="container">
           <div class="col-xs-7 col-sm-3 col-md-2">
+             <aside>
               {% block sidebar %}
                 {% include "bike/include/sidebar.html" %}
               {% endblock %}
+             </aside>
           </div>
 
-   <div class="col-xs-7 col-sm-3 col-md-10">
-       {% block content_list %}
-            {% include 'bike/include/all_items.html' %}
-       {% endblock %}
-   </div>
+           <div class="col-xs-7 col-sm-3 col-md-10">
+               <section id="content">
+                    {% include 'bike/include/all_items.html' %}
+               </section>
+           </div>
+        </div>
 {% endblock %}
-
+</div>
 <div class="container" align="center">
 {% block pagination %}
     {% include 'bike/include/pagination.html' %}
 {% endblock %}
+</div>
 </div>

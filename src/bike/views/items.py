@@ -1,4 +1,4 @@
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, View
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from django.db.models import Q
 from ..models import Category, Brand, Edition, Item
 from ..forms import ItemForm
@@ -34,6 +34,20 @@ class BaseView(ListView):
         context['edition'] = self.edition
         context['item'] = self.item
         
+        return context
+    
+    
+class IndexView(TemplateView):
+    template_name = 'bike/index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(IndexView, self).get_context_data(**kwargs)
+        top_brands = Brand.objects.top_brands()[:3]
+        featured_cars = Item.featured_car()
+        
+        context['top_brands'] = top_brands
+        context['featured_cars'] = featured_cars
+    
         return context
     
         
@@ -92,8 +106,16 @@ class ItemDetailView(DetailView):
     
     def get_context_data(self, **kwargs):
         context = super(ItemDetailView, self).get_context_data(**kwargs)
-        category = Category.get_category()
+        category = Category
+        cars = Item.get_cars()
+        motorcycles = Item.get_motorcycles()
+        vehicles = Item.get_vehicles()
+        
+        context['cars'] = cars
+        context['motorcycles'] = motorcycles
+        context['vehicles'] = vehicles
         context['category'] = category
+        
         return context
     
     
@@ -140,7 +162,7 @@ class CategoryDetailVew(DetailView):
         context = super(CategoryDetailVew, self).get_context_data(**kwargs)
         obj = self.get_object()
         item_set = obj.item_set.all()
-        items = (item_set).distinct()
+        items = ( item_set ).distinct()
         category = Category.get_category()
         context['category'] = category
         context['items'] = items
@@ -182,5 +204,6 @@ class EditionDetailVew(DetailView):
         
         return context
         
+    
         
         

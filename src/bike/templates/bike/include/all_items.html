@@ -6,7 +6,7 @@
      <a href="/item/{{ items.slug }}" class="list-group-item">
          <div class="media col-md-3">
              <figure class="pull-left">
-                 <img class="all_img" src="{{ items.image.url }}" >
+                 <img class="item_img" src="{{ items.image.url }}" >
              </figure>
          </div>
 
@@ -15,11 +15,11 @@
 
              <br>
              <br>
-             <p class="list-group-item-text">{{ items.details|truncatewords:"90" }}</p>
+             <p class="list-group-item-text">{{ items.details|truncatewords:"50" }}</p>
          </div>
 
          <div class="col-md-3 text-center">
-             <h2 class="all_price">₱ {{ items.price|intcomma }}</h2>
+             <h2 class="item_price">₱ {{ items.price|intcomma }}</h2>
              <button type="button" class="btn btn-defaul t btn-lg btn-block">Add to Cart</button>
              <span class="glyphicon glyphicon-map-marker" aria-hidden="true">{{ items.locations | linebreaks }}</span>
              <p>{{ items.company | linebreaks }}</p>

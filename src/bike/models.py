@@ -1,12 +1,10 @@
 from __future__ import unicode_literals
-
 from django.db import models
+from django.db.models import Count
 from django.conf import settings
 from django.db.models import Count, permalink
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
-from django.utils.text import slugify
-from moneyed import Money, USD, CHF
 from geo.models import Country, City
 
 
@@ -29,13 +27,24 @@ class Category(models.Model):
     @classmethod
     def get_category(cls):
         return list(cls.objects.all())
-      
     
+    @classmethod
+    def get_cars(cls):
+        return list(cls.objects.all.filter(name='Car'))
+    
+      
+class BrandManager(models.Manager):
+    def top_brands(self):
+        return self.annotate(score=Count('name')).order_by('-score')
+
+
 class Brand(models.Model):
     name = models.CharField(max_length=50, primary_key=True, verbose_name=_("Name"))
     slug = models.SlugField(max_length=50, null=True, blank=True)
     logo = models.ImageField(blank=True, null=True)
     active = models.BooleanField(default=True)
+    
+    objects = BrandManager()
     
     class Meta:
         verbose_name = _("Brand")
@@ -78,8 +87,8 @@ class Edition(models.Model):
     @classmethod
     def get_edition(cls):
         return list(cls.objects.all())
-    
-    
+
+
 class Item(models.Model):
     CONDITION = (
         ('NEW', 'New'),
@@ -116,7 +125,6 @@ class Item(models.Model):
         if not self.name == "":
             self.slug = defaultfilters.slugify(unidecode(self.name))
         super(Item, self).save()
-        
     
     @models.permalink
     def get_absolute_url(self):
@@ -132,8 +140,8 @@ class Item(models.Model):
         return breadcrumbs
 
     @classmethod
-    def featured_items(cls):
-        return cls.objects.all()[:8]
+    def featured_car(cls):
+        return cls.objects.all().filter(category__name__icontains='Car')
     
     @classmethod
     def get_items(cls):
@@ -146,3 +154,15 @@ class Item(models.Model):
     @classmethod
     def old(cls):
         return cls.objects.all().filter(condition='OLD')
+    
+    @classmethod
+    def get_cars(cls):
+        return cls.objects.all().filter(category__name__icontains='Car')
+    
+    @classmethod
+    def get_motorcycles(cls):
+        return cls.objects.all().filter(category__name__icontains='Motorcycles')
+    
+    @classmethod
+    def get_vehicles(cls):
+        return cls.objects.all().filter(category__name__icontains='Vehicles')
