@@ -1,0 +1,40 @@
+{% load humanize %}
+
+{% if results %}
+<h4>{{ results.count }} results for <b>{{ query }}</b></h4>
+{% for results in results %}
+<div class="list-group">
+     <a href="/item/{{ results.slug }}" class="list-group-item">
+         <div class="media col-md-3">
+             <figure class="pull-left">
+                 <img class="item_img" src="{{ results.image.url }}" >
+             </figure>
+         </div>
+
+         <div class="col-md-6">
+             <h4 class="list-group-item-heading">{{ results.name }}</h4>
+
+             <br>
+             <br>
+             <p class="list-group-item-text">{{ results.details|truncatewords:"50" }}</p>
+         </div>
+
+         <div class="col-md-3 text-center">
+             <h2 class="item_price">₱ {{ results.price|intcomma }}</h2>
+             <button type="button" class="btn btn-defaul t btn-lg btn-block">Add to Cart</button>
+             <span class="glyphicon glyphicon-map-marker" aria-hidden="true">{{ results.locations | linebreaks }}</span>
+             <p>{{ results.company | linebreaks }}</p>
+         </div>
+          </a>
+          <br>
+    {% endfor %}
+{% else %}
+    <p>No Results</p>
+{% endif %}
+ </div>
+
+<div class="container" align="center">
+    {% block pagination %}
+        {% include "bike/include/pagination.html" %}
+    {% endblock %}
+</div>

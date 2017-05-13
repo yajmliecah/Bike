@@ -128,7 +128,7 @@ class Item(models.Model):
     
     @models.permalink
     def get_absolute_url(self):
-        return reverse("item_detail", kwargs={"slug": self.slug})
+        return reverse("items", kwargs={"slug": self.slug})
     
     def get_breadcrumbs(self):
         
@@ -138,7 +138,11 @@ class Item(models.Model):
             return self.parent.get_breadcrumb() + breadcrumbs
         
         return breadcrumbs
-
+    
+    @classmethod
+    def get_detail(cls, item_id):
+        return cls.objects.select_related('category', 'brand', 'editions').get(id=item_id)
+    
     @classmethod
     def featured_car(cls):
         return cls.objects.all().filter(category__name__icontains='Car')

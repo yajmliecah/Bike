@@ -1,17 +1,19 @@
+
 body{
-    font: 15px/1.5, Arial;
+    font: 15px/1.5;
     padding: 0;
-    margin: 0;
+    margin: 0 auto;
     background-color: FFFFFF;
+    font-family: sans-serif;
 }
 
 .container{
-    width: 80%;
-    margin: auto;
+    max-width: 1200px;
+    margin: 0 auto;
     overflow: hidden;
 }
 
-header{
+header {
     background: #5A6D7C;
     color: #E2F3EF;
     padding-top: 30px;
@@ -38,29 +40,10 @@ header li{
     font-size: 20px;
 }
 
-header li a:hover{
-    text-decoration: none;
-}
-
-
 header #branding{
     float: left;
     padding-top: 5px;
-    padding-bottom: 5px;
 }
-
-
-header #branding h1 a{
-    margin: 0;
-    color: #92C2F1;
-}
-
-header #branding h1 a:hover{
-    text-decoration: none;
-    text-color: #8B008B;
-}
-
-
 
 header nav{
     float: right;
@@ -93,7 +76,7 @@ nav h3{
 
 #showcase{
     min-height: 400px;
-    background:url("../img/showcase.jpeg") no-repeat 0px;
+    background:url("../img/showcase.jpeg") no-repeat center;
     background-size: cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -102,20 +85,47 @@ nav h3{
     color:#E2F3EF;
 }
 
-#showcase form{
-    float: left
-}
-
 #showcase h1{
     margin-top: 100px;
     font-size: 45px;
     margin-bottom: 10px;
+    color: #55E8F1;
 }
-
 
 #showcase p{
     font-size: 20px;
 }
+
+#showcase .form{
+     width:600px;
+     margin:50px auto;
+     border-radius: 5px;
+}
+
+#showcase .search{
+      font-size: 18pt;
+      width: 400px;
+      height: 50px;
+      padding:8px 15px;
+      border:0px solid #dbdbdb;
+      color: #1546EC;
+}
+
+#showcase .button {
+      font-size: 18pt;
+      height: 50px;
+      position: relative;
+      padding:6px 15px;
+      left:-8px;
+      border:2px solid #207cca;
+      background-color:#207cca;
+      color:#fafafa;
+}
+#showcase .button:hover  {
+      background-color:#fafafa;
+                color:#207cca;
+}
+
 
 #feature{
     background-color: #F0FFFF;
@@ -186,10 +196,14 @@ nav h3{
 }
 
 footer{
-    padding: 20px;
+    position: absolute;
+    right: 0;
+    left: 0;
+    padding: 30px;
     color: #FEFEFE;
     background-color: #9DA8BE;
     text-align: center;
+    margin-bottom: 0;
 }
 
 .row-fluid ul.thumbnails li.span12 + li { margin-left : 0px;clear:left }
@@ -201,50 +215,28 @@ footer{
 
 //sidebar
 
-.sidebar{
-    float: left;
-    padding-top: 50px;
-    padding-left: 0;
-    -webkit-transition: all .5s ease;
-    -moz-transition: all .5s ease;
-    -o-transition: all .5s ease;
-    transition: all .5s ease;
+
+/* Sidebar */
+
+.sidebar ul {
+    *zoom: 1;
+    list-style-type: none;
+    margin:0;
+    padding:0;
 }
 
-.sidebar-wrapper {
-    border-right: 1px solid #e7e7e7;
-}
-
-
-.sidebar ul{
-    margin: 0;
-    padding: 0;
-}
-
-.sidebar li{
-    float: left;
+.sidebar li {
     list-style: none;
-    display: inline;
-    overflow: hidden;
-    width: 100%
 }
 
-aside{
-    float: left;
-    padding: 3%;
-    width: 180%;
-    margin-top: 10px;
+.sidebar a {
+    padding: 5px 5px;
+    color:#fff;
 }
 
-aside li{
-    display: block;
-    width: 100%;
-    border-bottom: 2px solid #e7e7e7;
-}
+/* End of Sidebar */
 
-aside .nav-nav-bar{
-     border: none;
-}
+/* Content */
 
 #content{
     float: right;
@@ -268,7 +260,10 @@ aside .nav-nav-bar{
 }
 #content .item_price {
     color: #E6531C
+    color:
 }
+
+/*  End of Content */
 
 
 

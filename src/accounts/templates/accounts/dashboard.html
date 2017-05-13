@@ -8,10 +8,9 @@
 {% include 'includes/dashboard_nav.html' %}
 
 {% block content %}
-    <div class="container theme-showcase">
+    <div class="container">
         {% include 'accounts/includes/dashboard_nav.html' %}
         {% if items %}
-        <div class="container-fluid">
                 <table class="table">
                     <thead>
                     <tr>
@@ -41,7 +40,6 @@
                     {% endfor %}
                     </tbody>
                 </table>
-        </div>
         {% else %}
             <p>No Item Found</p>
         {% endif %}

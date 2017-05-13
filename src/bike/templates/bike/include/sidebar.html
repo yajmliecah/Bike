@@ -1,35 +1,36 @@
-{% load item_filters %}
-
 <div class="container">
-    <ul class="nav nav-bar">
+    <ul class="sidebar">
         <li>
-            {% get_categories as categories %}
-                <a data-toggle="collapse" href="">Category</a>
-                <ul>
-                    {% for categories in categories %}
-                    <li><a href="">{{ categories.name }}</a></li>
-                    {% endfor %}
-                </ul>
+            <a href="">Condition</a>
+            <ul>
+                <li>New</li>
+                <li>Old</li>
+            </ul>
         </li>
 
         <li>
-            {% get_brands as brands %}
+            <a href="">Category</a>
+            <ul>
+                <li><a href="">Cars</a></li>
+                <li><a href="">Motorcycles</a> </li>
+                <li><a href="">Vehicles</a> </li>
+            </ul>
+        </li>
+
+        <li>
             <a href="">Brands</a>
             <ul>
-                {% for brands in brands %}
-                    <li><a href="">{{ brands.name }}</a></li>
-                {% endfor %}
+                <li></li>
+                <li></li>
+                <li></li>
             </ul>
         </li>
 
         <li>
-            {% get_editions as editions %}
-            <a href="">Editions</a>
-            <ul>
-                {% for editions in editions %}
-                <li><a href="">{{ editions.name }}</a></li></li>
-                {% endfor %}
-            </ul>
+            <a href="">Locations</a>
+            <input type="text" name="q">
         </li>
     </ul>
+
+
 </div>

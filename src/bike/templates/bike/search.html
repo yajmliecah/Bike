@@ -1,61 +1,31 @@
 {% extends 'base.html' %}
 
-{% block breadcrumb %}
-{{ block.super }}
-<a class="breadcumb-item">Results for: {{ query }}</a>({{ results.count }})
-{% include 'bike/include/searchbar.html' %}
-{% endblock %}
+{% load l10n %}
 
+{% block title %}All Items({{ items.count }}){% endblock %}
+<div class="container">
 {% block content %}
 
- <div class="container theme-showcase" role="main">
-     <div class="col-xs-7 col-sm-3 col-md-2">
-     {% block sidebar %}
-        {% include "bike/include/sidebar.html" %}
-     {% endblock %}
-     </div>
-    <div class="col-xs-7 col-sm-3 col-md-10">
-      {% block content_list %}
-        <h2>Search for : {{ query }}</h2>
-      {% if results %}
+        <div class="container">
+          <div class="col-xs-7 col-sm-3 col-md-2">
+             <aside>
+              {% block sidebar %}
+                {% include "bike/include/sidebar.html" %}
+              {% endblock %}
+             </aside>
+          </div>
 
-      {% for results in results %}
-
-        <div class="list-group">
-          <a href="/item/{{ results.slug }}" class="list-group-item">
-                <div class="media col-md-3">
-                    <figure class="pull-left">
-                        <img class="all_img" src="{{ results.image.url }}" >
-                    </figure>
-                </div>
-                <div class="col-md-6">
-                    <h4 class="list-group-item-heading">{{ results.name }}</h4>
-                    <span class="glyphicon glyphicon-map-marker" aria-hidden="true">{{ results.locations }}</span>
-                    <br>
-                    <br>
-                    <p class="list-group-item-text">{{ results.details|truncatewords:"50"}}</p>
-                </div>
-                <div class="col-md-3 text-center">
-                    <h2 class="all_price">$  {{ results.price }}</h2>
-                    <button type="button" class="btn btn-default btn-lg btn-block">Add to Cart</button>
-                    <span class="glyphicon glyphicon-map-marker" aria-hidden="true">{{ results.locations | linebreaks }}</span>
-                    <p>{{ results.company | linebreaks }}</p>
-                    <p> Posted by: <small> {{ results.owner }}</small></p>
-                </div>
-          </a>
-          <br>
-            {% endfor %}
-            {% else %}
-                <p>No Results</p>
-            {% endif %}
-
+           <div class="col-xs-7 col-sm-3 col-md-10">
+               <section id="content">
+                    {% include 'bike/include/results.html' %}
+               </section>
+           </div>
         </div>
-        {% endblock %}
- </div>
- </div>
 {% endblock %}
+</div>
 <div class="container" align="center">
-    {% block pagination %}
-        {% include "bike/include/pagination.html" %}
-    {% endblock %}
+{% block pagination %}
+    {% include 'bike/include/pagination.html' %}
+{% endblock %}
+</div>
 </div>

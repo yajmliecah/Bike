@@ -14,5 +14,13 @@
     "bike"
   ],
   "author": "michael jay",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yajmliecah/Bike.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yajmliecah/Bike/issues"
+  },
+  "homepage": "https://github.com/yajmliecah/Bike#readme"
 }

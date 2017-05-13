@@ -3,7 +3,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -12,24 +12,29 @@
       <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://use.fontawesome.com/ff89a5baa1.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/6.0.0/normalize.css">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
       <link rel="stylesheet" type="text/css" href="{% static 'bike/css/bike.css' %}">
       <link rel="stylesheet" type="text/css" href="{% static 'bike/css/all.css' %}">
       <link rel="stylesheet" type="text/css" href=" {% static 'bike/css/detail.css' %}">
-
+      <script src="{% static 'bike/js/main.js' %}"></script>
   </head>
 
   <body>
      <header>
         <div class="container">
             <div id="branding">
-                <h1><a href="/">CarLinks</a></h1>
+                <li><a href="/">CarLinks</a></li>
             </div>
                 <ul>
-                    <li><a href="">Log In</a></li>
-                    <li><a href="">Sign Up</a></li>
-                    <li><a href="">Sell your Car</a></li>
+                    {% if user.is_authenticated %}
+                    <li><a href="/accounts/logout/">Logout</a></li>
+                    {% else %}
+                    <li><a href="/accounts/login/">Log In</a></li>
+                    <li><a href="/accounts/signup/">Sign Up</a></li>
+                    {% endif %}
+                     <li><a href="">Sell your Car</a></li>
                 </ul>
         </div>
     </header>
@@ -39,7 +44,7 @@
              {% get_categories as categories %}
             <ul>
                 {% for categories in categories %}
-                <li><a href="/{{ categories.slug }}">{{ categories.name }}</a></li>
+                <li><a href="/category/{{ categories.slug }}/">{{ categories.name }}</a></li>
                 {% endfor %}
             </ul>
          </div>
@@ -51,15 +56,14 @@
      </div>
 
      <footer>
-        <div class="container">
             <p>CarLinks, Copyright &copy; 2017</p>
-        </div>
      </footer>
 
   </body>
 </html>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://use.fontawesome.com/c8fe56ad07.js"></script>
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
   </body>
 </html>

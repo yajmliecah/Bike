@@ -15,3 +15,11 @@ def get_brands():
 @register.assignment_tag
 def get_editions():
     return Edition.objects.all()
+
+@register.assignment_tag
+def new():
+    return Item.old()
+
+@register.assignment_tag
+def new():
+    return Item.new()

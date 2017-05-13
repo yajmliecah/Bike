@@ -1,12 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block breadcrumb %}
-    {{ block.super }}
-    <a class="breadcumb-item">Login</a>
-{% endblock %}
-
 {% block content %}
-<div class="row">
     <div class="container">
         <div class="col-lg-4 col-lg-offset-3">
         {% if user.is_authenticated %}
@@ -38,6 +32,5 @@
 
         </div>
     </div>
-</div>
 <br>
 {% endblock %}

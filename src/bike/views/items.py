@@ -9,6 +9,7 @@ from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.http import Http404
 
 
 class BaseView(ListView):
@@ -104,20 +105,6 @@ class ItemDetailView(DetailView):
     template_name = 'bike/item_detail.html'
     context_object_name = 'items'
     
-    def get_context_data(self, **kwargs):
-        context = super(ItemDetailView, self).get_context_data(**kwargs)
-        category = Category
-        cars = Item.get_cars()
-        motorcycles = Item.get_motorcycles()
-        vehicles = Item.get_vehicles()
-        
-        context['cars'] = cars
-        context['motorcycles'] = motorcycles
-        context['vehicles'] = vehicles
-        context['category'] = category
-        
-        return context
-    
     
 class ItemCreateView(CreateView):
     model = Item
@@ -177,13 +164,11 @@ class BrandDetailView(DetailView):
     
     def get_context_data(self, **kwargs):
         context = super(BrandDetailView, self).get_context_data(**kwargs)
-        obj = self.object()
+        obj = self.get_object()
         
         item_set = obj.item_set.all()
         items = ( item_set ).distinct()
-        category = Category.get_category()
         
-        context['category'] = category
         context['items'] = items
         
         return context
@@ -196,7 +181,7 @@ class EditionDetailVew(DetailView):
     
     def get_context_data(self, **kwargs):
         context = super(EditionDetailVew, self).get_context_data(**kwargs)
-        obj = self.object()
+        obj = self.get_object()
         item_set = obj.item_set.all()
         items = ( item_set ).distinct()
         
