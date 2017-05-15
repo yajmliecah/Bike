@@ -22,10 +22,14 @@ header {
 }
 
 header a{
-    color: #FEFEFE;
+    color: #F6FAFA;
     text-decoration: none;
     font-size: 20px;
     float: left;
+}
+
+header a:hover {
+    text-decoration: none;
 }
 
 header ul{
@@ -56,20 +60,32 @@ nav{
 }
 
 nav ul{
+    list-style: none;
     margin: 0;
     padding: 0;
 }
 
-nav li{
+nav li a{
     float: left;
     display: inline;
-    padding: 0 10px 0 10px;
-    font-size: 20px;
+    font-size: 25px;
+    color: #6A6C6C;
+}
+
+nav li i {
+    float: right;
+    padding: 5px 25px 0 25px;
+    display: inline;
 }
 
 
+
+nav li a:hover {
+    text-decoration: none;
+}
+
 nav h3{
-    text-color: #F0E68C
+    text-color: #6A6C6C;
     text-align: left;
 }
 
@@ -229,7 +245,7 @@ aside ul {
 
 aside .submenu li a {
     color: #6A6C6C;
-    display: none;
+    display: inline;
     text-decoration : none;
     margin: 15px;
     padding: 10px;
