@@ -213,25 +213,57 @@ footer{
 .row-fluid ul.thumbnails li.span2:nth-child(1n + 1) { margin-left : 0px;clear:left }
 .row-fluid ul.thumbnails li.span1:nth-child(1n + 1) { margin-left : 0px;clear:left }
 
-//sidebar
-
-
 /* Sidebar */
-
-.sidebar ul {
-    *zoom: 1;
-    list-style-type: none;
-    margin:0;
-    padding:0;
+aside {
+    margin: 40px 2px;
+    width: 125%;
 }
 
-.sidebar li {
+aside ul {
     list-style: none;
+    padding: 0;
+    background: #FAFCFC;
+    border-radius: 5px;
+    font-size: 15px;
 }
 
-.sidebar a {
-    padding: 5px 5px;
-    color:#fff;
+aside .submenu li a {
+    color: #6A6C6C;
+    display: none;
+    text-decoration : none;
+    margin: 15px;
+    padding: 10px;
+}
+
+aside li a:hover {
+    background: #F0F6EE;
+    color: #151515;
+    text-decoration : none;
+    margin: 10px;
+}
+
+aside .link {
+    cursor: pointer;
+    display: block;
+    padding: 15px 15px 15px 15px;
+    color: #6A6C6C;
+    position: relative;
+    border-bottom: 1px solid #CACFCE    ;
+    -webkit-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+}
+
+aside .link i: hover {
+    font-size: 18px;
+    color: #E1F1F0;
+}
+
+aside .link i {
+    float: right;
+    -webkit-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    transition: all 0.4s ease;
 }
 
 /* End of Sidebar */
@@ -251,7 +283,7 @@ footer{
 }
 
 #content a.list-group-item:hover {
-    background:#8BBDF0
+    background: #8BBDF0;
 }
 
 #content .item_img {
