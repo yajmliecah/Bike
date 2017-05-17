@@ -22,10 +22,14 @@ header {
 }
 
 header a{
-    color: #FEFEFE;
+    color: #F6FAFA;
     text-decoration: none;
     font-size: 20px;
     float: left;
+}
+
+header a:hover {
+    text-decoration: none;
 }
 
 header ul{
@@ -56,20 +60,30 @@ nav{
 }
 
 nav ul{
+    list-style: none;
     margin: 0;
     padding: 0;
 }
 
-nav li{
+nav li a{
     float: left;
     display: inline;
-    padding: 0 10px 0 10px;
-    font-size: 20px;
+    font-size: 18px;
+    color: #6A6C6C;
 }
 
+nav li i {
+    float: right;
+    padding: 5px 25px 0 25px;
+    display: inline;
+}
+
+nav li a:hover {
+    text-decoration: none;
+}
 
 nav h3{
-    text-color: #F0E68C
+    text-color: #6A6C6C;
     text-align: left;
 }
 
@@ -197,13 +211,12 @@ nav h3{
 
 footer{
     position: absolute;
-    right: 0;
-    left: 0;
     padding: 30px;
     color: #FEFEFE;
     background-color: #9DA8BE;
     text-align: center;
-    margin-bottom: 0;
+    width: 100%;
+    height: 100px;
 }
 
 .row-fluid ul.thumbnails li.span12 + li { margin-left : 0px;clear:left }
@@ -213,7 +226,62 @@ footer{
 .row-fluid ul.thumbnails li.span2:nth-child(1n + 1) { margin-left : 0px;clear:left }
 .row-fluid ul.thumbnails li.span1:nth-child(1n + 1) { margin-left : 0px;clear:left }
 
-//sidebar
+/* Sidebar */
+aside {
+    margin: 40px 2px;
+    width: 125%;
+}
+
+aside ul {
+    list-style: none;
+    padding: 0;
+    background: #FAFCFC;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+aside .submenu li a {
+    color: #6A6C6C;
+    display: inline;
+    text-decoration : none;
+    margin: 15px;
+    padding: 10px;
+}
+
+aside li a:hover {
+    background: #F0F6EE;
+    color: #151515;
+    text-decoration : none;
+    margin: 10px;
+}
+
+aside .link {
+    cursor: pointer;
+    display: block;
+    padding: 15px 15px 15px 15px;
+    color: #6A6C6C;
+    position: relative;
+    border-bottom: 1px solid #CACFCE;
+    -webkit-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+}
+
+aside .link i: hover {
+    font-size: 18px;
+    color: #E1F1F0;
+}
+
+aside .link i {
+    float: right;
+    -webkit-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+}
+
+/* End of Sidebar */
+
+/* Content */
 
 #content{
     float: right;
@@ -228,7 +296,7 @@ footer{
 }
 
 #content a.list-group-item:hover {
-    background:#8BBDF0
+    background: #8BBDF0;
 }
 
 #content .item_img {
@@ -237,7 +305,10 @@ footer{
 }
 #content .item_price {
     color: #E6531C
+    color:
 }
+
+/*  End of Content */
 
 
 

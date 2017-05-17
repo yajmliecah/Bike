@@ -1,26 +1,19 @@
 {
-  "name": "bike",
+  "name": "src",
   "version": "1.0.0",
-  "description": "Buy and Sell bike",
+  "private": true,
+  "description": "Buy and Sell Car",
   "main": "index.js",
   "dependencies": {
-    "normalize.css": "^6.0.0"
+    "jquery": "3.2.1"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js"
   },
   "keywords": [
     "bike"
   ],
-  "author": "michael jay",
-  "license": "ISC",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/yajmliecah/Bike.git"
-  },
-  "bugs": {
-    "url": "https://github.com/yajmliecah/Bike/issues"
-  },
-  "homepage": "https://github.com/yajmliecah/Bike#readme"
+  "author": "Michael Jay",
+  "license": "ISC"
 }

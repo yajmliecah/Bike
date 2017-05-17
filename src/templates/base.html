@@ -9,56 +9,63 @@
 
     <title>{% block title %}My Car App{% endblock %}</title>
       <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-      <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
       <link rel="stylesheet" href="https://use.fontawesome.com/ff89a5baa1.css">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/6.0.0/normalize.css">
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
       <link rel="stylesheet" type="text/css" href="{% static 'bike/css/bike.css' %}">
       <link rel="stylesheet" type="text/css" href="{% static 'bike/css/all.css' %}">
       <link rel="stylesheet" type="text/css" href=" {% static 'bike/css/detail.css' %}">
+      <script src="app.js"></script>
       <script src="{% static 'bike/js/main.js' %}"></script>
+      <style>
+          #content {
+            min-height: 100%;
+          }
+
+      </style>
+
   </head>
 
   <body>
      <header>
-        <div class="container">
-            <div id="branding">
-                <li><a href="/">CarLinks</a></li>
-            </div>
-                <ul>
-                    {% if user.is_authenticated %}
-                    <li><a href="/accounts/logout/">Logout</a></li>
-                    {% else %}
-                    <li><a href="/accounts/login/">Log In</a></li>
-                    <li><a href="/accounts/signup/">Sign Up</a></li>
-                    {% endif %}
-                     <li><a href="">Sell your Car</a></li>
-                </ul>
-        </div>
+         <div class="container">
+         <div id="branding">
+             <li><a href="/">CarLinks</a></li>
+         </div>
+
+         <ul class="branding">
+             {% if user.is_authenticated %}
+                <li><a href="/accounts/logout/">Logout</a></li>
+             {% else %}
+                <li><a href="/accounts/login/">Log In</a></li>
+                <li><a href="/accounts/signup/">Sign Up</a></li>
+             {% endif %}
+                <li><a href="">Sell your Car</a></li>
+         </ul>
+         </div>
     </header>
 
      <nav>
          <div class="container">
              {% get_categories as categories %}
             <ul>
+
                 {% for categories in categories %}
-                <li><a href="/category/{{ categories.slug }}/">{{ categories.name }}</a></li>
+                <li><a href="/category/{{ categories.slug }}/">{{ categories.name }}<i class="fa fa-angle-down"></i> </a></li>
                 {% endfor %}
+
             </ul>
          </div>
      </nav>
 
-     <div class="row">
+     <div class="content">
          {% block content %}
          {% endblock %}
      </div>
 
      <footer>
-            <p>CarLinks, Copyright &copy; 2017</p>
+         <p>CarLinks, Copyright &copy; 2017</p>
      </footer>
-
   </body>
 </html>
 
