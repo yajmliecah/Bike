@@ -1,0 +1,207 @@
+@import url(https://fonts.googleapis.com/css?family=Audiowide);
+body{
+    font: 15px/1.5;
+    padding: 0;
+    margin: 0 auto;
+    background-color: FFFFFF;
+    font-family: sans-serif;
+}
+
+.container {
+    max-width: 1200%;
+}
+/* Navigation Main */
+
+.nav-main {
+    background: #FAFCFC;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    height: 35px;
+}
+
+.nav-main ul{
+    margin: 0;
+    padding: 0;
+}
+
+.nav-main li{
+    float: right;
+    display: inline;
+    padding: 0 10px 0 10px;
+    font-size: 20px;
+    color: #273746;
+    text-decoration: none;
+}
+
+.nav-main a {
+    color: #273746;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.nav-main a:hover {
+    text-decoration: none;
+    color: #85EDCF;
+}
+/* End of Main Navigation */
+
+/* Navigation Main Menu*/
+
+.nav-main-menu {
+    min-height: 80px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: #FFFFFF;
+    margin-right: 50px;
+    margin-left: 50px;
+}
+
+.nav-main-menu .branding {
+    float: left;
+    color: #85EDCF;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    margin-left: 50px;
+}
+
+.nav-main-menu .branding h2 a{
+    color: #85EDCF;
+    text-decoration: none;
+}
+
+.nav-main-menu .branding h2 a:hover {
+    color: #09B886;
+}
+
+.nav-main-menu form {
+    display:flex;
+    float: right;
+    padding-top: 20px;
+    padding-bottom: 5px;
+    margin-right: 50px;
+}
+
+.nav-main-menu form .search {
+    background-color: #F4F6F6;
+    font-size: 18px;
+    width: 400px;
+    height: 50px;
+    padding:8px 15px;
+    color: #1546EC;
+}
+
+.nav-main-menu form .button {
+    position: relative;
+    font-size: 18px;
+    height: 50px;
+    padding:6px 15px;
+    border:0px solid #207cca;
+    background-color: #D7EFE8;
+    color: #17202A;
+}
+
+.nav-main-menu form .button:hover {
+    background-color: #85EDCF;
+}
+/* End of Navigation Main Menu*/
+
+/* Navigation Menu Bar */
+/* =Styles for the lab
+-------------------------------------------------------------- */
+#wrapper {
+	min-width:100px;
+}
+.nav-bar-menu {
+    font-family: sans-serif;
+    font-size: 18px;
+	background-color: #F0F7F3;
+	padding:10px 5px 0 5px;
+	cursor:pointer;
+}
+.nav-bar-menu ul {
+    list-style-type:none;
+    position: relative;
+    margin:0;
+    padding:0;
+}
+.nav-bar-menu ul li {
+    display:inline-block;
+    text-decoration: none;
+}
+
+/* sub navigation */
+.nav-bar-menu li ul {
+    background-color: #E5E8E8;
+    position: absolute;
+    left:0;
+    top:40px; /* make this equal to the line-height of the links (specified below) */
+    width:200px;
+}
+
+.nav-bar-menu li li {
+    position:relative;
+    margin:0;
+    display: block;
+}
+
+.nav-bar-menu li li ul {
+    position: absolute;
+    left: 200px; /* make this equal to the width of the sub nav above */
+    margin:0;
+}
+
+/* style all links */
+.nav-bar-menu a {
+    line-height:40px;
+    padding:0 12px;
+    margin:0 12px;
+}
+.nav-bar-menu a {
+    color:#363837;
+    text-decoration:none;
+    display:block;
+}
+
+.nav-bar-menu a i{
+    float: right;
+    padding-left: 20px;
+    padding-top: 10px;
+}
+.nav-bar-menu a:hover,
+.nav-bar-menu a:focus,
+.nav-bar-menu a:active {
+    color:rgb(50,50,50);
+}
+
+/* style sub level links */
+.nav-bar-menu li li a {
+    border-bottom: solid 1px #575D59;
+    margin: 5px 10px;
+    padding:0;
+}
+.nav-bar-menu li li:last-child a {
+    border-bottom:none;
+}
+
+.nav-bar-menu li li a:hover {
+    color: #13F289;
+}
+
+/* hide sub menu links */
+ul.sub-menu {
+    display:none;
+}
+
+/* show arrows for dropdowns */
+.nav-bar-menu li.dropdown > a {
+    background-image:url('../img/arrow-down.png');
+    background-position:right 20px;
+    background-repeat:no-repeat;
+}
+
+.nav-bar-menu li li.dropdown > a {
+    background-image:url('../img/arrow-right.png');
+    background-position:right 16px;
+    background-repeat:no-repeat;
+}
+/* End of Navigation Menu Bar */

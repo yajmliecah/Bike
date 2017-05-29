@@ -1,37 +1,39 @@
-<aside>
+{% load item_filters %}
+
     <ul>
-        <li>
-            <div class="link">Condition <i class="fa fa-chevron-right"></i> </div>
+        <li data-toggle="collopse" class="collapsed-active">
+            <div class="link"> Condition <i class="fa fa-chevron-right"></i> </div>
             <ul class="submenu">
-                <li><a href="">New</a></li>
-                <li><a href="">Old</a></li>
+                <li><a href=""><i class="fa fa-angle-right"></i>New</a></li>
+                <li><a href=""><i class="fa fa-angle-right"></i>Old</a></li>
             </ul>
         </li>
 
         <li>
-            <div class="link">Category<i class="fa fa-chevron-right"></i> </div>
+            {% get_categories as categories %}
+            <div class="link"><i class="fa fa-chevron-right"></i>Category</div>
              <ul class="submenu">
-                <li><a href="">Cars</a></li>
-                <li><a href="">Motorcycles</a> </li>
-                <li><a href="">Vehicles</a> </li>
+                 {% for categories in categories %}
+                <li><a href="/item/{{ item.pk }}">{{ categories.name }}<i class="fa fa-angle-right"></i> </a></li>
+                 {% endfor %}
             </ul>
         </li>
 
         <li>
             <div class="link">Brand<i class="fa fa-chevron-right"></i> </div>
+            {% get_brands as brands %}
              <ul class="submenu">
-                <li></li>
-                <li></li>
-                <li></li>
+                 {% for brands in brands %}
+                 <li><a href="">{{ brands.name }}<i class="fa fa-angle-right"></i> </a></a></li>
+                 {% endfor %}
             </ul>
         </li>
 
         <li>
-            <div class="link">Locations <i class="fa fa-chevron-right"></i> </div>
-            <ul class="submenu">
-                <li>
-                </li>
-            </ul>
+            <div class="link">Locations <i class="fa fa-chevron-right"></i>
+                <br>
+                <br>
+                <input type="text" placeholder="Location">
+            </div>
         </li>
     </ul>
-</aside>

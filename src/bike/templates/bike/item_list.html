@@ -1,26 +1,53 @@
 {% extends 'base.html' %}
 
-{% load l10n %}
+{% load humanize %}
 
 {% block title %}All Items({{ items.count }}){% endblock %}
-<div class="container">
 {% block content %}
+    <div class="row">
+        {% block sidebar %}
+            <aside>
+                {% include "bike/include/sidebar.html" %}
+            </aside>
+        {% endblock %}
 
-        <div class="container">
-          <div class=".col-xs-6 .col-md-4">
-                  {% block sidebar %}
-                    {% include "bike/include/sidebar.html" %}
-                  {% endblock %}
-          </div>
+    </div>
+    <div class="row">
+        {% block page-content %}
+            {% if items %}
+            {% for items in items %}
+            <div class="list-group">
+                <a href="/item/{{ items.slug }}" class="list-group-item">
+                    <div class="media col-md-3">
+                        <figure class="pull-left">
+                            <img class="item_img" src="{{ items.image.url }}" >
+                        </figure>
+                    </div>
 
-           <div class=".col-xs-12 .col-md-8">
-               <section id="content">
-                    {% include 'bike/include/all_items.html' %}
-               </section>
-           </div>
-        </div>
-{% endblock %}
+                    <div class="col-md-6">
+                        <h4 class="list-group-item-heading">{{ items.name }}</h4>
+                        <br>
+                        <br>
+                        <p class="list-group-item-text">{{ items.details|truncatewords:"50" }}</p>
+                    </div>
+
+                    <div class="col-md-3 text-center">
+                        <h2 class="item_price">₱ {{ items.price|intcomma }}</h2>
+                        <button type="button" class="btn btn-defaul t btn-lg btn-block">Add to Cart</button>
+                        <span class="glyphicon glyphicon-map-marker" aria-hidden="true">{{ items.locations | linebreaks }}</span>
+                        <p>{{ items.company | linebreaks }}</p>
+                    </div>
+                </a>
+                <br>
+            </div>
+            {% endfor %}
+            {% else %}
+            <p>No Results</p>
+            {% endif %}
+        {% endblock %}
 </div>
+{% endblock %}
+
 <div class="container" align="center">
 {% block pagination %}
     {% include 'bike/include/pagination.html' %}

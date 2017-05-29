@@ -1,29 +1,23 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
+
 {% block title %}Skip the forecourt - great deals from the comfort of your home{% endblock %}
+{% block head %}
+    <link href="{% static 'css/bike.css' %}" rel="stylesheet">
+    <link href="{% static 'css/detail.css' %}" rel="stylesheet">
+    <link href="{% static 'css/thumbnails.css' %}" rel="stylesheet">
+{% endblock %}
 
 {% block content %}
 <section id="showcase">
-        <div class="container">
-            <div class="row">
-                <div class=".col-md-9 .col-md-push-3">
-                    <div class="container">
-                    <h1>Skip the forecourt - great deals from the comfort of your home</h1>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class=".col-md-3 .col-md-pull-9">
-                    <div class="container">
-                        <form class="form" action="/search/" method="GET">
-                            <input type="text" class="search" name="q" value="{{ query_string }}" placeholder="Search your favorite cars...">
-                            <button class="button">Search</button>
-                        </form>
-                    </div>
-                </div>
+    <div class="row">
+        <div class=".col-md-9 .col-md-push-3">
+            <div class="container">
+                <h1>Skip the forecourt - great deals from the comfort of your home</h1>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <section id="feature">
         <section id="feature-header">
@@ -72,6 +66,7 @@
          <div class="container">
              {% for top_brands in top_brands %}
                 <div class="col-xs-6 col-md-4">
+                    <a href="">
                     <div class="row-fluid">
                         <div class="span9">
                             <ul class="thumbnails">
@@ -87,6 +82,7 @@
                             </ul>
                         </div>
                     </div>
+                    </a>
                 </div>
              {% endfor %}
          </div>

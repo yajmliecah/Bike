@@ -1,7 +1,7 @@
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from django.db.models import Q
-from ..models import Category, Brand, Edition, Item
-from ..forms import ItemForm
+from .models import Category, Brand, Edition, Item
+from .forms import ItemForm
 from django.contrib import messages
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.core.paginator import Paginator
@@ -9,18 +9,16 @@ from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.http import Http404
 
 
 class BaseView(ListView):
-    
     def __init__(self, *args, **kwargs):
         super(BaseView, self).__init__(*args, **kwargs)
         self.category = Category.get_category()
         self.brand = Brand.get_brand()
         self.edition = Edition.get_edition()
         self.item = Item.get_items()
-        
+    
     def get_context_data(self, **kwargs):
         context = super(BaseView, self).get_context_data(**kwargs)
         
@@ -36,11 +34,11 @@ class BaseView(ListView):
         context['item'] = self.item
         
         return context
-    
-    
+
+
 class IndexView(TemplateView):
     template_name = 'bike/index.html'
-
+    
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
         top_brands = Brand.objects.top_brands()[:3]
@@ -48,10 +46,10 @@ class IndexView(TemplateView):
         
         context['top_brands'] = top_brands
         context['featured_cars'] = featured_cars
-    
-        return context
-    
         
+        return context
+
+
 class ItemListView(BaseView):
     model = Item
     template_name = 'bike/item_list.html'
@@ -75,7 +73,7 @@ class ItemListView(BaseView):
         
         return context
 
-   
+
 class ItemSearchListView(ItemListView):
     template_name = 'bike/search.html'
     paginate_by = 10
@@ -104,8 +102,8 @@ class ItemDetailView(DetailView):
     model = Item
     template_name = 'bike/item_detail.html'
     context_object_name = 'items'
-    
-    
+
+
 class ItemCreateView(CreateView):
     model = Item
     form_class = ItemForm
@@ -117,29 +115,29 @@ class ItemCreateView(CreateView):
     
     def get_initial(self):
         initial = super(ItemCreateView, self).get_initial()
-        initial['request'] =  self.request
+        initial['request'] = self.request
         return initial
-        
+    
     def form_valid(self, form):
         self.object = form.save(commit=False)
         messages.success(self.request, 'File Uploaded')
         self.object.owner = self.request.user
         self.object.save()
         return super(ItemCreateView, self).form_valid(form)
-    
+
 
 class ItemUpdateView(UpdateView):
     model = Item
     success_url = reverse_lazy('dashboard')
     form_class = ItemForm
     template_name_suffix = '_update_form'
-    
-    
+
+
 class ItemDeleteView(DeleteView):
     model = Item
     success_url = reverse_lazy('dashboard')
-    
- 
+
+
 class CategoryDetailVew(DetailView):
     model = Category
     template_name = 'bike/category_detail.html'
@@ -149,14 +147,14 @@ class CategoryDetailVew(DetailView):
         context = super(CategoryDetailVew, self).get_context_data(**kwargs)
         obj = self.get_object()
         item_set = obj.item_set.all()
-        items = ( item_set ).distinct()
+        items = (item_set).distinct()
         category = Category.get_category()
         context['category'] = category
         context['items'] = items
-    
+        
         return context
- 
- 
+
+
 class BrandDetailView(DetailView):
     model = Brand
     template_name = 'bike/brand_detail.html'
@@ -167,7 +165,7 @@ class BrandDetailView(DetailView):
         obj = self.get_object()
         
         item_set = obj.item_set.all()
-        items = ( item_set ).distinct()
+        items = (item_set).distinct()
         
         context['items'] = items
         
@@ -183,12 +181,11 @@ class EditionDetailVew(DetailView):
         context = super(EditionDetailVew, self).get_context_data(**kwargs)
         obj = self.get_object()
         item_set = obj.item_set.all()
-        items = ( item_set ).distinct()
+        items = (item_set).distinct()
         
         context['items'] = items
         
         return context
-        
-    
-        
-        
+
+
+

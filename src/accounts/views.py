@@ -1,20 +1,9 @@
-from django.conf import settings
-from django.contrib.auth import get_user_model
 from django.views.generic import ListView, DetailView, FormView, RedirectView, CreateView
 from django.contrib.auth import authenticate, login, logout, REDIRECT_FIELD_NAME
-from django.core.urlresolvers import reverse, reverse_lazy
-from django.utils.decorators import method_decorator
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, get_object_or_404, Http404
-from django.http import HttpResponseForbidden
-from django.views.decorators.cache import never_cache
-from django.views.decorators.csrf import csrf_protect
-from django.views.decorators.debug import sensitive_post_parameters
 from django.contrib import messages
 from django.contrib import auth
 
-from .models import BikeUser
-from bike.models import Item
+from .models import Item
 from .forms import LoginForm, SignUpForm
 
 

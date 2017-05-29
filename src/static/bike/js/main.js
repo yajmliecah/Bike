@@ -1,3 +1,6 @@
-var $ = require('jquery');
-
-
+$(function() {
+    $(".link").click(function (e){
+        e.stopPropagation();
+        $("")
+    }),
+}),
