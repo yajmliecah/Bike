@@ -1,0 +1,33 @@
+{% load humanize %}
+
+{% if items %}
+{% for items in items %}
+<div class="list-group">
+     <a href="/item/{{ items.slug }}" class="list-group-item">
+         <div class="media col-md-3">
+             <figure class="pull-left">
+                 <img class="item_img" src="{{ items.image.url }}" >
+             </figure>
+         </div>
+
+         <div class="col-md-6">
+             <h4 class="list-group-item-heading">{{ items.name }}</h4>
+
+             <br>
+             <br>
+             <p class="list-group-item-text">{{ items.details|truncatewords:"50" }}</p>
+         </div>
+
+         <div class="col-md-3 text-center">
+             <h2 class="item_price">₱ {{ items.price|intcomma }}</h2>
+             <button type="button" class="btn btn-defaul t btn-lg btn-block">Add to Cart</button>
+             <span class="glyphicon glyphicon-map-marker" aria-hidden="true">{{ items.locations | linebreaks }}</span>
+             <p>{{ items.company | linebreaks }}</p>
+         </div>
+          </a>
+          <br>
+    {% endfor %}
+{% else %}
+    <p>No Results</p>
+{% endif %}
+ </div>

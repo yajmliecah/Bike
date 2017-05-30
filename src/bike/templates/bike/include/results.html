@@ -1,7 +1,6 @@
 {% load humanize %}
 
 {% if results %}
-<h4>{{ results.count }} results for <b>{{ query }}</b></h4>
 {% for results in results %}
 <div class="list-group">
      <a href="/item/{{ results.slug }}" class="list-group-item">
@@ -32,9 +31,3 @@
     <p>No Results</p>
 {% endif %}
  </div>
-
-<div class="container" align="center">
-    {% block pagination %}
-        {% include "bike/include/pagination.html" %}
-    {% endblock %}
-</div>

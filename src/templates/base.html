@@ -20,13 +20,6 @@
       <script src="{% static 'bike/js/main.js' %}"></script>
       <script src="{% static 'bike/js/dropdown.js' %}"></script>
       {% block head %}{% endblock %}
-      <style>
-          #content {
-            min-height: 100%;
-            min-width: 80%;
-          }
-
-      </style>
 
   </head>
 
@@ -79,19 +72,11 @@
      </nav>
 
      <div class="container">
-         <div class="content">
-             {% block content %}
-                <div class="col-xs-7 col-sm-3 col-md-2">
-                    {% block sidebar %}
-                    {% endblock %}
-                </div>
+         {% block sidebar %}
+         {% endblock %}
 
-                <div class="col-xs-7 col-sm-3 col-md-10">
-                    {% block page-content %}
-                    {% endblock %}
-                </div>
-             {% endblock %}
-         </div>
+         {% block content %}
+         {% endblock %}
      </div>
 
      <footer>

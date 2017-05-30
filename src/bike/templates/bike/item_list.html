@@ -1,56 +1,21 @@
 {% extends 'base.html' %}
-
-{% load humanize %}
+{% load staticfiles %}
+{% load l10n %}
 
 {% block title %}All Items({{ items.count }}){% endblock %}
-{% block content %}
-    <div class="row">
+{% block head %}
+    <link href="{% static 'css/bike.css' %}" rel="stylesheet">
+{% endblock %}
+<div class="container">
         {% block sidebar %}
-            <aside>
-                {% include "bike/include/sidebar.html" %}
-            </aside>
+        <aside id="sidebar">
+            {% include 'bike/include/sidebar.html' %}
+        </aside>
         {% endblock %}
 
-    </div>
-    <div class="row">
-        {% block page-content %}
-            {% if items %}
-            {% for items in items %}
-            <div class="list-group">
-                <a href="/item/{{ items.slug }}" class="list-group-item">
-                    <div class="media col-md-3">
-                        <figure class="pull-left">
-                            <img class="item_img" src="{{ items.image.url }}" >
-                        </figure>
-                    </div>
-
-                    <div class="col-md-6">
-                        <h4 class="list-group-item-heading">{{ items.name }}</h4>
-                        <br>
-                        <br>
-                        <p class="list-group-item-text">{{ items.details|truncatewords:"50" }}</p>
-                    </div>
-
-                    <div class="col-md-3 text-center">
-                        <h2 class="item_price">₱ {{ items.price|intcomma }}</h2>
-                        <button type="button" class="btn btn-defaul t btn-lg btn-block">Add to Cart</button>
-                        <span class="glyphicon glyphicon-map-marker" aria-hidden="true">{{ items.locations | linebreaks }}</span>
-                        <p>{{ items.company | linebreaks }}</p>
-                    </div>
-                </a>
-                <br>
-            </div>
-            {% endfor %}
-            {% else %}
-            <p>No Results</p>
-            {% endif %}
+        {% block content %}
+        <article id="content">
+            {% include 'bike/include/all_items.html' %}
+        </article>
         {% endblock %}
-</div>
-{% endblock %}
-
-<div class="container" align="center">
-{% block pagination %}
-    {% include 'bike/include/pagination.html' %}
-{% endblock %}
-</div>
 </div>
