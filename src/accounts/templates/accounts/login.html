@@ -1,38 +1,32 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load staticfiles %}
+{% block title %}Registration{% endblock %}
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'accounts/css/accounts.css' %}">
+{% endblock %}
+
 {% block content %}
-<div class="content">
-    <div class="container">
+<div class="container">
+    <div id="content">
         <div class="col-lg-4 col-lg-offset-3">
-        {% if user.is_authenticated %}
-            <p>Welcome {{ bike_user.username }}</p>
+            <form action="." class="form-signin" enctype="multipart/form-data" role="form" method="post">
+                {% csrf_token %}
+                <label>Email address:</label>
+                {{ form.email }}
+                <br>
+                <label>Password:</label>
+                {{ form.password }}
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" value="remember-me"> Remember me
+                        </label>
+                    </div>
 
-        {% else %}
-               <fieldset>
-                   <legend>Login to your Account</legend>
-                         <form action="." class="form-signin" enctype="multipart/form-data" role="form" method="post">
-                            {% csrf_token %}
-                            <label>Email address:</label>
-                            {{ form.email }}
-                             <br>
-                            <label>Password:</label>
-                            {{ form.password }}
-                            <div class="checkbox">
-                              <label>
-                                <input type="checkbox" value="remember-me"> Remember me
-                              </label>
-                            </div>
-                            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-                            <input type="hidden" name="next" value="{{ request.user }}" />
-                        </form>
-
-                </fieldset>
-        {% endif %}
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+                <input type="hidden" name="next" value="{{ request.user }}" />
+            </form>
             <label>Create new account, <a href="/accounts/signup/">register</a> now</label>
-            <hr>
-
         </div>
     </div>
-<br>
 </div>
 {% endblock %}

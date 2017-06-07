@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
-
+{% load staticfiles %}
 {% load humanize %}
-{% block breadcrumb %}
-    {{ block.super }} My Account
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'accounts/css/accounts.css' %}">
 {% endblock %}
 
 {% include 'includes/dashboard_nav.html' %}

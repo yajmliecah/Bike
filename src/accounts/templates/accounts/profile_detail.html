@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 
-{% block breadcumb %}
-    {{ block.super }} My Account
+{% load staticfiles %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'accounts/css/accounts.css' %}">
 {% endblock %}
 
 {% block content %}

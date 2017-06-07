@@ -47,6 +47,15 @@ class LoginForm(forms.Form):
         
             
 class SignUpForm(UserCreationForm):
+    email = forms.CharField(
+        widget=EmailInput(
+            attrs={
+                'placeholder': 'Email Address',
+                'required': 'True',
+                'class': 'form-control'
+            }
+        )
+    )
     username = forms.CharField(
         widget=TextInput(
             attrs={
@@ -56,24 +65,7 @@ class SignUpForm(UserCreationForm):
             }
         )
     )
-    first_name = forms.CharField(
-        widget=TextInput(
-            attrs={
-                'placeholder': 'First Name',
-                'required': 'True',
-                'class': 'form-control'
-            }
-        )
-    )
-    last_name = forms.CharField(
-        widget=TextInput(
-            attrs={
-                'placeholder': 'Last Name',
-                'required': 'True',
-                'class': 'form-control'
-            }
-        )
-    )
+    
     password1=forms.CharField(
         label="Password",
         widget=PasswordInput(
@@ -96,35 +88,9 @@ class SignUpForm(UserCreationForm):
         )
     )
     
-    email = forms.CharField(
-        widget=EmailInput(
-            attrs={
-                'placeholder': 'Email Address',
-                'required': 'True',
-                'class': 'form-control'
-            }
-        )
-    )
-    avatar = forms.CharField(
-        widget=FileInput(
-            attrs={
-                'placeholder': 'Picture',
-            }
-        )
-    )
-    locations = forms.ModelChoiceField(queryset=City.objects.all(),
-                                       widget=Select(
-                                           attrs={
-                                               'placeholder': 'Location',
-                                               'class': 'form-control'
-                                           }
-                                       )
-                                       )
-    
-    
     class Meta:
         model = BikeUser
-        fields = ['username', 'first_name', 'last_name', 'email', 'avatar']
+        fields = ['username', 'email']
     
     def clean_password2(self):
         # Check that the two password entries match

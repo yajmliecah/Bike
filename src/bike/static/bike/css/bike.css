@@ -7,6 +7,12 @@ body{
     margin: 0 auto;
     background-color: FFFFFF;
     font-family: sans-serif;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0;
 }
 
 /* Navigation Main */
@@ -430,14 +436,14 @@ ul.sub-menu {
 
 footer {
     clear: both
-    position: relative;
-    z-index: 10;
+    position: absolute;
     padding: 30px;
     color: #FEFEFE;
     background-color: #9DA8BE;
     text-align: center;
     min-width: 100%;
     margin-bottom: 0;
+    bottom: 0;
 }
 
 .row-fluid ul.thumbnails li.span12 + li { margin-left : 0px;clear:left }
