@@ -1,21 +1,18 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% load l10n %}
+{% load humanize %}
 
-{% block title %}All Items({{ items.count }}){% endblock %}
+{% block title %}All Items{% endblock %}
+
 {% block head %}
-    <link href="{% static 'css/bike.css' %}" rel="stylesheet">
+       <link href="{% static 'css/bike.css' %}" rel="stylesheet">
 {% endblock %}
-<div class="container">
-        {% block sidebar %}
-        <aside id="sidebar">
-            {% include 'bike/include/sidebar.html' %}
-        </aside>
-        {% endblock %}
 
-        {% block content %}
-        <article id="content">
-            {% include 'bike/include/all_items.html' %}
-        </article>
-        {% endblock %}
-</div>
+{% block sidebar %}
+    {% include 'bike/include/sidebar.html' %}
+{% endblock %}
+
+{% block content %}
+    {% include 'bike/include/all_items.html' %}
+{% endblock %}

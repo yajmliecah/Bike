@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
-{% block title %}Registration{% endblock %}
 {% block head %}
     <link rel="stylesheet" type="text/css" href="{% static 'accounts/css/accounts.css' %}">
+{% endblock %}
+
+{% block title %}
+    Log In | DavaoShopping
 {% endblock %}
 
 {% block content %}
@@ -25,7 +28,7 @@
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
                 <input type="hidden" name="next" value="{{ request.user }}" />
             </form>
-            <label>Create new account, <a href="/accounts/signup/">register</a> now</label>
+            <label>Create new account, <a href="/accounts/signup/">Sign Up</a> now</label>
         </div>
     </div>
 </div>

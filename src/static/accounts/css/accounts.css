@@ -1,0 +1,9 @@
+
+#content {
+    min-height: 400px;
+    padding: 5px;
+    overflow: hidden;
+    width: 100%;
+    margin-top: 50px;
+    margin-bottom: 20px;
+}

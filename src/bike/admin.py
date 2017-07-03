@@ -5,14 +5,16 @@ from django.contrib.humanize.templatetags.humanize import intcomma
 
 
 class CategoryAdmin(admin.ModelAdmin):
-    fields = ('name', 'slug', 'description', 'active')
+    fields = ('name', 'slug', 'description', 'is_active')
     prepopulated_fields = {'slug': ('name',)}
     
     
 class BrandAdmin(admin.ModelAdmin):
-    fields = ('name', 'slug', 'logo', 'active')
+    fields = ('name', 'slug', 'logo', 'is_active')
     prepopulated_fields = {'slug': ('name',)}
-
+    list_filter = ('is_active', 'created_on')
+    search_fields = ('id', 'name',)
+    
 
 class EditionAdmin(admin.ModelAdmin):
     fields = ('name', 'slug', 'active')

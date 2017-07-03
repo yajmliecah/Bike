@@ -6,16 +6,11 @@
 {% block head %}
     <link href="{% static 'css/bike.css' %}" rel="stylesheet">
 {% endblock %}
-<div class="container">
-        {% block sidebar %}
-        <aside id="sidebar">
-            {% include 'bike/include/sidebar.html' %}
-        </aside>
-        {% endblock %}
 
-        {% block content %}
-        <article id="content">
-            {% include 'bike/include/results.html' %}
-        </article>
-        {% endblock %}
-</div>
+{% block sidebar %}
+    {% include 'bike/include/sidebar.html' %}
+{% endblock %}
+
+{% block content %}
+    {% include 'bike/include/results.html' %}
+{% endblock %}

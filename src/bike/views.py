@@ -1,3 +1,4 @@
+from django.http import Http404, HttpResponseRedirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from django.db.models import Q
 from .models import Category, Brand, Edition, Item
@@ -11,53 +12,58 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 
-class BaseView(ListView):
+class BaseView(TemplateView):
     def __init__(self, *args, **kwargs):
         super(BaseView, self).__init__(*args, **kwargs)
         self.category = Category.get_category()
-        self.brand = Brand.get_brand()
+        self.brand = Brand.get_brands()
         self.edition = Edition.get_edition()
         self.item = Item.get_items()
+        self.get_cars = Item.get_cars()
+        self.get_motorcycles = Item.get_motorcycles()
+        self.get_vehicles = Item.get_vehicles()
     
     def get_context_data(self, **kwargs):
         context = super(BaseView, self).get_context_data(**kwargs)
-        
         breadcrumbs = ({'name': 'Home', 'url': '/'},)
         
         if 'breadcrumbs' in context:
             breadcrumbs += context['breadcrumbs']
         
+        context['request'] = self.request
         context['breadcrumbs'] = breadcrumbs
         context['category'] = self.category
         context['brand'] = self.brand
         context['edition'] = self.edition
         context['item'] = self.item
-        
+        context['get_cars'] = self.get_cars
+        context['get_motorcycles'] = self.get_motorcycles
+        context['get_vehicles'] = self.get_vehicles
+
+        if hasattr(self, 'page_title'):
+            context['page_title'] = self.page_title
         return context
 
-
-class IndexView(TemplateView):
+    
+class IndexView(BaseView):
     template_name = 'bike/index.html'
     
-    def get_context_data(self, **kwargs):
-        context = super(IndexView, self).get_context_data(**kwargs)
-        top_brands = Brand.objects.top_brands()[:3]
+    def get(self, request, *args, **kwargs):
+        featured_brand = Brand.get_brands()
         featured_cars = Item.featured_car()
         
-        context['top_brands'] = top_brands
-        context['featured_cars'] = featured_cars
-        
-        return context
-
-
+        return super(IndexView, self).get(request,
+                                          featured_brand=featured_brand,
+                                          featured_cars=featured_cars
+                                          )
+    
+    
 class ItemListView(BaseView):
-    model = Item
     template_name = 'bike/item_list.html'
     paginate_by = 10
     context_object_name = 'items'
     
-    def get_context_data(self, **kwargs):
-        context = super(ItemListView, self).get_context_data(**kwargs)
+    def get(self, request, *args, **kwargs):
         items = Item.objects.all()
         paginator = Paginator(items, self.paginate_by)
         page = self.request.GET.get('page')
@@ -69,11 +75,11 @@ class ItemListView(BaseView):
         except EmptyPage:
             items = paginator.page(paginator.num_pages)
         
-        context['items'] = items
         
-        return context
-
-
+        return super(ItemListView, self).get(request,
+                                             items=items)
+        
+        
 class ItemSearchListView(ItemListView):
     template_name = 'bike/search.html'
     paginate_by = 10
@@ -98,12 +104,17 @@ class ItemSearchListView(ItemListView):
         return context
 
 
-class ItemDetailView(DetailView):
-    model = Item
+class ItemDetailView(BaseView):
     template_name = 'bike/item_detail.html'
-    context_object_name = 'items'
+    context_object_name = 'item'
+    
+    def get_context_data(self, **kwargs):
+        context = super(ItemDetailView, self).get_context_data(**kwargs)
+        context['item'] = Item.objects.filter(pk=self.kwargs.get('pk'))
+        
+        return context
 
-
+    
 class ItemCreateView(CreateView):
     model = Item
     form_class = ItemForm
@@ -131,7 +142,7 @@ class ItemUpdateView(UpdateView):
     success_url = reverse_lazy('dashboard')
     form_class = ItemForm
     template_name_suffix = '_update_form'
-
+    
 
 class ItemDeleteView(DeleteView):
     model = Item
@@ -184,8 +195,4 @@ class EditionDetailVew(DetailView):
         items = (item_set).distinct()
         
         context['items'] = items
-        
         return context
-
-
-

@@ -64,7 +64,7 @@
 
      <section id="brand-content">
          <div class="container">
-             {% for top_brands in top_brands %}
+             {% for featured_brand in featured_brand %}
                 <div class="col-xs-6 col-md-4">
                     <a href="">
                     <div class="row-fluid">
@@ -72,9 +72,9 @@
                             <ul class="thumbnails">
                                 <li class="span4">
                                     <div class="thumbnail">
-                                        <img src="{{ top_brands.logo.url }}">
+                                        <img src="{{ featured_brand.logo.url }}">
                                         <div class="caption">
-                                            <h4>{{ top_brands.name }}</h4>
+                                            <h4>{{ featured_brand.name }}</h4>
 
                                         </div>
                                     </div>

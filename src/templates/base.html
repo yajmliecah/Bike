@@ -9,27 +9,29 @@
     <meta name="author" content="">
 
     <title>{% block title %}My Car App{% endblock %}</title>
-      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/boot strap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
       <link rel="stylesheet" href="https://use.fontawesome.com/ff89a5baa1.css">
-      <link rel="stylesheet" type="text/css" href="{% static '/css/base.css' %}">
       <link rel="stylesheet" type="text/css" href="{% static 'bike/css/bike.css' %}">
       <link rel="stylesheet" type="text/css" href=" {% static 'bike/css/detail.css' %}">
-      <link rel="stylesheet" type="text/css" href=" {% static 'bike/css/dropdown.css' %}">
-      <script src="{% static 'bike/js/main.js' %}"></script>
-      <script src="{% static 'bike/js/dropdown.js' %}"></script>
-      {% block head %}{% endblock %}
 
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+      <script type="text/javascript" src="{% static 'bike/js/accordion.js' %}"></script>
+      {% block head %}{% endblock %}
   </head>
 
   <body>
-
      <header class="nav-main">
          <div class="container">
              <ul>
                  {% if user.is_authenticated %}
-                    <li><a href="/accounts/logout/">Logout</a></li>
+                    <li class="dropdown">
+                        <a href=""><i class="fa fa-user-circle-o" data-toggle="dropdown" data-hover="dropdown"></i></a>
+                        <ul class="sub-menu">
+                            <li><a href="">{{ request.user }}</a></li>
+                        </ul>
+                    </li>
                  {% else %}
                     <li><a href="/accounts/login/">Log In</a></li>
                     <li><a href="/accounts/signup/">Sign Up</a></li>
@@ -46,47 +48,77 @@
             </div>
 
              <form class="form" action="/search/" method="GET">
-                 <input class="search" type="text" name="q" value="{{ query_string }}" placeholder="Search your favorite cars...">
+                 <input class="search" type="search" name="q" value="{{ query_string }}" placeholder="Search your favorite cars...">
                  <button type="submit" class="button"><i class="fa fa-search" aria-hidden="true"></i></button>
              </form>
          </div>
      </nav>
 
-     <nav class="nav-bar-menu">
+      <nav class="nav-bar-menu">
          <div class="container">
-             {% get_categories as category %}
                 <ul class="content clearfix">
-                    {% for category in category %}
                     <li class="dropdown">
-                        <a href="#">{{ category.name}}<i class="fa fa-chevron-down"></i></a>
-                        {% get_brands as brand %}
+                        <a href="#">Cars<i class="fa fa-chevron-down"></i></a>
                         <ul class="sub-menu">
-                            {% for brand in brand %}
-                            <li><a href="#">{{ brand.name }}</a></li>
+                            {% for cars in get_cars %}
+                            <li><a href="">{{ cars.brand }}</a></li>
                             {% endfor %}
                         </ul>
                     </li>
-                    {% endfor %}
+
+                    <li class="dropdown">
+                        <a href="#">Motorcycles<i class="fa fa-chevron-down"></i></a>
+                        <ul class="sub-menu">
+                            {% for motorcycles in get_motorcycles %}
+                            <li><a href="">{{ motorcycles.brand }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#">Vehicles<i class="fa fa-chevron-down"></i></a>
+                        <ul class="sub-menu">
+                           {% for vehicles in get_vehicles %}
+                            <li><a href="#">{{ vehicles.brand }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
                 </ul>
             </div>
      </nav>
 
+
      <div class="container">
          {% block sidebar %}
+            <aside class="sidebar">
+
+            </aside>
          {% endblock %}
 
          {% block content %}
+            <article id="content">
+
+            </article>
          {% endblock %}
      </div>
 
      <footer>
-         <p>DavaoShopping, Copyright &copy; 2017</p>
+         <p>DavaoShopping. Copyright &copy; 2017</p>
      </footer>
-  </body>
-</html>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://use.fontawesome.com/c8fe56ad07.js"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+  <script type="text/javascript">
+
+    $(document).ready(function() {
+    $( '.dropdown' ).hover(
+        function(){
+            $(this).children('.sub-menu').stop(true, false, true).slideDown(300);
+        },
+        function(){
+            $(this).children('.sub-menu').stop(true, false, true).slideUp(300);
+        }
+    );
+    });
+
+  </script>
   </body>
 </html>

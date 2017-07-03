@@ -5,6 +5,7 @@ from django.conf import settings
 from django.db.models import Count, permalink
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
+from django.db.models import Q
 from geo.models import Country, City
 
 
@@ -12,40 +13,41 @@ class Category(models.Model):
     name = models.CharField(max_length=50, unique=True)
     slug = models.SlugField(max_length=50, unique=True)
     description = models.TextField(null=True, blank=True)
-    active = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=True)
+    updated_by = models.CharField(max_length=100)
+    updated_on = models.DateTimeField(auto_now=True)
+    created_on = models.DateTimeField(auto_now_add=True)
+    created_by = models.CharField(max_length=100)
     
     class Meta:
-        verbose_name = _("Category")
-        ordering = ['-name']
+        verbose_name_plural = 'Categories'
+        ordering = ['id']
     
     def __unicode__(self):
         return self.name
     
     def get_absolute_url(self):
         return reverse("category_detail", kwargs={"slug": self.slug})
-    
+     
     @classmethod
     def get_category(cls):
-        return list(cls.objects.all())
+        return list(cls.objects.filter(is_active=True))
     
-    @classmethod
-    def get_cars(cls):
-        return list(cls.objects.all.filter(name='Car'))
-    
-      
+
 class BrandManager(models.Manager):
     def top_brands(self):
         return self.annotate(score=Count('name')).order_by('-score')
 
-
+      
 class Brand(models.Model):
     name = models.CharField(max_length=50, primary_key=True, verbose_name=_("Name"))
     slug = models.SlugField(max_length=50, null=True, blank=True)
     logo = models.ImageField(blank=True, null=True)
-    active = models.BooleanField(default=True)
-    
-    objects = BrandManager()
-    
+    is_active = models.BooleanField(default=True)
+    updated_by = models.CharField(max_length=50)
+    updated_on = models.DateTimeField(auto_now=True)
+    created_on = models.DateTimeField(auto_now_add=True)
+
     class Meta:
         verbose_name = _("Brand")
         ordering = ['-name']
@@ -55,20 +57,23 @@ class Brand(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return reverse("category_detail", kwargs={"slug": self.slug})
+        return reverse("brand", kwargs={"slug": self.slug})
     
     def get_breadcrumbs(self):
         return ({'name': self.name, 'url': self.get_absolute_url()},)
     
     @classmethod
-    def get_brand(cls):
-        return list(cls.objects.all())
-        
-        
+    def get_brands(cls):
+        brands = list(
+            cls.objects.filter(is_active=True)
+        )
+        return brands
+    
+     
 class Edition(models.Model):
     name = models.CharField(max_length=50, primary_key=True, verbose_name=_("Name"))
     slug = models.SlugField(max_length=50, null=True, blank=True)
-    active = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=True)
     
     class Meta:
         verbose_name = _("Edition")
@@ -86,8 +91,11 @@ class Edition(models.Model):
     
     @classmethod
     def get_edition(cls):
-        return list(cls.objects.all())
-
+        edition = list(
+            cls.objects.filter(is_active=True)
+        )
+        return edition
+    
 
 class Item(models.Model):
     CONDITION = (
@@ -99,7 +107,7 @@ class Item(models.Model):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True)
     image = models.ImageField(blank=True, null=True)
     category = models.ForeignKey(Category, verbose_name=_("Category"))
-    brand = models.ForeignKey(Brand, verbose_name=_("Brand"))
+    brand = models.OneToOneField(Brand, verbose_name=_("Brand"))
     edition = models.ForeignKey(Edition, verbose_name=_("Edition"))
     price = models.DecimalField(max_digits=10, decimal_places=2, default='0.0')
     company = models.CharField(max_length=50, default='', verbose_name=_("Company"))
@@ -128,21 +136,22 @@ class Item(models.Model):
     
     @models.permalink
     def get_absolute_url(self):
-        return reverse("items", kwargs={"slug": self.slug})
+        return reverse("item", kwargs={"slug": self.slug})
     
     def get_breadcrumbs(self):
         
         breadcrumbs = ({'name': self.name, 'url': self.get_absolute_url()},)
-        
-        if self.parent:
-            return self.parent.get_breadcrumb() + breadcrumbs
-        
+      #  if self.parent:
+       #     return self.parent.get_breadcrumb() + breadcrumbs
         return breadcrumbs
     
     @classmethod
-    def get_detail(cls, item_id):
-        return cls.objects.select_related('category', 'brand', 'editions').get(id=item_id)
-    
+    def get_detail(cls, pk):
+        item_detail = list(
+            cls.objects.get(pk=pk)
+        )
+        return item_detail
+        
     @classmethod
     def featured_car(cls):
         return cls.objects.all().filter(category__name__icontains='Car')
@@ -161,12 +170,21 @@ class Item(models.Model):
     
     @classmethod
     def get_cars(cls):
-        return cls.objects.all().filter(category__name__icontains='Car')
-    
+        cars = list(
+            cls.objects.filter(category__name__icontains='Car')
+        )
+        return cars
+
     @classmethod
     def get_motorcycles(cls):
-        return cls.objects.all().filter(category__name__icontains='Motorcycles')
+        motorcycles = list(
+            cls.objects.filter(category__name__icontains='Motorcycle')
+        )
+        return motorcycles
     
     @classmethod
     def get_vehicles(cls):
-        return cls.objects.all().filter(category__name__icontains='Vehicles')
+        vehicles = list(
+            cls.objects.filter(category__name__icontains='Vehicles')
+        )
+        return vehicles

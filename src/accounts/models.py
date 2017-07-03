@@ -83,10 +83,10 @@ class BikeUserManager(BaseUserManager):
 
 
 class BikeUser(AbstractBaseUser):
-    username = models.CharField(max_length=100, unique=True)
+    username = models.CharField(max_length=100)
     first_name = models.CharField(max_length=100, blank=True)
     last_name = models.CharField(max_length=100, blank=True)
-    email = models.EmailField(blank=False, unique=True)
+    email = models.EmailField(unique=True)
     location = models.ForeignKey(City, max_length=100, null=True, blank=True)
     is_verified = models.CharField(max_length=512, blank=True, null=True,
                                    help_text='User account verification code.', editable=False)

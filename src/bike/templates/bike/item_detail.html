@@ -1,14 +1,7 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% load humanize %}
-{% block title %}{{ items.name }}{% endblock %}
-{% block breadcrumb %}
-{{ block.super }}<a href="{{ category.slug }}"> {{ items.category }}</a> >
-<a href="{{ brand.slug }}">{{ items.brand }}</a> >
-<a href="">{{ items.edition }}</a> > {{ items.name }}
-{% include 'bike/include/searchbar.html' %}
-{% endblock %}
-
+{% block title %}{{ item.name }}{% endblock %}
 
 {% block content %}
     <div class="container">
@@ -18,25 +11,25 @@
 					<div class="preview col-md-6">
 
 						<div class="preview-pic tab-content">
-						  <div class="tab-pane active" id="pic-1"><img src="{{ items.image.url }}"></div>
+						  <div class="tab-pane active" id="pic-1"><img src="{{ item.image.url }}"></div>
 						  <div class="tab-pane" id="pic-2"><img src="http://placekitten.com/400/252" /></div>
 						  <div class="tab-pane" id="pic-3"><img src="http://placekitten.com/400/252" /></div>
 						  <div class="tab-pane" id="pic-4"><img src="http://placekitten.com/400/252" /></div>
 						  <div class="tab-pane" id="pic-5"><img src="http://placekitten.com/400/252" /></div>
 						</div>
 						<ul class="preview-thumbnail nav nav-tabs">
-						  <li class="active"><a data-target="#pic-1" data-toggle="tab"><img src="{{ items.image.url }}"></a></li>
+						  <li class="active"><a data-target="#pic-1" data-toggle="tab"><img src="{{ item.image.url }}"></a></li>
 
 						</ul>
 
 					</div>
 					<div class="details col-md-6">
-						<h3 class="product-title">{{ items.name }}</h3>
-						<p class="product-description">{{ items.details }}</p>
-						<h4 class="price">₱ <span>{{ items.price|intcomma }}</span></h4>
+						<h3 class="product-title">{{ item.name }}</h3>
+						<p class="product-description">{{ item.details }}</p>
+						<h4 class="price">₱ <span>{{ item.price|intcomma }}</span></h4>
 						<p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>
 
-						<p>Posted by: {{ items.owner }}</p>
+						<p>Posted by: {{ item.owner }}</p>
 						<div class="action">
 							<button class="add-to-cart btn btn-default" type="button">add to cart</button>
 							<button class="like btn btn-default" type="button"><span class="fa fa-heart"></span></button>
