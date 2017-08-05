@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block sidebar %}
+    {% include 'bike/include/sidebar.html' %}
+{% endblock %}
+
+{% block breadcrumbs %}
+<ul class="list-breadcrumb">
+  <li><a href="{% url 'index' %}">Home</a>
+    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+  </li>
+  <li><a href="">{{ category.name }}</a></li>
+</ul>
+{% endblock %}
+
+{% block content %}
+    {% include 'bike/include/all_items.html' %}
+{% endblock %}

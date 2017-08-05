@@ -162,3 +162,13 @@ img {
             transform: scale(1); } }
 
 /*# sourceMappingURL=style.css.map */
+
+/* Content Breadcrumbs */
+
+ul.breadcrumb {
+    margin: 30px 5px 5px;
+    background-color: #FEFEFE;
+    font-size: 20px;
+}
+
+/* End of Content Breadcrumbs*/

@@ -9,6 +9,15 @@
        <link href="{% static 'css/bike.css' %}" rel="stylesheet">
 {% endblock %}
 
+{% block breadcrumbs %}
+  <ul class="list-breadcrumb">
+    <li><a href="{% url 'index' %}">Home</a>
+      <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+    </li>
+    <li><a href="{% url 'items' %}">All({{ items|length }})</a></li>
+  </ul>
+{% endblock %}
+
 {% block sidebar %}
     {% include 'bike/include/sidebar.html' %}
 {% endblock %}

@@ -1,33 +1,48 @@
-{% load item_filters %}
+{% load category_filters %}
 <aside class="sidebar">
    <ul>
        <li class="sidebar-section">
-           <a href="#sidebar-1" class="sidebar-section-title">Cars</a>
+           <a href="#sidebar-1" class="sidebar-section-title">Category</a>
            <ul id="sidebar-1" class="sidebar-section-list">
-               {% for car in get_cars %}
-               <li><a href="">{{ car.name }}</a></li>
-               {% endfor %}
+             <li><i class="fa fa-caret-right" aria-hidden="true"></i>
+               {% cars as cars %}
+                 {% for car in cars %}
+                   <a href="{{ category.get_absolute_url }}">{{ car.name }}
+                     ({{ car|length }})
+                   </a>
+                  {% endfor %}
+               </li>
+
+               <li><i class="fa fa-caret-right" aria-hidden="true"></i>
+                 {% motorcycles as motorcycles %}
+                   {% for motorcycles in motorcycles %}
+                     <a href="">{{ motorcycles.name }}
+                       ({{ motorcycles|length }})
+                     </a>
+                    {% endfor %}
+                 </li>
+
+                <li><i class="fa fa-caret-right" aria-hidden="true"></i>
+                   {% motorcycles as motorcycles %}
+                     {% for motorcycles in motorcycles %}
+                       <a href="">{{ motorcycles.name }}
+                         ({{ motorcycles|length }})
+                       </a>
+                      {% endfor %}
+                   </li>
+
            </ul>
        </li>
        <hr class="border">
-
        <li class="sidebar-section">
-            <a href="#sidebar-2" class="sidebar-section-title">Motorcycles</a>
-           <ul id="sidebar-2" class="sidebar-section-list">
-               {% for motorcycle in get_motorcycles %}
-               <li><a href="">{{ motorcycle.name }}</a></li>
-               {% endfor %}
-           </ul>
-       </li>
-       <hr class="border">
-
-       <li class="sidebar-section">
-            <a href="#sidebar-3" class="sidebar-section-title">Vehicles</a>
-           <ul id="sidebar-3" class="sidebar-section-list">
-               {% for vehicle in get_vehicles %}
-               <li><a href="">{{ vehicle.name }}</a></li>
-               {% endfor %}
-           </ul>
+            <a href="#sidebar-2" class="sidebar-section-title">Condition</a>
+            <ul id="sidebar-2" class="sidebar-section-list">
+              {% for item in item %}
+                  <i class="fa fa-caret-right" aria-hidden="true"></i>
+                  <a href="{{ item.condition.get_absolute_url }}">{{ item.condition }}</a>
+                </li>
+              {% endfor %}
+            </ul>
        </li>
    </ul>
 </aside>

@@ -217,6 +217,29 @@ ul.sub-menu {
 }
 /* End of Navigation Menu Bar */
 
+/* Main breadcrumb sub-nav */
+
+.list-breadcrumb {
+  width: 80%;
+  height: 20px;
+  padding: 20px 5px 5px;
+}
+
+.list-breadcrumb ul {
+  display: inline;
+}
+
+.list-breadcrumb li {
+  display: inline;
+  color: #878A8A;
+  font-size: 20px;
+}
+
+
+/* End of Main breadcrumb sub-nav */
+
+
+
 /* Sidebar --------------------------------------->>>>*/
 
 .sidebar .sidebar * {
@@ -275,9 +298,9 @@ ul.sub-menu {
 }
 
 .sidebar-section-list {
-    padding: 0px 0px;
+    padding-left: 10px;
     display: none;
-    font-size:1.200em;
+    font-size:1.100em;
     margin: 0;
 }
  .sidebar-section-list li {
@@ -476,8 +499,3 @@ footer {
 .row-fluid ul.thumbnails li.span3:nth-child(1n + 1) { margin-left : 0px; clear:left}
 .row-fluid ul.thumbnails li.span2:nth-child(1n + 1) { margin-left : 0px;clear:left }
 .row-fluid ul.thumbnails li.span1:nth-child(1n + 1) { margin-left : 0px;clear:left }
-
-
-
-
-

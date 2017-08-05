@@ -1,20 +1,20 @@
 from django import template
-from ..models import Item, Brand, Edition, Category
+from ..models import Item
 
 register = template.Library()
 
 
 @register.assignment_tag
-def get_categories():
-    return Category.objects.all()
+def get_cars():
+    return Item.objects.filter(category__name__icontains='Car')
 
 @register.assignment_tag
-def get_brands():
-    return Brand.objects.all()
+def get_motorcycles():
+    return Item.objects.filter(category__name__icontains='Motorcycle')
 
 @register.assignment_tag
-def get_editions():
-    return Edition.objects.all()
+def get_vehicles():
+    return Item.objects.filter(category__name__icontains='Vehicles')
 
 @register.assignment_tag
 def new():

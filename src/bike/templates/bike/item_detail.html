@@ -1,7 +1,22 @@
 {% extends 'base.html' %}
+{% load django_bootstrap_breadcrumbs %}
 {% load i18n %}
 {% load humanize %}
+{% load static %}
 {% block title %}{{ item.name }}{% endblock %}
+{% block head %}
+	<link rel="stylesheet" href="{% static 'css/detail.css' %}">
+{% endblock %}
+
+{% block breadcrumbs %}
+	<ul class="breadcrumb">
+		<li><a href="/">Home</a></li>
+		<li><a href="{{ item.category.get_absolute_url }}">{{ item.category }}</a></li>
+		<li><a href="{{ item.brand.get_absolute_url }}">{{ item.brand }}</a></li>
+		<li><a href="{{ item.edition.get_absolute_url }}">{{ item.edition }}</a></li>
+		<li>{{ item.name }}</li>
+	</ul>
+{% endblock %}
 
 {% block content %}
     <div class="container">
@@ -9,7 +24,6 @@
 			<div class="container-fliud">
 				<div class="wrapper row">
 					<div class="preview col-md-6">
-
 						<div class="preview-pic tab-content">
 						  <div class="tab-pane active" id="pic-1"><img src="{{ item.image.url }}"></div>
 						  <div class="tab-pane" id="pic-2"><img src="http://placekitten.com/400/252" /></div>
