@@ -38,9 +38,11 @@ class IndexView(BaseView):
     template_name = 'bike/index.html'
 
     def get(self, request, *args, **kwargs):
+        featured_car = Item.featured_car()
         featured_brand = Brand.get_brands()
         return super(IndexView, self).get(request,
                                           featured_brand=featured_brand,
+                                          featured_car=featured_car
                                           )
 
 

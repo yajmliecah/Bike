@@ -107,6 +107,45 @@ class Edition(models.Model):
         return Item.objects.filter(category__in=[self]).order_by("name")
 
 
+class ItemQueryset(models.query.QuerySet):
+
+    def get_cars(self):
+        return self.filter(category__name__icontains='Cars')
+
+    def get_motorcycles(self):
+        return self.filter(category__name__icontains='Motorcycles')
+
+    def get_vehicles(self):
+        return self.filter(category__name__icontains='Vehicles')
+
+    def new(self):
+        return self.filter(condition='NEW')
+
+    def old(self):
+        return self.filter(condition='OLD')
+
+
+class ItemManager(models.Manager):
+
+    def get_queryset(self):
+        return ItemQueryset(self.model, using=self._db)
+
+    def get_cars(self):
+        return self.get_queryset().get_cars()
+
+    def get_motorcycles(self):
+        return self.get_queryset().get_motorcycles()
+
+    def get_vehicles(self):
+        return self.get_queryset().get_vehicles()
+
+    def new(self):
+        return self.get_queryset().new()
+
+    def old(self):
+        return self.get_queryset().old()
+
+
 class Item(models.Model):
     CONDITION = (
         ('NEW', 'New'),
@@ -126,6 +165,8 @@ class Item(models.Model):
     submitted_on = models.DateField(auto_now=True, editable=False, verbose_name=_("Submitted on"))
     locations = models.ForeignKey(City, verbose_name=_("Locations"))
     active = models.BooleanField(default=True)
+
+    objects = ItemManager()
 
     class Meta:
         verbose_name = _("Item")
@@ -153,7 +194,7 @@ class Item(models.Model):
 
     @classmethod
     def featured_car(cls):
-        return cls.objects.all().filter(category__name__icontains='Car')
+        return cls.objects.all().filter(category__name__icontains='Cars')
 
     @classmethod
     def get_items(cls):

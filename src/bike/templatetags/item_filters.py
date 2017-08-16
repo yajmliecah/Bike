@@ -1,25 +1,26 @@
 from django import template
-from ..models import Item
+from ..models import Category, Item
+from django.db.models import Count
 
 register = template.Library()
 
 
 @register.assignment_tag
-def get_cars():
-    return Item.objects.filter(category__name__icontains='Car')
+def cars():
+    return Item.objects.get_cars()
 
 @register.assignment_tag
-def get_motorcycles():
-    return Item.objects.filter(category__name__icontains='Motorcycle')
+def motorcycles():
+    return Item.objects.get_motorcycles()
 
 @register.assignment_tag
-def get_vehicles():
-    return Item.objects.filter(category__name__icontains='Vehicles')
-
-@register.assignment_tag
-def new():
-    return Item.old()
+def vehicles():
+    return Item.objects.get_vehicles()
 
 @register.assignment_tag
 def new():
-    return Item.new()
+    return Item.objects.new()
+
+@register.assignment_tag
+def old():
+    return Item.objects.old()
