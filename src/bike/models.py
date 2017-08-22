@@ -8,12 +8,13 @@ from django.core.urlresolvers import reverse, reverse_lazy
 from django.db.models import Q
 from geo.models import Country, City
 
+"""
 def get_display(key, list):
     d = dict(list)
     if key in d:
         return d[key]
     return None
-
+"""
 
 class Category(models.Model):
     CATEGORY = (
@@ -33,6 +34,7 @@ class Category(models.Model):
 
     def get_absolute_url(self):
         return reverse('categories', kwargs={'slug': self.slug, 'pk': self.id })
+
     @property
     def items(self):
         return Item.objects.filter(category__in=[self]).order_by("name")
@@ -192,7 +194,7 @@ class Item(models.Model):
         breadcrumbs = ({'name': self.name, 'url': self.get_absolute_url()},)
         return breadcrumbs
 
-    @classmethod
+    @property
     def featured_car(cls):
         return cls.objects.all().filter(category__name__icontains='Cars')
 
@@ -207,7 +209,3 @@ class Item(models.Model):
     @classmethod
     def old(cls):
         return cls.objects.all().filter(condition='OLD')
-
-    @property
-    def get_conditions(self):
-        return dict(Item.CONDITION)[self.condition]

@@ -9,7 +9,7 @@
                <a href="">Cars({{ cars|length }})</a>
                <ul>
                 {% for cars in cars %}
-                  <li>{{ cars.name }}</li>
+                  <li><a href="">{{ cars.name }}</a></li>
                 {% endfor %}
               </ul>
                </li>
@@ -19,7 +19,7 @@
                  <a href="">Motorcycles ({{ motorcycles|length }})</a>
                  <ul>
                   {% for motorcycles in motorcycles %}
-                    <li>{{ motorcycles.name }}</li>
+                    <li><a href="{% url 'items' %}">{{ motorcycles.name }}</a></li>
                   {% endfor %}
                 </ul>
                  </li>
@@ -29,7 +29,7 @@
                    <a href="">Vehicles ({{ vehicles|length }})</a>
                    <ul>
                     {% for vehicles in vehicles %}
-                        <li>{{ vehicles.name }}</li>
+                        <li><a href="">{{ vehicles.name }}</a></li>
                     {% endfor %}
                    </ul>
                    </li>

@@ -20,7 +20,6 @@ class BaseView(TemplateView):
         self.brand = Brand.get_brands()
         self.edition = Edition.get_edition()
         self.item = Item.get_items()
-        self.conditions = Item.get_conditions
 
     def get_context_data(self, **kwargs):
         context = super(BaseView, self).get_context_data(**kwargs)
@@ -28,7 +27,6 @@ class BaseView(TemplateView):
         context['brand'] = self.brand
         context['edition'] = self.edition
         context['item'] = self.item
-        context['conditions'] = self.conditions
         if hasattr(self, 'page_title'):
             context['page_title'] = self.page_title
         return context
@@ -36,14 +34,11 @@ class BaseView(TemplateView):
 
 class IndexView(BaseView):
     template_name = 'bike/index.html'
+    context_object_name = 'items'
 
     def get(self, request, *args, **kwargs):
-        featured_car = Item.featured_car()
-        featured_brand = Brand.get_brands()
-        return super(IndexView, self).get(request,
-                                          featured_brand=featured_brand,
-                                          featured_car=featured_car
-                                          )
+        items = Item.objects.all()
+        return super(IndexView, self).get(request, items=items)
 
 
 class ItemListView(BaseView):
