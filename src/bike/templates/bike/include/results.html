@@ -1,35 +1,62 @@
 {% load humanize %}
+{% load item_filters %}
 
-<article id="content">
-{% if results %}
-{% for results in results %}
-<div class="list-group">
-     <a href="/item/{{ results.slug }}" class="list-group-item">
-         <div class="media col-md-3">
-             <figure class="pull-left">
-                 <img class="item_img" src="{{ results.image.url }}" >
-             </figure>
-         </div>
+<aside class="sidebar">
+   <ul>
+       <li class="sidebar-section">
+           <a href="#sidebar-1" class="sidebar-section-title">Products</a>
+           {% for category in categories %}
+           <ul id="sidebar-1" class="sidebar-section-list">
+             <li><i class="fa fa-caret-right" aria-hidden="true"></i>
+               <a href="{{ category.get_absolute_url }}">{{ category.name }}</a>
+               </li>
+           </ul>
+           {% endfor %}
+       </li>
 
-         <div class="col-md-6">
-             <h4 class="list-group-item-heading">{{ results.name }}</h4>
+       <hr class="border">
 
-             <br>
-             <br>
-             <p class="list-group-item-text">{{ results.details|truncatewords:"50" }}</p>
-         </div>
+         <li class="sidebar-section">
+            <a href="#sidebar-3" class="sidebar-section-title">Brands</a>
+            <ul id="sidebar-3" class="sidebar-section-list">
+                {% for brand in brands%}
+              <li><i class="fa fa-caret-right" aria-hidden="true"></i>
+                  <a href="/brand/{{ brand.slug }}/{{ brand.pk }}">{{ brand.name }}</a>
+                 {% endfor %}
+            </ul>
+       </li>
+   </ul>
+</aside>
 
-         <div class="col-md-3 text-center">
-             <h2 class="item_price">₱ {{ results.price|intcomma }}</h2>
-             <button type="button" class="btn btn-defaul t btn-lg btn-block">Add to Cart</button>
-             <span class="glyphicon glyphicon-map-marker" aria-hidden="true">{{ results.locations | linebreaks }}</span>
-             <p>{{ results.company | linebreaks }}</p>
-         </div>
-          </a>
-          <br>
-    {% endfor %}
-{% else %}
-    <p>No Results</p>
-{% endif %}
- </div>
+<article>
+  <div class="item">
+    {% if results %}
+    {% for result in results %}
+      <div class="item_list">
+            <a href="/item/{{ results.slug }}">
+                <div class="item_img">
+                    <img src="{{ result.image.url }}">
+                </div>
+
+                <div class="item_text">
+                    <h5>{{ result.name}}</h5>
+                </div>
+
+                <div class="item_decs">{{ result.short_decs}}</div>
+                <div class="item_price">
+                    <div class="price">₱{{ result.price }}</div>
+                    <div class="button"><a href="">Add to Cart</a></div>
+                </div>
+            </a>
+      </div>
+      {% endfor %}
+      {% else %}
+        <p>No Items Found</p>
+      {% endif %}
+  </div>
+    <nav aria-label="Page navigation example">
+        <div align="center">
+        {%  paginator items %}
+        </div>
+    </nav>
 </article>

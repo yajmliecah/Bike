@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load l10n %}
+{% load humanize %}
+{% load item_filters %}
+
+{% block title %}All Items{% endblock %}
+
+{% block breadcrumbs %}
+
+<ul class="breadcrumbs">
+    <li><a href="{% url 'index' %}">Home</a></li>
+    <li>All ({{ item|length }})</li>
+</ul>
+
+{% endblock %}
+
+{% block content %}
+  {% include 'bike/include/all_items.html' %}
+{% endblock %}

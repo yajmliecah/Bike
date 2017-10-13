@@ -1,6 +1,6 @@
 @import url(http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css);
 @import url(https://fonts.googleapis.com/css?family=Audiowide);
-
+@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css);
 body{
     min-height: 100%;
     font: 15px/1.5;
@@ -8,7 +8,7 @@ body{
     margin: 0 auto;
     background-color: FFFFFF;
     font-family: sans-serif;
-    position: absolute;
+    position: absolute;bsolute;
     top: 0;
     bottom: 0;
     left: 0;
@@ -16,45 +16,55 @@ body{
     padding: 0;
 }
 
-/* Navigation Main */
+    /* Navigation Main */
 .nav-main, .nav-main * {
-    -webkit-box-sizing:border-box;
-	-moz-box-sizing:border-box;
-	box-sizing:border-box;
+    -webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 .nav-main {
     background: #FAFCFC;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    height: 35px;
-    margin: 0 5px 0 5px;
+    padding: 0px;
+    margin: 0px;
+    height: 45px;
 }
 
-.nav-main ul{
-    margin: 0;
-    padding: 0;
+.nav-main ul {
+    padding: 0px;
+    margin: 0px;
+    list-style: none;
 }
 
-.nav-main li{
+.nav-main ul li {
     float: right;
-    display: inline;
-    padding: 0 10px 0 10px;
-    font-size: 20px;
-    color: #273746;
-    text-decoration: none;
-}
-
-.nav-main a {
-    color: #273746;
-    text-decoration: none;
+    width: 80px;
+    line-height: 45px;
+    color: #85EDCF;
+    text-align: center;
     font-size: 15px;
 }
 
-.nav-main a:hover {
+.nav-main ul li a {
     text-decoration: none;
+    color: #09B886;
+    display: block;
+
+}
+
+.nav-main ul li a:hover {
+    border-radius: 3px;
+}
+
+.nav-main ul li ul li {
+    display: none;
+}
+
+.nav-main ul li:hover ul li {
+    display: block;
     color: #85EDCF;
 }
+
 /* End of Main Navigation */
 
 /* Navigation Main Menu*/
@@ -65,9 +75,9 @@ body{
 }
 
 .nav-main-menu {
-    min-height: 80px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    min-height: 100px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     background-color: #FFFFFF;
 }
 
@@ -76,7 +86,6 @@ body{
     color: #85EDCF;
     padding-top: 20px;
     padding-bottom: 10px;
-    margin-left: 50px;
 }
 
 .nav-main-menu .branding h2 a{
@@ -93,7 +102,6 @@ body{
     float: right;
     padding-top: 20px;
     padding-bottom: 5px;
-    margin-right: 50px;
 }
 
 .nav-main-menu form .search {
@@ -139,46 +147,27 @@ body{
     font-family: sans-serif;
     font-size: 18px;
 	background-color: #F0F7F3;
-	padding:10px 5px 0 5px;
 	cursor:pointer;
 }
 .nav-bar-menu ul {
     list-style-type:none;
     position: relative;
-    margin:0;
-    padding:0;
+    padding: 10px 0px 10px;
 }
 .nav-bar-menu ul li {
     display:inline-block;
-    text-decoration: none;
 }
 
 /* sub navigation */
 .nav-bar-menu li ul {
     background-color: #E5E8E8;
-    position: absolute;
-    left:0;
-    top:40px; /* make this equal to the line-height of the links (specified below) */
-    width:200px;
-}
-
-.nav-bar-menu li li {
-    position:relative;
-    margin:0;
-    display: block;
-}
-
-.nav-bar-menu li li ul {
-    position: absolute;
-    left: 200px; /* make this equal to the width of the sub nav above */
-    margin:0;
 }
 
 /* style all links */
 .nav-bar-menu a {
     line-height:40px;
-    padding:0 12px;
-    margin:0 12px;
+    padding: 0 12px;
+    margin: 0 12px;
 }
 .nav-bar-menu a {
     color: #363837;
@@ -186,11 +175,6 @@ body{
     display:block;
 }
 
-.nav-bar-menu a i{
-    float: right;
-    padding-left: 20px;
-    padding-top: 10px;
-}
 .nav-bar-menu a:hover,
 .nav-bar-menu a:focus,
 .nav-bar-menu a:active {
@@ -200,8 +184,6 @@ body{
 /* style sub level links */
 .nav-bar-menu li li a {
     border-bottom: solid 1px #575D59;
-    margin: 5px 10px;
-    padding:0;
 }
 .nav-bar-menu li li:last-child a {
     border-bottom:none;
@@ -212,32 +194,34 @@ body{
 }
 
 /* hide sub menu links */
-ul.sub-menu {
-    display:none;
-}
 /* End of Navigation Menu Bar */
 
 /* Main breadcrumb sub-nav */
 
-.list-breadcrumb {
+.breadcrumbs {
   width: 80%;
   height: 20px;
   padding: 20px 5px 5px;
 }
 
-.list-breadcrumb ul {
+.breadcrumbs ul {
   display: inline;
 }
 
-.list-breadcrumb li {
+.breadcrumbs li {
   display: inline;
   color: #878A8A;
-  font-size: 20px;
+  font-size: 15px;
 }
 
+.breadcrumbs li+li:before {
+    font-family: 'FontAwesome';
+    content: " \f101";
+    padding-left: 5px;
+    padding-right: 5px;
+}
 
 /* End of Main breadcrumb sub-nav */
-
 
 
 /* Sidebar --------------------------------------->>>>*/
@@ -359,53 +343,20 @@ ul.sub-menu {
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
-    text-align: center;
     color:#E2F3EF;
+    padding-top: 2px;
 }
 
-#showcase h1{
-    margin-top: 100px;
-    font-size: 45px;
-    margin-bottom: 10px;
+
+
+#showcase h2 {
     color: #55E8F1;
-}
-
-#showcase p{
-    font-size: 20px;
+    margin-left: 50px;
 }
 
 #showcase form {
-    float: right;
-    display:flex;
-    padding-top: 20px;
-    padding-bottom: 5px;
-    margin-right: 50px;
-    max-width: 480px;
-    margin: 0 auto;
+    margin-left: 50px;
 }
-
-#showcase form .search {
-    background-color: #F4F6F6;
-    font-size: 18px;
-    width: 400px;
-    height: 50px;
-    padding:8px 15px;
-    color: #1546EC;
-}
-
-#showcase form .button {
-    position: relative;
-    font-size: 18px;
-    height: 50px;
-    padding:6px 15px;
-    border:0px solid #207cca;
-    background-color: #D7EFE8;
-    color: #17202A;
-}
-#showcase .button:hover  {
-     background-color: #85EDCF;
-}
-
 
 #feature, #feature * {
     -webkit-box-sizing:border-box;
@@ -415,8 +366,8 @@ ul.sub-menu {
 
 #feature{
     background-color: #F0FFFF;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 #feature-header{
@@ -429,14 +380,14 @@ ul.sub-menu {
     margin-bottom: 2px;
 }
 
-
 #feature-content{
-    margin-top: 2px;
-    padding: 10px;
+    margin: 5px 5px 5px 5px;
+    padding: 10px 0px 10px 0px;
 }
 
-#feature-content h4{
+#feature-content h5{
    text-align: center;
+   height: 25px;
 }
 
 #feature img{
@@ -454,7 +405,7 @@ ul.sub-menu {
     padding-bottom: 5px;
 }
 
-#brand-header{
+#brand-head er{
     padding: 10px;
 }
 
@@ -480,6 +431,7 @@ ul.sub-menu {
     padding: 10px;
     margin-bottom: 2px;
 }
+
 
 footer {
     clear: both

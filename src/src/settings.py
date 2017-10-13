@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     #third party apps
     'djmoney',
     'django.contrib.humanize',
-    'django_bootstrap_breadcrumbs'
  ]
 
 MIDDLEWARE = [
@@ -133,7 +132,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
-
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 

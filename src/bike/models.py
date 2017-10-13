@@ -1,46 +1,60 @@
 from __future__ import unicode_literals
 from django.db import models
-from django.db.models import Count
+from django.db.models import Count, permalink, Q
 from django.conf import settings
-from django.db.models import Count, permalink
-from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse, reverse_lazy
-from django.db.models import Q
+from django.utils.translation import ugettext_lazy as _
+
+from .utils import sku_code
+
 from geo.models import Country, City
 
-"""
-def get_display(key, list):
-    d = dict(list)
-    if key in d:
-        return d[key]
-    return None
-"""
 
-class Category(models.Model):
-    CATEGORY = (
-        ('Cars', 'Cars'),
-        ('Motorcycles', 'Motorcycles'),
-        ('Vehicles', 'Vehicles')
-    )
-    name = models.CharField(max_length=50, choices=CATEGORY, unique=True)
+class SubCategory(models.Model):
+    name = models.CharField(max_length=50, unique=True)
     slug = models.SlugField()
 
     class Meta:
-        verbose_name_plural = 'Categories'
-        ordering = ['id']
+        verbose_name_plural = _('Sub Category')
 
     def __unicode__(self):
         return self.name
 
+    def get_slug(self):
+        return self.slug
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+    slug = models.SlugField()
+    sub_category = models.ManyToManyField(SubCategory, blank=True, verbose_name=_("Sub Category"))
+    is_active = models.BooleanField(default=True)
+    created_on = models.DateTimeField(auto_now_add=True, null=True)
+    updated_on = models.DateTimeField(auto_now=True, null=True)
+
+    class Meta:
+        verbose_name_plural = _('Category')
+        ordering = ['name']
+
+    def __unicode__(self):
+        return self.name
+
+    def get_slug(self):
+        return self.slug
+
     def get_absolute_url(self):
-        return reverse('categories', kwargs={'slug': self.slug, 'pk': self.id })
+        return reverse('categories', kwargs={'slug': self.slug})
 
-    @property
-    def items(self):
-        return Item.objects.filter(category__in=[self]).order_by("name")
+    def get_sub_category(self):
+      return self.sub_category.all()
 
-    def get_breadcrumbs(self):
-        return ({'name': self.name, 'url': self.get_absolute_url()},)
+    @classmethod
+    def get_categories(cls):
+        return list(cls.objects.all())
+
+    @classmethod
+    def top_categories(cls):
+        return cls.objects.annotate(score=Count('name')).order_by('score')
 
 
 class Brand(models.Model):
@@ -54,71 +68,35 @@ class Brand(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        verbose_name = _("Brand")
+        verbose_name_plural = _('Brand')
         ordering = ['-name']
 
     def __unicode__(self):
         return self.name
 
-    def get_absolute_url(self):
-        return reverse('brands', kwargs={'slug': self.slug })
+    def get_slug(self):
+        return self.slug
 
-    def get_breadcrumbs(self):
-        return ({'name': self.name, 'url': self.get_absolute_url()},)
+    def get_category(self):
+        return self.category.all()
+
+    def get_absolute_url(self):
+        return reverse('brands', kwargs={'slug': self.slug, 'pk': self.pk })
+
+    @classmethod
+    def top_brands(cls):
+        return cls.objects.annotate(score=Count('name')).order_by('score')
 
     @classmethod
     def get_brands(cls):
-        brands = list(
-            cls.objects.filter(is_active=True)
-        )
-        return brands
+      return list(cls.objects.filter(is_active=True))
 
     @property
-    def items(self):
-        return Item.objects.filter(category__in=[self]).order_by("name")
-
-
-class Edition(models.Model):
-    name = models.CharField(max_length=50, unique=True, verbose_name=_("Name"))
-    slug = models.SlugField(max_length=50, null=True, blank=True)
-    brand = models.ManyToManyField(Brand, blank=True)
-    is_active = models.BooleanField(default=True)
-
-    class Meta:
-        verbose_name = _("Edition")
-        ordering = ['-name']
-
-    def __unicode__(self):
-        return self.name
-
-    def get_absolute_url(self):
-        return reverse('editions', kwargs={'slug': self.slug})
-
-    def get_breadcrumbs(self):
-        return ({'name': self.name, 'url': self.get_absolute_url()},)
-
-    @classmethod
-    def get_edition(cls):
-        edition = list(
-            cls.objects.filter(is_active=True)
-        )
-        return edition
-
-    @property
-    def items(self):
-        return Item.objects.filter(category__in=[self]).order_by("name")
+    def items_brand(self):
+        return Item.objects.filter(category__in=[self]).order_by('name')
 
 
 class ItemQueryset(models.query.QuerySet):
-
-    def get_cars(self):
-        return self.filter(category__name__icontains='Cars')
-
-    def get_motorcycles(self):
-        return self.filter(category__name__icontains='Motorcycles')
-
-    def get_vehicles(self):
-        return self.filter(category__name__icontains='Vehicles')
 
     def new(self):
         return self.filter(condition='NEW')
@@ -132,15 +110,6 @@ class ItemManager(models.Manager):
     def get_queryset(self):
         return ItemQueryset(self.model, using=self._db)
 
-    def get_cars(self):
-        return self.get_queryset().get_cars()
-
-    def get_motorcycles(self):
-        return self.get_queryset().get_motorcycles()
-
-    def get_vehicles(self):
-        return self.get_queryset().get_vehicles()
-
     def new(self):
         return self.get_queryset().new()
 
@@ -149,21 +118,21 @@ class ItemManager(models.Manager):
 
 
 class Item(models.Model):
-    CONDITION = (
-        ('NEW', 'New'),
-        ('OLD', 'Old')
-    )
     name = models.CharField(max_length=100, verbose_name=_("Name"))
-    slug = models.SlugField(max_length=50, unique=True)
+    slug = models.SlugField(max_length=100, unique=True)
+    sku = models.CharField(max_length=100, verbose_name=_("SKU"), blank=True, null=True)
+    details = models.TextField(blank=True, null=True, verbose_name=_("Details"))
+    short_desc = models.CharField(max_length=350, null=False, blank=False, default='Shortened Description for Product',
+                                  verbose_name=_('Short Description'))
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True)
     image = models.ImageField(blank=True, null=True)
+    sub_category = models.ManyToManyField(SubCategory, verbose_name=_('Sub Category'))
     category = models.ForeignKey(Category, verbose_name=_("Category"))
     brand = models.ForeignKey(Brand, verbose_name=_("Brand"))
-    edition = models.ForeignKey(Edition, verbose_name=_("Edition"))
     price = models.DecimalField(max_digits=10, decimal_places=2, default='0.0')
+    stock = models.IntegerField(help_text="Stock Quantity", null=True)
+    view = models.BooleanField(default=0)
     company = models.CharField(max_length=50, default='', verbose_name=_("Company"))
-    condition = models.CharField(max_length=50, choices=CONDITION, verbose_name=_("Condition"))
-    details = models.TextField(blank=True, null=True, verbose_name=_("Details"))
     submitted_on = models.DateField(auto_now=True, editable=False, verbose_name=_("Submitted on"))
     locations = models.ForeignKey(City, verbose_name=_("Locations"))
     active = models.BooleanField(default=True)
@@ -185,27 +154,30 @@ class Item(models.Model):
         from django.template import defaultfilters
         if not self.name == "":
             self.slug = defaultfilters.slugify(unidecode(self.name))
+
+        if self.sku is None or self.sku == "":
+            self.sku = sku_code()
         super(Item, self).save()
 
     def get_absolute_url(self):
         return reverse('item_detail', kwargs={'slug': self.slug})
 
-    def get_breadcrumbs(self):
-        breadcrumbs = ({'name': self.name, 'url': self.get_absolute_url()},)
-        return breadcrumbs
+    def get_slug(self):
+        return self.slug
 
-    @property
-    def featured_car(cls):
-        return cls.objects.all().filter(category__name__icontains='Cars')
+    def get_sub_category(self):
+        return self.sub_category.all()
 
-    @classmethod
-    def get_items(cls):
-        return list(cls.objects.all())
+    def top_items(self):
+        return self.objects.all()[:5]
 
-    @classmethod
-    def new(cls):
-        return cls.objects.all().filter(condition='NEW')
+    def get_category(self):
+        return self.category.all()
 
     @classmethod
-    def old(cls):
-        return cls.objects.all().filter(condition='OLD')
+    def category_items(cls, category):
+        return cls.objects.filter(category=category).order_by('submitted_on')
+
+    @classmethod
+    def brand_items(cls, brand):
+        return cls.objects.filter(brand=brand).order_by('submitted_on')

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load item_filters %}
+
+{% block title %}{{ category.name }} | {{ items|length }} items found {% endblock %}
+
+{% block breadcrumbs %}
+<ul class="breadcrumbs">
+    <li><a href="{% url 'index' %}">Home</a></li>
+    <li>{{ category.name }} ({{ items|length }})</li>
+</ul>
+{% endblock %}
+
+{% block content %}
+    {% include 'bike/include/all_items.html' %}
+{% endblock %}

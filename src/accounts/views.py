@@ -1,10 +1,10 @@
 from django.views.generic import ListView, DetailView, FormView, RedirectView, CreateView
 from django.contrib.auth import authenticate, login, logout, REDIRECT_FIELD_NAME
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse, HttpResponseRedirect
 from django.contrib import messages
 from django.contrib import auth
 from .models import BikeUser
-from .models import Item
+from bike.models import Category, Brand, Item
 from .forms import LoginForm, SignUpForm
 
 
@@ -12,7 +12,8 @@ class DashBoardView(DetailView):
     template_name = 'accounts/dashboard.html'
     
     def get_object(self):
-        return self.request.user
+        user = self.request.user
+        return user
         
     def get_context_data(self, **kwargs):
         context = super(DashBoardView, self).get_context_data(**kwargs)
@@ -49,7 +50,7 @@ class LogoutView(RedirectView):
         logout(request)
         return super(LogoutView, self).get(request, *args, **kwargs)
     
-
+""""
 class SignUpView(FormView):
     model = BikeUser
     template_name = 'accounts/signup_form.html'
@@ -58,6 +59,7 @@ class SignUpView(FormView):
     
     def get_context_data(self, **kwargs):
         context = super(SignUpView, self).get_context_data(**kwargs)
+        
         return context
     
     def form_valid(self, form):
@@ -66,4 +68,25 @@ class SignUpView(FormView):
             password = form.cleaned_data['password1']
         )
         return super(SignUpView, self).form_valid(form)
-        
+      
+"""
+class AddItemView(CreateView):
+    pass
+
+
+def create_account(request):
+    
+    form = SignUpForm(request.POST or None)
+    
+    if request.POST and form.is_valid():
+        form.save()
+        messages.info(request, "You're signed up! Use the login form below to get started.")
+        return HttpResponseRedirect(reverse('login'))
+
+    if request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('dashboard'))
+
+
+    return render(request, 'accounts/signup_form.html', {
+        'form': form,
+    })

@@ -2,17 +2,17 @@
 {% load staticfiles %}
 {% load l10n %}
 
-{% block title %}Results{% endblock %}
+{% block title %}Search{% endblock %}
 {% block head %}
     <link href="{% static 'css/bike.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block breadcrumbs %}
-  <ul class="list-breadcrumb">
+  <ul class="breadcrumbs">
     <li><a href="{% url 'index' %}">Home</a>
-      <i class="fa fa-angle-double-right" aria-hidden="true"></i>
     </li>
-    <li>{{ items|length }} result{{ items|length|pluralize }}</li>
+    <li>Results for..{{ query_string }}</li>
+
   </ul>
 {% endblock %}
 

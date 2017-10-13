@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load item_filters %}
+
+{% block title %}Skip the forecourt - great deals from the comfort of your home {% endblock %}
+
+{% block content %}
+    <section id="showcase">
+
+    </section>
+
+<div class="featured_item">
+        <div class="featured_title">Latest Products <i><a href="{% url 'items' %}">See all</a></i></div>
+            {% for item in items %}
+            <div class="featured_item_list">
+                <a href="{{ item.get_absolute_url }}">
+                    <div class="featured_item_img">
+                        <img src="{{ featured_item.image.url }}">
+                    </div>
+                    <div class="featured_item_text">
+                        <h4>{{ item.name }}<i>by {{ item.owner }}</i></h4>
+                    </div>
+                    <div class="star_rating">
+                    </div>
+
+                    <div class="featured_item_desc">{{ item.details|truncatewords:"10" }}</div>
+                    <div class="featured_item_price">
+                            <div class="price"><b>₱ {{ item.price }}</b></div>
+                        <div class="button">
+                            <a href="">Add to Cart</a>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+    </div>
+    <hr class="border">
+
+    <div class="brand">
+        <div class="brand_title">Top Brands</div>
+        {% for brand in brands %}
+        <div class="brand_list">
+            <a href="{{ brand.get_absolute_url }}">
+                <div class="brand_img">
+                    <img src="{{ brand.logo.url }}">
+                </div>
+                <div class="brand_text"><b>{{ brand.name }}</b></div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
+
+<div class="container">
+    {% block pagination %}
+    {% endblock %}
+</div>

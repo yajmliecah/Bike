@@ -1,5 +1,5 @@
 from django import forms
-from .models import Category, Brand, Edition, Item
+from .models import Category, Brand, Item
 from django.forms.widgets import *
 
 
@@ -38,15 +38,7 @@ class ItemForm(forms.ModelForm):
             }
         )
     )
-    edition = forms.ModelChoiceField(
-        queryset=Edition.objects.all(),
-        widget=Select(
-            attrs={
-                'placeholder': 'Edition',
-                'class': 'form-control'
-            }
-        )
-    )
+    
     price = forms.CharField(
         widget=TextInput(
             attrs={
@@ -67,5 +59,5 @@ class ItemForm(forms.ModelForm):
     )
     class Meta:
         model = Item
-        fields = ['name', 'image', 'category', 'brand', 'edition', 'price',
-              'condition', 'details', 'locations']
+        fields = ['name', 'image', 'category', 'brand', 'price',
+             'details', 'locations']

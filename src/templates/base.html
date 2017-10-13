@@ -1,8 +1,6 @@
 {% load staticfiles %}
 {% load static %}
-{% load item_filters %}
-{% load category_filters %}
-{% load django_bootstrap_breadcrumbs %}
+
 <html>
   <head>
     <meta charset="utf-8">
@@ -14,6 +12,7 @@
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/boot strap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
       <link rel="stylesheet" href="https://use.fontawesome.com/ff89a5baa1.css">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
       <link rel="stylesheet" type="text/css" href="{% static 'bike/css/bike.css' %}">
       <link rel="stylesheet" type="text/css" href=" {% static 'bike/css/detail.css' %}">
       {% block head %}{% endblock %}
@@ -22,47 +21,49 @@
   <body>
      <header class="nav-main">
          <div class="container">
-             <ul>
-                 {% if user.is_authenticated %}
-                    <li class="dropdown">
-                        <a href=""><i class="fa fa-user-circle-o" data-toggle="dropdown" data-hover="dropdown"></i></a>
-                        <ul class="sub-menu">
-                            <li><a href="">{{ request.user }}</a></li>
-                        </ul>
-                    </li>
-                 {% else %}
-                    <li><a href="/accounts/login/">Log In</a></li>
-                    <li><a href="/accounts/signup/">Sign Up</a></li>
-                 {% endif %}
-                    <li><a href="">Sell your Car</a></li>
-             </ul>
+            <ul>
+                {% if user.is_authenticated %}
+                <li><a>Profile</a>
+                    <ul>
+                        <li><a href="{% url 'dashboard' %}">{{ user.username }}</a></li>
+                        <li><a href="{% url 'logout' %}">Logout</a></li>
+                    </ul>
+                </li>
+                {% else %}
+                <li><a href="{% url 'signup' %}">Sign Up</a></li>
+                <li><a href="{% url 'login' %}">Log In </a></li>
+                {% endif %}
+                <li><a href="">Blog</a></li>
+                <li><a href="/admin/">Admin</a></li>
+            </ul>
          </div>
-    </header>
+     </header>
 
-     <nav class="nav-main-menu">
+     <header class="nav-main-menu">
          <div class="container">
-            <div class="branding">
-                <h2><a href="/">DavaoShopping</a></h2>
-            </div>
+          <div class="branding">
+              <h2><a href="/">DavaoShopping</a></h2>
+          </div>
 
-             <form class="form" action="/search/" method="GET">
-                 <input class="search" type="search" name="q" value="{{ query_string }}" placeholder="Search your favorite cars...">
-                 <button type="submit" class="button"><i class="fa fa-search" aria-hidden="true"></i></button>
-             </form>
+          <form action="/search/" method="GET">
+              <input class="search" type="text" name="q" value="{{ query_string }}"
+              placeholder="Search...">
+              <!--<button class="button"><i class="fa fa-search"></i></button>-->
+          </form>
          </div>
-     </nav>
+      </header>
 
       <nav class="nav-bar-menu">
-         <div class="container">
-                <ul class="content clearfix">
-                  {% for category in category %}
+          <div class="container">
+                <ul>
+                  {% for category in categories %}
                     <li>
-                      <a href="/category/{{ category.slug }}/{{ category.pk }}">{{ category.name }}</a>
+                        <a href="/category/{{ category.slug }}">{{ category.name }}</a>
                     </li>
                   {% endfor %}
                 </ul>
-            </div>
-     </nav>
+          </div>
+      </nav>
 
      <div class="container">
        {% block main-breacrumbs %}
@@ -76,26 +77,22 @@
           <div class="container">
           </div>
          {% endblock %}
-
-         {% block sidebar %}
-            <aside class="sidebar">
-
-            </aside>
-         {% endblock %}
-
          {% block content %}
-            <article id="content">
+            <article>
 
             </article>
          {% endblock %}
-     </div>
 
+     </div>
      <footer>
+         {% block footer %}
          <p>DavaoShopping. Copyright &copy; 2017</p>
+         {% endblock %}
      </footer>
 
      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
       <script type="text/javascript" src="{% static 'bike/js/accordion.js' %}"></script>
+  </div>
   </body>
 </html>

@@ -1,21 +1,12 @@
 from django import template
 from ..models import Category, Item
-from django.db.models import Count
+
 
 register = template.Library()
 
-
-@register.assignment_tag
-def cars():
-    return Item.objects.get_cars()
-
-@register.assignment_tag
-def motorcycles():
-    return Item.objects.get_motorcycles()
-
-@register.assignment_tag
-def vehicles():
-    return Item.objects.get_vehicles()
+def paginator(object):
+    return {'object': object}
+register.inclusion_tag('bike/include/_paginator.html')(paginator)
 
 @register.assignment_tag
 def new():

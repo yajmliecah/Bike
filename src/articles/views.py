@@ -1,3 +1,7 @@
 from django.shortcuts import render
+from .models import Post, Comment
 
-# Create your views here.
+from utils import paginate
+
+
+
