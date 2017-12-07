@@ -4,32 +4,13 @@ from django.shortcuts import render, redirect, reverse, HttpResponseRedirect
 from django.contrib import messages
 from django.contrib import auth
 from .models import BikeUser
-from bike.models import Category, Brand, Item
+from bike.models import SubCategory, Category, Brand, Item
 from .forms import LoginForm, SignUpForm
 
 
-class DashBoardView(DetailView):
-    template_name = 'accounts/dashboard.html'
-    
-    def get_object(self):
-        user = self.request.user
-        return user
-        
-    def get_context_data(self, **kwargs):
-        context = super(DashBoardView, self).get_context_data(**kwargs)
-        items = []
-        if self.request.user.is_authenticated():
-            items = Item.objects.filter(owner=self.request.user)
-        else:
-            items = []
-        
-        context['items'] = items
-        return context
-        
-
 class LoginView(FormView):
     template_name = 'accounts/login.html'
-    success_url = '/accounts/dashboard/'
+    success_url = '/products/product_list/'
     form_class = LoginForm
     redirect_field_name = REDIRECT_FIELD_NAME
 
@@ -38,46 +19,23 @@ class LoginView(FormView):
         login(self.request, form.user)
         if self.request.session.test_cookie_worked():
             self.request.session.delete_test_cookie()
-    
+
         return super(LoginView, self).form_valid(form)
-    
-    
+
+
 class LogoutView(RedirectView):
-    
+
     url = '/'
 
     def get(self, request, *args, **kwargs):
         logout(request)
         return super(LogoutView, self).get(request, *args, **kwargs)
-    
-""""
-class SignUpView(FormView):
-    model = BikeUser
-    template_name = 'accounts/signup_form.html'
-    form_class = SignUpForm
-    success_url = '/accounts/dashboard/'
-    
-    def get_context_data(self, **kwargs):
-        context = super(SignUpView, self).get_context_data(**kwargs)
-        
-        return context
-    
-    def form_valid(self, form):
-        user = BikeUser.objects.create(
-            email = form.cleaned_data['email'],
-            password = form.cleaned_data['password1']
-        )
-        return super(SignUpView, self).form_valid(form)
-      
-"""
-class AddItemView(CreateView):
-    pass
 
 
 def create_account(request):
-    
+
     form = SignUpForm(request.POST or None)
-    
+
     if request.POST and form.is_valid():
         form.save()
         messages.info(request, "You're signed up! Use the login form below to get started.")
@@ -90,3 +48,45 @@ def create_account(request):
     return render(request, 'accounts/signup_form.html', {
         'form': form,
     })
+
+
+'''
+class DashBoardView(DetailView):
+    template_name = 'accounts/dashboard.html'
+
+    def get_object(self):
+        user = self.request.user
+        return user
+
+    def get_context_data(self, **kwargs):
+        context = super(DashBoardView, self).get_context_data(**kwargs)
+        items = []
+        if self.request.user.is_authenticated():
+            items = Item.objects.filter(owner=self.request.user)
+        else:
+            items = []
+
+        context['items'] = items
+        return context
+'''
+
+""""
+class SignUpView(FormView):
+    model = BikeUser
+    template_name = 'accounts/signup_form.html'
+    form_class = SignUpForm
+    success_url = '/accounts/dashboard/'
+
+    def get_context_data(self, **kwargs):
+        context = super(SignUpView, self).get_context_data(**kwargs)
+
+        return context
+
+    def form_valid(self, form):
+        user = BikeUser.objects.create(
+            email = form.cleaned_data['email'],
+            password = form.cleaned_data['password1']
+        )
+        return super(SignUpView, self).form_valid(form)
+
+"""

@@ -3,6 +3,7 @@ from django.db import models
 from django.db.models import Count, permalink, Q
 from django.conf import settings
 from django.core.urlresolvers import reverse, reverse_lazy
+from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
 
 from .utils import sku_code
@@ -12,29 +13,30 @@ from geo.models import Country, City
 
 class SubCategory(models.Model):
     name = models.CharField(max_length=50, unique=True)
-    slug = models.SlugField()
+    slug = models.SlugField(max_length=50, unique=True)
 
     class Meta:
-        verbose_name_plural = _('Sub Category')
+        ordering = ('name', 'id',)
+        verbose_name_plural = 'Sub Categories'
 
     def __unicode__(self):
         return self.name
 
-    def get_slug(self):
-        return self.slug
+    def get_absolute_url(self):
+        return reverse('sub_categories', kwargs={'slug': self.slug})
 
 
 class Category(models.Model):
     name = models.CharField(max_length=50, unique=True)
-    slug = models.SlugField()
-    sub_category = models.ManyToManyField(SubCategory, blank=True, verbose_name=_("Sub Category"))
+    slug = models.SlugField(max_length=50, unique=True)
+    sub_categories = models.ManyToManyField(SubCategory, verbose_name=_('Sub Category'))
     is_active = models.BooleanField(default=True)
     created_on = models.DateTimeField(auto_now_add=True, null=True)
     updated_on = models.DateTimeField(auto_now=True, null=True)
 
     class Meta:
-        verbose_name_plural = _('Category')
-        ordering = ['name']
+        ordering = ('name', 'id',)
+        verbose_name_plural = 'Categories'
 
     def __unicode__(self):
         return self.name
@@ -46,7 +48,11 @@ class Category(models.Model):
         return reverse('categories', kwargs={'slug': self.slug})
 
     def get_sub_category(self):
-      return self.sub_category.all()
+        return self.sub_categories.all()
+
+    @classmethod
+    def category_subcategories(cls, sub_categories):
+        return cls.objects.filter(sub_categories=sub_categories).order_by('updated_on')
 
     @classmethod
     def get_categories(cls):
@@ -60,7 +66,7 @@ class Category(models.Model):
 class Brand(models.Model):
     name = models.CharField(max_length=50, unique=True, verbose_name=_("Name"))
     slug = models.SlugField(max_length=50, null=True, blank=True)
-    category = models.ManyToManyField(Category, blank=True)
+    category = models.ManyToManyField(Category, verbose_name=_('Category'))
     logo = models.ImageField(blank=True, null=True)
     is_active = models.BooleanField(default=True)
     updated_by = models.CharField(max_length=50)
@@ -119,15 +125,15 @@ class ItemManager(models.Manager):
 
 class Item(models.Model):
     name = models.CharField(max_length=100, verbose_name=_("Name"))
-    slug = models.SlugField(max_length=100, unique=True)
+    slug = models.SlugField(max_length=100, unique=True, null=True)
     sku = models.CharField(max_length=100, verbose_name=_("SKU"), blank=True, null=True)
     details = models.TextField(blank=True, null=True, verbose_name=_("Details"))
     short_desc = models.CharField(max_length=350, null=False, blank=False, default='Shortened Description for Product',
                                   verbose_name=_('Short Description'))
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True)
-    image = models.ImageField(blank=True, null=True)
-    sub_category = models.ManyToManyField(SubCategory, verbose_name=_('Sub Category'))
+    image = models.ImageField(upload_to="media/", blank=True, null=True)
     category = models.ForeignKey(Category, verbose_name=_("Category"))
+    sub_category = models.ForeignKey(SubCategory, null=True,  verbose_name=_('Sub Category'))
     brand = models.ForeignKey(Brand, verbose_name=_("Brand"))
     price = models.DecimalField(max_digits=10, decimal_places=2, default='0.0')
     stock = models.IntegerField(help_text="Stock Quantity", null=True)
@@ -140,6 +146,7 @@ class Item(models.Model):
     objects = ItemManager()
 
     class Meta:
+        ordering = ('-id')
         verbose_name = _("Item")
         ordering = ['-submitted_on']
         app_label = 'bike'
@@ -152,12 +159,23 @@ class Item(models.Model):
              update_fields=None):
         from unidecode import unidecode
         from django.template import defaultfilters
-        if not self.name == "":
-            self.slug = defaultfilters.slugify(unidecode(self.name))
+        if not self.id:
+            self.slug = slugify(self.name)
 
         if self.sku is None or self.sku == "":
             self.sku = sku_code()
         super(Item, self).save()
+    '''
+    def save(self, *args, **kwargs):
+
+        if not self.id:
+            self.slug = slugify(self.name)
+
+        if self.sku in None or self.sku == '':
+            self.sku = sku_code()
+
+        super(Item, self).save(*args, **kwargs)
+    '''
 
     def get_absolute_url(self):
         return reverse('item_detail', kwargs={'slug': self.slug})
@@ -175,9 +193,19 @@ class Item(models.Model):
         return self.category.all()
 
     @classmethod
+    def sub_category_items(cls, sub_category):
+        return cls.objects.filter(sub_category=sub_category).order_by('submitted_on')
+
+    @classmethod
     def category_items(cls, category):
         return cls.objects.filter(category=category).order_by('submitted_on')
 
     @classmethod
     def brand_items(cls, brand):
         return cls.objects.filter(brand=brand).order_by('submitted_on')
+    ''''
+    @classmethod
+    def related_products(cls, item):
+        return cls.objects.filter()
+    
+    '''

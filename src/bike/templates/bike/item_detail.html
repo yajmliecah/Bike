@@ -4,52 +4,54 @@
 {% load static %}
 {% block title %}{{ item.name }}{% endblock %}
 {% block head %}
-	<link rel="stylesheet" href="{% static 'css/detail.css' %}">
+	<link rel="stylesheet" href="{% static 'bike/css/detailview.css' %}">
 {% endblock %}
 
 {% block breadcrumbs %}
+	<div class="container">
 	<ul class="breadcrumbs">
-		<li><a href="/">Home</a></li>
-		<li><a href="{{ item.category.get_absolute_url }}">{{ item.category }}</a></li>
-		<li><a href="{{ item.brand.get_absolute_url }}">{{ item.brand }}</a></li>
-		<li>{{ item.name }}</li>
+		<li>{{ item.category }}</li>
+		<li>{{ item.sub_category }}</li>
 	</ul>
+	</div>
 {% endblock %}
 
 {% block content %}
-    <div class="container">
-		<div class="card">
-			<div class="container-fliud">
-				<div class="wrapper row">
-					<div class="preview col-md-6">
-						<div class="preview-pic tab-content">
-						  <div class="tab-pane active" id="pic-1"><img src="{{ item.image.url }}"></div>
-						  <div class="tab-pane" id="pic-2"><img src="http://placekitten.com/400/252" /></div>
-						  <div class="tab-pane" id="pic-3"><img src="http://placekitten.com/400/252" /></div>
-						  <div class="tab-pane" id="pic-4"><img src="http://placekitten.com/400/252" /></div>
-						  <div class="tab-pane" id="pic-5"><img src="http://placekitten.com/400/252" /></div>
-						</div>
-						<ul class="preview-thumbnail nav nav-tabs">
-						  <li class="active"><a data-target="#pic-1" data-toggle="tab"><img src="{{ item.image.url }}"></a></li>
+		<div class="prev">
+			<div class="preview_img">
+				<img src="{{ item.image.url }}">
+			</div>
 
-						</ul>
-
+			<div class="prev_details">
+					<div class="prev_title">{{ item.name }}<small>{{ item.sku }}</small></div>
+					<div class="prev_cat">{{ item.category }}<small>{{ item.sub_category }}</small</div>
+					<div class="prev_price">₱ {{ item.price }}</div>
+					<div class="prev_cart">
+						<button class="button" type="button">Add to Cart</button>
 					</div>
-					<div class="details col-md-6">
-						<h3 class="product-title">{{ item.name }}</h3>
-						<p class="product-description">{{ item.details }}</p>
-						<h4 class="price">₱ <span>{{ item.price|intcomma }}</span></h4>
-						<p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>
-
-						<p>Posted by: {{ item.owner }}</p>
-						<div class="action">
-							<button class="add-to-cart btn btn-default" type="button">add to cart</button>
-							<button class="like btn btn-default" type="button"><span class="fa fa-heart"></span></button>
-						</div>
-					</div>
-				</div>
 			</div>
 		</div>
-	</div>
+
+		<div class="item">
+			{% for item in items %}
+			<p>Related Products</p>
+				<div class="item_list">
+					<a href="{{ item.get_absolute_url }}">
+							<div class="item_img">
+									<img src="{{ item.image.url }}">
+							</div>
+
+							<div class="item_text">
+									<h5>{{ item.name}}</h5>
+							</div>
+
+							<div class="item_decs">{{ item.short_decs}}</div>
+							<div class="item_price">
+									<div class="price">₱{{ item.price }}</div>
+									<div class="button"><a href="">Add to Cart</a></div>
+							</div>
+					</a>
+				</div>
+			{% endfor %}
+		</div>
 {% endblock %}
-<br>

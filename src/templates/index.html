@@ -6,25 +6,27 @@
 
 {% block content %}
     <section id="showcase">
-
+      <form action="/search/" method="GET">
+          <input class="search" type="text" name="q" value="{{ query_string }}"
+          placeholder="Search...">
+          <button class="button">Search</button>
+      </form>
     </section>
 
-<div class="featured_item">
-        <div class="featured_title">Latest Products <i><a href="{% url 'items' %}">See all</a></i></div>
+    <div class="item">
+        <div class="item_title">Latest Products <i><a href="{% url 'items' %}">See all</a></i></div>
             {% for item in items %}
-            <div class="featured_item_list">
+            <div class="item_list">
                 <a href="{{ item.get_absolute_url }}">
-                    <div class="featured_item_img">
-                        <img src="{{ featured_item.image.url }}">
+                    <div class="item_img">
+                        <img src="{{ item.image.url }}">
                     </div>
-                    <div class="featured_item_text">
-                        <h4>{{ item.name }}<i>by {{ item.owner }}</i></h4>
+                    <div class="item_text">
+                        <h5>{{ item.name }}</h5>
                     </div>
                     <div class="star_rating">
                     </div>
-
-                    <div class="featured_item_desc">{{ item.details|truncatewords:"10" }}</div>
-                    <div class="featured_item_price">
+                    <div class="item_price">
                             <div class="price"><b>₱ {{ item.price }}</b></div>
                         <div class="button">
                             <a href="">Add to Cart</a>
@@ -34,20 +36,46 @@
             </div>
             {% endfor %}
     </div>
-    <hr class="border">
 
     <div class="brand">
         <div class="brand_title">Top Brands</div>
-        {% for brand in brands %}
-        <div class="brand_list">
+        {% for brand in brands|slice:":5" %}
+        <div class="item_list">
             <a href="{{ brand.get_absolute_url }}">
-                <div class="brand_img">
+                <div class="item_img">
                     <img src="{{ brand.logo.url }}">
                 </div>
                 <div class="brand_text"><b>{{ brand.name }}</b></div>
             </a>
         </div>
         {% endfor %}
+    </div>
+
+    <div class="feed">
+        <div class="feed_title">All Products</div>
+            {% for item in items %}
+              <div class="item_list">
+                    <a href="{{ item.get_absolute_url }}">
+                        <div class="item_img">
+                            <img src="{{ item.image.url }}">
+                        </div>
+
+                        <div class="item_text">
+                            <h5>{{ item.name}}</h5>
+                        </div>
+
+                        <div class="item_decs">{{ item.short_decs}}</div>
+                        <div class="item_price">
+                            <div class="price">₱{{ item.price }}</div>
+                            <div class="button"><a href="">Add to Cart</a></div>
+                        </div>
+                    </a>
+              </div>
+      {% endfor %}
+    </div>
+
+    <div style="text-align: center;">
+      <button  id="loadMore" class="feed_results">Show More Results</button>
     </div>
 
 {% endblock %}

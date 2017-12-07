@@ -1,0 +1,74 @@
+@import url(http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css);
+@import url(http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css);
+@import url(https://fonts.googleapis.com/css?family=Audiowide);
+@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css);
+
+.prev {
+    width: 100%;
+    min-height: 700px;
+    padding: 50px 0px 30px 150px;
+    overflow: hidden;
+}
+
+.preview_img {
+    float: left;
+    width: 480px;
+    height: 550px;
+    border: 3px solid #FAFCFC;
+}
+
+.preview_img img {
+    width: 100%;
+    height: 100%;
+}
+
+.prev_details {
+    color: #16304A;
+    float: right;
+    width: 430px;
+    height: 550px;
+    overflow: hidden;
+    padding: 30px 10px 10px 40px;
+}
+
+.prev_title {
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.prev_title small {
+  padding-left: 50px;
+  font-weight: lighter;
+  font-size: 20px;
+
+}
+
+.prev_cat {
+  padding-top: 20px;
+  font-size: 25px;
+}
+
+.prev_cat small {
+  font-size: 20px;
+  padding-left: 20px;
+}
+
+
+.prev_price {
+  padding-top: 20px;
+  font-size: 25px;
+}
+
+.prev_cart {
+  padding-top: 25px;
+}
+
+.button {
+    float: left;
+    padding: 5px;
+    background-color: #85EDCF;
+    border-radius: 5px;
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+}

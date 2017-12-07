@@ -1,0 +1,57 @@
+@import url(http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css);
+@import url(http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css);
+@import url(https://fonts.googleapis.com/css?family=Audiowide);
+@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css);
+
+
+ul {
+    list-style-type: none:
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+li {
+    float: left;
+}
+
+li a, .dropdown-btn {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 18px 20px;
+    text-decoration: none;
+}
+li a:hover, .dropdown:hover, .dropdown-btn {
+    background-color: black;
+    color: white;
+}
+
+li.dropdown {
+    display: inline-block;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0 0, 0);
+}
+
+.dropdown-menu a {
+  color: grey;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-menu a:hover {
+  background-color: green;
+  color: : white;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+
+}

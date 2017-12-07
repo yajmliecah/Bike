@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load l10n %}
+
+{% block title %}DavaoShopping | Product List {% endblock %}
+
+{% block content %}
+{% include 'bike/include/user_nav.html' %}
+<div class="container">
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>Product Name</td>
+                    <td>SKU</td>
+                    <td>Category</td>
+                    <td>Brand</td>
+                    <td>Price</td>
+                    <td>Stock</td>
+                    <td>Edit</td>
+                    <td>Delete</td>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for product in products %}
+                    <tr>
+                        <td>{{ product.name }}</td>
+                        <td>{{ product.sku }}</td>
+                        <td>{{ product.category }}</td>
+                        <td>{{ product.brand }}</td>
+                        <td>{{ product.price }}</td>
+                        <td>{{ product.stock }}</td>
+                        <td><a href="{% url 'update_product' product.slug %}">Edit</a></td>
+                        <td><a href="{% url 'delete_product' product.slug %}">Delete</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

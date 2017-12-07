@@ -1,7 +1,7 @@
 {% load staticfiles %}
 {% load static %}
-
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,7 +14,7 @@
       <link rel="stylesheet" href="https://use.fontawesome.com/ff89a5baa1.css">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
       <link rel="stylesheet" type="text/css" href="{% static 'bike/css/bike.css' %}">
-      <link rel="stylesheet" type="text/css" href=" {% static 'bike/css/detail.css' %}">
+      <link rel="stylesheet" type="text/css" href="{% static 'bike/css/custom.css' %}">
       {% block head %}{% endblock %}
   </head>
 
@@ -23,9 +23,9 @@
          <div class="container">
             <ul>
                 {% if user.is_authenticated %}
-                <li><a>Profile</a>
+                <li><a>Account</a>
                     <ul>
-                        <li><a href="{% url 'dashboard' %}">{{ user.username }}</a></li>
+                        <li><a href="{% url 'product_list' %}">{{ user.username }}</a></li>
                         <li><a href="{% url 'logout' %}">Logout</a></li>
                     </ul>
                 </li>
@@ -47,23 +47,28 @@
 
           <form action="/search/" method="GET">
               <input class="search" type="text" name="q" value="{{ query_string }}"
-              placeholder="Search...">
-              <!--<button class="button"><i class="fa fa-search"></i></button>-->
+              placeholder="Search....">
           </form>
          </div>
       </header>
 
-      <nav class="nav-bar-menu">
+      <header class="nav-bar-menu">
           <div class="container">
                 <ul>
                   {% for category in categories %}
-                    <li>
-                        <a href="/category/{{ category.slug }}">{{ category.name }}</a>
+                    <li class="dropdown">
+                      <a href="{{ category.get_absolute_url }}" class="dropdown-btn">{{ category.name }}</a>
+                      <div class="dropdown-menu">
+                        {% for category in category.get_sub_category %}
+                          <a href="{{ category.get_absolute_url }}">{{ category.name }}</a>
+                        {% endfor %}
+                        <a href="/category/{{ category.slug }}">View All</a>
+                      </div>
                     </li>
                   {% endfor %}
                 </ul>
           </div>
-      </nav>
+      </header>
 
      <div class="container">
        {% block main-breacrumbs %}
@@ -73,16 +78,12 @@
      </div>
 
      <div class="container">
-         {% block breadcrumbs %}
-          <div class="container">
-          </div>
+          {% block breadcrumbs %}
          {% endblock %}
+
          {% block content %}
-            <article>
-
-            </article>
          {% endblock %}
-
+       </div>
      </div>
      <footer>
          {% block footer %}

@@ -24,8 +24,6 @@ SECRET_KEY = '0rm%@x*9bkyxql4p2aapt(k-6qcs9-lp4+x5b%1x$gkjw5+ey^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -41,7 +39,6 @@ INSTALLED_APPS = [
     'bike',
     'geo',
     #third party apps
-    'djmoney',
     'django.contrib.humanize',
  ]
 

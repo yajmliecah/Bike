@@ -31,11 +31,11 @@ class LoginForm(forms.Form):
     class Meta:
         model = BikeUser
         fields = ['email', 'password']
-        
+
     def clean(self):
         email = self.cleaned_data.get('email', '')
         password= self.cleaned_data.get('password', '')
-        
+
         self.user = None
         users = BikeUser.objects.filter(Q(username=email)|Q(email=email))
         for user in users:
@@ -44,8 +44,8 @@ class LoginForm(forms.Form):
         if self.user is None:
             raise forms.ValidationError('Invalid email or password')
         return self.cleaned_data
-        
-            
+
+
 class SignUpForm(UserCreationForm):
     email = forms.CharField(
         widget=EmailInput(
@@ -65,7 +65,7 @@ class SignUpForm(UserCreationForm):
             }
         )
     )
-    
+
     password1=forms.CharField(
         label="Password",
         widget=PasswordInput(
@@ -75,7 +75,7 @@ class SignUpForm(UserCreationForm):
                 'class': 'form-control'
             }
         )
-        
+
     )
     password2 = forms.CharField(
         label="Password Confirmation",
@@ -87,11 +87,11 @@ class SignUpForm(UserCreationForm):
             }
         )
     )
-    
+
     class Meta:
         model = BikeUser
         fields = ['username', 'email']
-    
+
     def clean_password2(self):
         # Check that the two password entries match
         password1 = self.cleaned_data.get("password1")
@@ -104,10 +104,10 @@ class SignUpForm(UserCreationForm):
         username = self.cleaned_data.get('username', '')
         email = self.cleaned_data.get('email', '')
         password = self.cleaned_data.get('password', '')
-        
-    
+
+
         self.user = None
-    
+
     def save(self, commit=True):
         # Save the provided password in hashed format
         user = super(SignUpForm, self).save(commit=False)

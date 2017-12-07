@@ -5,7 +5,7 @@ from django.db.models import Q
 def normalize_query(query_string,
                 findterms=re.compile(r'"([^"]+)"|(\S+)').findall,
                 normspace=re.compile(r'\s{2,}').sub):
-    
+
     return [normspace(' ', (t[0] or t[1]).strip()) for t in findterms(query_string)]
 
 def get_query(query_string, search_fields):
